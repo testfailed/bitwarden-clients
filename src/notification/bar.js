@@ -1,3 +1,5 @@
+const { CommonModule } = require('@angular/common');
+
 require('./bar.scss');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -53,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#template-add .never-save').textContent = i18n.notificationNeverSave;
             document.querySelector('#template-change .change-save').textContent = i18n.notificationChangeSave;
         }
-
+        
         document.querySelector('#template-add .add-text').textContent = i18n.notificationAddDesc;
         document.querySelector('#template-change .change-text').textContent = i18n.notificationChangeDesc;
 
@@ -76,6 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     command: 'bgNeverSave'
                 });
             });
+
+            fillSelectorWithFolders(JSON.parse(decodeURI(getQueryVariable('foldersJson'))))
         } else if (getQueryVariable('change')) {
             setContent(document.getElementById('template-change'));
             var changeButton = document.querySelector('#template-change-clone .change-save');
@@ -136,5 +140,15 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             chrome.runtime.sendMessage(msg);
         }
+    }
+
+    function fillSelectorWithFolders(folders) {
+        select = document.getElementById("select-folder")
+        folders.forEach(folder => {
+            var opt = document.createElement('option');
+            opt.value = folder.id;
+            opt.innerHTML = folder.name;
+            select.appendChild(opt);
+        });
     }
 });
