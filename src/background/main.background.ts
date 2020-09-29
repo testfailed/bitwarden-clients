@@ -223,7 +223,7 @@ export default class MainBackground {
         this.runtimeBackground = new RuntimeBackground(this, this.autofillService, this.cipherService,
             this.platformUtilsService as BrowserPlatformUtilsService, this.storageService, this.i18nService,
             this.analytics, this.notificationsService, this.systemService, this.vaultTimeoutService,
-            this.environmentService);
+            this.environmentService, this.folderService);
         this.commandsBackground = new CommandsBackground(this, this.passwordGenerationService,
             this.platformUtilsService, this.analytics, this.vaultTimeoutService);
 

@@ -6,14 +6,14 @@ document.addEventListener('DOMContentLoaded', () => {
     var i18n = {};
     var lang = window.navigator.language;
     if (typeof safari !== 'undefined') {
-        const responseCommand = 'notificationBarFrameDataResponse';
+        const responseI18nCommand = 'notificationBarFrameDataResponse';
         sendPlatformMessage({
             command: 'bgGetDataForTab',
-            responseCommand: responseCommand
+            responseCommand: responseI18nCommand
         });
         safari.self.addEventListener('message', (msgEvent) => {
             const msg = JSON.parse(msgEvent.message.msg);
-            if (msg.command === responseCommand && msg.data) {
+            if (msg.command === responseI18nCommand && msg.data) {
                 i18n = msg.data.i18n;
                 load();
             }
@@ -32,6 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // delay 50ms so that we get proper body dimensions
         setTimeout(load, 50);
+    }
+
+    const responseFoldersCommand = 'notificationBarGetFoldersList';
+    sendPlatformMessage({
+        command: 'bgGetDataForTab',
+        responseCommand: responseFoldersCommand
+    })
+    if (typeof safari !== 'undefined') {
+        safari.self.addEventListener('message', (msgEvent) => {
+            const msg = JSON.parse(msgEvent.message.msg);
+            if (msg.command === responseFoldersCommand && msg.data) {
+                console.log(msg.data.folders);
+            }
+        }, false);
+    } else {
+        chrome.runtime.onMessage.addListener( (request, sender, response) =>{
+            const msg = request;
+            console.log(msg.command);
+            if (msg.command === responseFoldersCommand && msg.data) {
+                console.log(msg.data.folders);
+                fillSelectorWithFolders(msg.data.folders);
+            }
+        });
     }
 
     function load() {
@@ -78,8 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     command: 'bgNeverSave'
                 });
             });
-
-            fillSelectorWithFolders(JSON.parse(decodeURI(getQueryVariable('foldersJson'))))
         } else if (getQueryVariable('change')) {
             setContent(document.getElementById('template-change'));
             var changeButton = document.querySelector('#template-change-clone .change-save');

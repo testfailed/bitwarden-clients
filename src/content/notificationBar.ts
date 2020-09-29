@@ -471,7 +471,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function closeExistingAndOpenBar(type: string, typeData: any) {
         let barPage = (isSafari ? 'app/' : '') + 'notification/bar.html';
-        const folders = [{'id': '1', 'name': 'Default2'}, {'id': '2', 'name': 'Not Default'}]
         switch (type) {
             case 'info':
                 barPage = barPage + '?info=' + typeData.text;
@@ -486,7 +485,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 barPage = barPage + '?success=' + typeData.text;
                 break;
             case 'add':
-                barPage = barPage + '?add=1' + '&foldersJson=' + encodeURI(JSON.stringify(folders));
+                barPage = barPage + '?add=1';
                 break;
             case 'change':
                 barPage = barPage + '?change=1';

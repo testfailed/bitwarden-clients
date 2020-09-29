@@ -25,6 +25,7 @@ import MainBackground from './main.background';
 
 import { Analytics } from 'jslib/misc';
 import { Utils } from 'jslib/misc/utils';
+import { FolderService } from 'jslib/abstractions';
 
 export default class RuntimeBackground {
     private runtime: any;
@@ -38,7 +39,7 @@ export default class RuntimeBackground {
         private storageService: StorageService, private i18nService: I18nService,
         private analytics: Analytics, private notificationsService: NotificationsService,
         private systemService: SystemService, private vaultTimeoutService: VaultTimeoutService,
-        private environmentService: EnvironmentService) {
+        private environmentService: EnvironmentService, private folderService: FolderService ) {
         this.isSafari = this.platformUtilsService.isSafari();
         this.runtime = this.isSafari ? {} : chrome.runtime;
 
@@ -454,6 +455,8 @@ export default class RuntimeBackground {
                 notificationChangeSave: this.i18nService.t('notificationChangeSave'),
                 notificationChangeDesc: this.i18nService.t('notificationChangeDesc'),
             };
+        } else if (responseCommand === 'notificationBarGetFoldersList') {
+            responseData.folders = await this.folderService.getAllDecrypted();
         }
 
         await BrowserApi.tabSendMessageData(tab, responseCommand, responseData);
