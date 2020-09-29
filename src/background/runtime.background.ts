@@ -232,6 +232,10 @@ export default class RuntimeBackground {
             model.type = CipherType.Login;
             model.login = loginModel;
 
+            if (folder !== 'null') {
+                model.folderId = folder;
+            }
+
             const cipher = await this.cipherService.encrypt(model);
             await this.cipherService.saveWithServer(cipher);
             this.analytics.ga('send', {
