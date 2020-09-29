@@ -11,13 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
             command: 'bgGetDataForTab',
             responseCommand: responseI18nCommand
         });
-        safari.self.addEventListener('message', (msgEvent) => {
-            const msg = JSON.parse(msgEvent.message.msg);
-            if (msg.command === responseI18nCommand && msg.data) {
-                i18n = msg.data.i18n;
-                load();
-            }
-        }, false);
+        addPlatformEventListener(responseI18nCommand, (msg) => {
+            i18n = msg.data.i18n;
+            load();
+        });
     } else {
         i18n.appName = chrome.i18n.getMessage('appName');
         i18n.close = chrome.i18n.getMessage('close');
@@ -39,23 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
         command: 'bgGetDataForTab',
         responseCommand: responseFoldersCommand
     })
-    if (typeof safari !== 'undefined') {
-        safari.self.addEventListener('message', (msgEvent) => {
-            const msg = JSON.parse(msgEvent.message.msg);
-            if (msg.command === responseFoldersCommand && msg.data) {
-                console.log(msg.data.folders);
-            }
-        }, false);
-    } else {
-        chrome.runtime.onMessage.addListener( (request, sender, response) =>{
-            const msg = request;
-            console.log(msg.command);
-            if (msg.command === responseFoldersCommand && msg.data) {
-                console.log(msg.data.folders);
-                fillSelectorWithFolders(msg.data.folders);
-            }
-        });
-    }
+    addPlatformEventListener(responseFoldersCommand, (msg) => {
+        fillSelectorWithFolders(msg.data.folders);
+    })
 
     function load() {
         var closeButton = document.getElementById('close-button'),
@@ -163,13 +146,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function addPlatformEventListener(command, func) {
+        if (typeof safari !== 'undefined') {
+            safari.self.addEventListener('message', (msgEvent) => {
+                const msg = JSON.parse(msgEvent.message.msg);
+                if (msg.command === command && msg.data) {
+                    func(msg);
+                }
+            }, false);
+        } else {
+            chrome.runtime.onMessage.addListener( (request, sender, response) =>{
+                const msg = request;
+                if (msg.command === command && msg.data) {
+                    func(msg);
+                }
+            });
+        }
+    }
+
     function fillSelectorWithFolders(folders) {
-        select = document.getElementById("select-folder")
+        select = document.getElementById("select-folder");
         folders.forEach(folder => {
             var opt = document.createElement('option');
             opt.value = folder.id;
             opt.innerHTML = folder.name;
             select.appendChild(opt);
         });
+
+        //Select "No Folder" folder by default
+        select.value = "null";
     }
 });
