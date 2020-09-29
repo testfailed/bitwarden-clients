@@ -168,13 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function fillSelectorWithFolders(folders) {
         select = document.getElementById("select-folder");
         folders.forEach(folder => {
-            var opt = document.createElement('option');
-            opt.value = folder.id;
-            opt.innerHTML = folder.name;
+            //Select "No Folder" folder by default
+            let selected = folder.id === 'null';
+
+            let opt = new Option(folder.name, folder.id, selected);
             select.appendChild(opt);
         });
-
-        //Select "No Folder" folder by default
-        select.value = "null";
     }
 });
