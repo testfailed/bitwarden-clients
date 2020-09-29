@@ -74,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
             addButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 sendPlatformMessage({
-                    command: 'bgAddSave'
+                    command: 'bgAddSave',
+                    folder: document.getElementById("select-folder").value,
                 });
             });
 

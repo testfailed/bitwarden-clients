@@ -18,6 +18,7 @@ import { StorageService } from 'jslib/abstractions/storage.service';
 import { SyncService } from 'jslib/abstractions/sync.service';
 import { SystemService } from 'jslib/abstractions/system.service';
 import { VaultTimeoutService } from 'jslib/abstractions/vaultTimeout.service';
+import { FolderService } from 'jslib/abstractions';
 
 import { BrowserApi } from '../browser/browserApi';
 
@@ -25,7 +26,6 @@ import MainBackground from './main.background';
 
 import { Analytics } from 'jslib/misc';
 import { Utils } from 'jslib/misc/utils';
-import { FolderService } from 'jslib/abstractions';
 
 export default class RuntimeBackground {
     private runtime: any;
@@ -111,7 +111,7 @@ export default class RuntimeBackground {
                 this.removeTabFromNotificationQueue(sender.tab);
                 break;
             case 'bgAddSave':
-                await this.saveAddLogin(sender.tab);
+                await this.saveAddLogin(sender.tab, msg.folder);
                 break;
             case 'bgChangeSave':
                 await this.saveChangePassword(sender.tab);
@@ -201,7 +201,7 @@ export default class RuntimeBackground {
         this.pageDetailsToAutoFill = [];
     }
 
-    private async saveAddLogin(tab: any) {
+    private async saveAddLogin(tab: any, folder: string) {
         if (await this.vaultTimeoutService.isLocked()) {
             return;
         }
