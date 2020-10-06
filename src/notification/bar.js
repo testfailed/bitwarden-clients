@@ -164,12 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fillSelectorWithFolders(folders) {
-        select = document.getElementById("select-folder");
+        const select = document.getElementById("select-folder");
         folders.forEach((folder) => {
-            //Select "No Folder" folder by default
-            const selected = folder.id === 'null';
-
-            const opt = new Option(folder.name, folder.id, selected);
+            //Select "No Folder" (id=null) folder by default
+            const opt = new Option(folder.name, folder.id || '', folder.id === null);
             select.appendChild(opt);
         });
     }

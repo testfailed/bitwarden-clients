@@ -232,7 +232,7 @@ export default class RuntimeBackground {
             model.type = CipherType.Login;
             model.login = loginModel;
 
-            if (folder !== 'null') {
+            if (folder !== '') {
                 model.folderId = folder;
             }
 
