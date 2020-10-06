@@ -1,5 +1,3 @@
-const { CommonModule } = require('@angular/common');
-
 require('./bar.scss');
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -7,13 +5,13 @@ document.addEventListener('DOMContentLoaded', () => {
     var lang = window.navigator.language;
     if (typeof safari !== 'undefined') {
         const responseI18nCommand = 'notificationBarFrameDataResponse';
-        sendPlatformMessage({
-            command: 'bgGetDataForTab',
-            responseCommand: responseI18nCommand
-        });
         addPlatformEventListener(responseI18nCommand, (msg) => {
             i18n = msg.data.i18n;
             load();
+        });
+        sendPlatformMessage({
+            command: 'bgGetDataForTab',
+            responseCommand: responseI18nCommand
         });
     } else {
         i18n.appName = chrome.i18n.getMessage('appName');
@@ -32,12 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const responseFoldersCommand = 'notificationBarGetFoldersList';
+    addPlatformEventListener(responseFoldersCommand, (msg) => {
+        fillSelectorWithFolders(msg.data.folders);
+    });
     sendPlatformMessage({
         command: 'bgGetDataForTab',
         responseCommand: responseFoldersCommand
-    });
-    addPlatformEventListener(responseFoldersCommand, (msg) => {
-        fillSelectorWithFolders(msg.data.folders);
     });
 
     function load() {
@@ -167,11 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fillSelectorWithFolders(folders) {
         select = document.getElementById("select-folder");
-        folders.forEach(folder => {
+        folders.forEach((folder) => {
             //Select "No Folder" folder by default
-            let selected = folder.id === 'null';
+            const selected = folder.id === 'null';
 
-            let opt = new Option(folder.name, folder.id, selected);
+            const opt = new Option(folder.name, folder.id, selected);
             select.appendChild(opt);
         });
     }

@@ -18,7 +18,7 @@ import { StorageService } from 'jslib/abstractions/storage.service';
 import { SyncService } from 'jslib/abstractions/sync.service';
 import { SystemService } from 'jslib/abstractions/system.service';
 import { VaultTimeoutService } from 'jslib/abstractions/vaultTimeout.service';
-import { FolderService } from 'jslib/abstractions';
+import { FolderService } from 'jslib/abstractions/folder.service';
 
 import { BrowserApi } from '../browser/browserApi';
 
