@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
     sendPlatformMessage({
         command: 'bgGetDataForTab',
         responseCommand: responseFoldersCommand
-    })
+    });
     addPlatformEventListener(responseFoldersCommand, (msg) => {
         fillSelectorWithFolders(msg.data.folders);
-    })
+    });
 
     function load() {
         var closeButton = document.getElementById('close-button'),
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelector('#template-add .never-save').textContent = i18n.notificationNeverSave;
             document.querySelector('#template-change .change-save').textContent = i18n.notificationChangeSave;
         }
-        
+
         document.querySelector('#template-add .add-text').textContent = i18n.notificationAddDesc;
         document.querySelector('#template-change .change-text').textContent = i18n.notificationChangeDesc;
 
@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }, false);
         } else {
-            chrome.runtime.onMessage.addListener( (request, sender, response) =>{
+            chrome.runtime.onMessage.addListener((request, sender, response) => {
                 const msg = request;
                 if (msg.command === command && msg.data) {
                     func(msg);
