@@ -4,21 +4,19 @@ import { CipherView } from 'jslib/models/view/cipherView';
 import { LoginUriView } from 'jslib/models/view/loginUriView';
 import { LoginView } from 'jslib/models/view/loginView';
 
-import { AuthService } from 'jslib/abstractions/auth.service';
-import { AutofillService } from '../services/abstractions/autofill.service';
-import BrowserPlatformUtilsService from '../services/browserPlatformUtils.service';
 import { CipherService } from 'jslib/abstractions/cipher.service';
-import { ConstantsService } from 'jslib/services/constants.service';
 import { EnvironmentService } from 'jslib/abstractions/environment.service';
 import { I18nService } from 'jslib/abstractions/i18n.service';
 import { NotificationsService } from 'jslib/abstractions/notifications.service';
-import { PopupUtilsService } from '../popup/services/popup-utils.service';
-import { StateService } from 'jslib/abstractions/state.service';
+import { PolicyService } from 'jslib/abstractions/policy.service';
 import { StorageService } from 'jslib/abstractions/storage.service';
-import { SyncService } from 'jslib/abstractions/sync.service';
 import { SystemService } from 'jslib/abstractions/system.service';
+import { UserService } from 'jslib/abstractions/user.service';
 import { VaultTimeoutService } from 'jslib/abstractions/vaultTimeout.service';
 import { FolderService } from 'jslib/abstractions/folder.service';
+import { ConstantsService } from 'jslib/services/constants.service';
+import { AutofillService } from '../services/abstractions/autofill.service';
+import BrowserPlatformUtilsService from '../services/browserPlatformUtils.service';
 
 import { BrowserApi } from '../browser/browserApi';
 
@@ -27,11 +25,13 @@ import MainBackground from './main.background';
 import { Analytics } from 'jslib/misc';
 import { Utils } from 'jslib/misc/utils';
 
+import { OrganizationUserStatusType } from 'jslib/enums/organizationUserStatusType';
+import { PolicyType } from 'jslib/enums/policyType';
+
 export default class RuntimeBackground {
     private runtime: any;
     private autofillTimeout: any;
     private pageDetailsToAutoFill: any[] = [];
-    private isSafari: boolean;
     private onInstalledReason: string = null;
 
     constructor(private main: MainBackground, private autofillService: AutofillService,
@@ -39,20 +39,17 @@ export default class RuntimeBackground {
         private storageService: StorageService, private i18nService: I18nService,
         private analytics: Analytics, private notificationsService: NotificationsService,
         private systemService: SystemService, private vaultTimeoutService: VaultTimeoutService,
-        private environmentService: EnvironmentService, private folderService: FolderService ) {
-        this.isSafari = this.platformUtilsService.isSafari();
-        this.runtime = this.isSafari ? {} : chrome.runtime;
+        private environmentService: EnvironmentService, private policyService: PolicyService,
+        private userService: UserService, private folderService: FolderService) {
 
         // onInstalled listener must be wired up before anything else, so we do it in the ctor
-        if (!this.isSafari) {
-            this.runtime.onInstalled.addListener((details: any) => {
-                this.onInstalledReason = details.reason;
-            });
-        }
+        chrome.runtime.onInstalled.addListener((details: any) => {
+            this.onInstalledReason = details.reason;
+        });
     }
 
     async init() {
-        if (!this.runtime) {
+        if (!chrome.runtime) {
             return;
         }
 
@@ -165,7 +162,7 @@ export default class RuntimeBackground {
                 }
                 break;
             case 'authResult':
-                let vaultUrl = this.environmentService.webVaultUrl;
+                let vaultUrl = this.environmentService.getWebVaultUrl();
                 if (vaultUrl == null) {
                     vaultUrl = 'https://vault.bitwarden.com';
                 }
@@ -189,7 +186,7 @@ export default class RuntimeBackground {
         const totpCode = await this.autofillService.doAutoFill({
             cipher: this.main.loginToAutoFill,
             pageDetails: this.pageDetailsToAutoFill,
-            fillNewPassword: true
+            fillNewPassword: true,
         });
 
         if (totpCode != null) {
@@ -314,7 +311,7 @@ export default class RuntimeBackground {
         }
 
         const ciphers = await this.cipherService.getAllDecryptedForUrl(loginInfo.url);
-        const usernameMatches = ciphers.filter((c) =>
+        const usernameMatches = ciphers.filter(c =>
             c.login.username != null && c.login.username.toLowerCase() === normalizedUsername);
         if (usernameMatches.length === 0) {
             const disabledAddLogin = await this.storageService.get<boolean>(
@@ -322,6 +319,11 @@ export default class RuntimeBackground {
             if (disabledAddLogin) {
                 return;
             }
+
+            if (!(await this.allowPersonalOwnership())) {
+                return;
+            }
+
             // remove any old messages for this tab
             this.removeTabFromNotificationQueue(tab);
             this.main.notificationQueue.push({
@@ -357,7 +359,7 @@ export default class RuntimeBackground {
         let id: string = null;
         const ciphers = await this.cipherService.getAllDecryptedForUrl(changeData.url);
         if (changeData.currentPassword != null) {
-            const passwordMatches = ciphers.filter((c) => c.login.password === changeData.currentPassword);
+            const passwordMatches = ciphers.filter(c => c.login.password === changeData.currentPassword);
             if (passwordMatches.length === 1) {
                 id = passwordMatches[0].id;
             }
@@ -392,20 +394,6 @@ export default class RuntimeBackground {
     }
 
     private async checkOnInstalled() {
-        if (this.isSafari) {
-            const installedVersion = await this.storageService.get<string>(ConstantsService.installedVersionKey);
-            if (installedVersion == null) {
-                this.onInstalledReason = 'install';
-            } else if (BrowserApi.getApplicationVersion() !== installedVersion) {
-                this.onInstalledReason = 'update';
-            }
-
-            if (this.onInstalledReason != null) {
-                await this.storageService.save(ConstantsService.installedVersionKey,
-                    BrowserApi.getApplicationVersion());
-            }
-        }
-
         setTimeout(async () => {
             if (this.onInstalledReason != null) {
                 if (this.onInstalledReason === 'install') {
@@ -440,8 +428,9 @@ export default class RuntimeBackground {
         const responseData: any = {};
         if (responseCommand === 'notificationBarDataResponse') {
             responseData.neverDomains = await this.storageService.get<any>(ConstantsService.neverDomainsKey);
-            responseData.disabledAddLoginNotification = await this.storageService.get<boolean>(
+            const disableAddLoginFromOptions = await this.storageService.get<boolean>(
                 ConstantsService.disableAddLoginNotificationKey);
+            responseData.disabledAddLoginNotification = disableAddLoginFromOptions || !(await this.allowPersonalOwnership());
             responseData.disabledChangedPasswordNotification = await this.storageService.get<boolean>(
                 ConstantsService.disableChangedPasswordNotificationKey);
         } else if (responseCommand === 'autofillerAutofillOnPageLoadEnabledResponse') {
@@ -464,5 +453,21 @@ export default class RuntimeBackground {
         }
 
         await BrowserApi.tabSendMessageData(tab, responseCommand, responseData);
+    }
+
+    private async allowPersonalOwnership(): Promise<boolean> {
+        const personalOwnershipPolicies = await this.policyService.getAll(PolicyType.PersonalOwnership);
+        if (personalOwnershipPolicies != null) {
+            for (const policy of personalOwnershipPolicies) {
+                if (policy.enabled) {
+                    const org = await this.userService.getOrganization(policy.organizationId);
+                    if (org != null && org.enabled && org.usePolicies && !org.canManagePolicies
+                        && org.status === OrganizationUserStatusType.Confirmed) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

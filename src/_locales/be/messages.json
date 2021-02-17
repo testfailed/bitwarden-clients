@@ -20,7 +20,7 @@
     "message": "Увайсці"
   },
   "enterpriseSingleSignOn": {
-    "message": "Enterprise Single Sign-On"
+    "message": "Адзіны ўваход у карпаратыўную сістэму (SSO)."
   },
   "cancel": {
     "message": "Скасаваць"
@@ -35,19 +35,19 @@
     "message": "Адрас эл. пошты"
   },
   "masterPass": {
-    "message": "Майстар-пароль"
+    "message": "Асноўны пароль"
   },
   "masterPassDesc": {
-    "message": "Майстар-пароль — ключ да вашага бяспечнага сховішча. Ён вельмі важны, таму не забывайце яго. Аднавіць майстар-пароль немагчыма."
+    "message": "Асноўны пароль — ключ да вашага бяспечнага сховішча. Ён вельмі важны, таму не забывайце яго. Аднавіць асноўны пароль немагчыма."
   },
   "masterPassHintDesc": {
-    "message": "Падказка да майстра-пароля можа дапамагчы вам яго ўспомніць."
+    "message": "Падказка да асноўнага пароля можа дапамагчы вам яго ўспомніць."
   },
   "reTypeMasterPass": {
-    "message": "Увядзіце майстар-пароль паўторна"
+    "message": "Увядзіце асноўны пароль паўторна"
   },
   "masterPassHint": {
-    "message": "Падказка да майстра-пароля (неабавязкова)"
+    "message": "Падказка да асноўнага пароля (неабавязкова)"
   },
   "tab": {
     "message": "Укладка"
@@ -89,7 +89,7 @@
     "message": "Стварыць пароль (з капіяваннем)"
   },
   "noMatchingLogins": {
-    "message": "Няма падыходных імён карыстальнікаў."
+    "message": "Няма падыходных уліковых даных."
   },
   "vaultLocked": {
     "message": "Сховішча заблакіравана."
@@ -98,10 +98,10 @@
     "message": "Вы выйшлі са сховішча."
   },
   "autoFillInfo": {
-    "message": "Няма імён карыстальніка, даступных для аўтазапаўнення ў бягучую ўкладку браўзера."
+    "message": "Няма ўліковых даных, даступных для аўтазапаўнення ў бягучую ўкладку браўзера."
   },
   "addLogin": {
-    "message": "Дадаць імя карыстальніка"
+    "message": "Дадаць ўліковыя даныя"
   },
   "addItem": {
     "message": "Дадаць элемент"
@@ -110,10 +110,10 @@
     "message": "Падказка да пароля"
   },
   "enterEmailToGetHint": {
-    "message": "Увядзіце адрас электроннай пошты ўліковага запісу для атрымання падказкі для пароля."
+    "message": "Увядзіце адрас электроннай пошты ўліковага запісу для атрымання падказкі для асноўнага пароля."
   },
   "getMasterPasswordHint": {
-    "message": "Атрымаць падказку для майстра-пароля"
+    "message": "Атрымаць падказку для асноўнага пароля"
   },
   "continue": {
     "message": "Працягнуць"
@@ -125,7 +125,7 @@
     "message": "Уліковы запіс"
   },
   "changeMasterPassword": {
-    "message": "Змяніць майстар-пароль"
+    "message": "Змяніць асноўны пароль"
   },
   "fingerprintPhrase": {
     "message": "Фраза адбітка пальца",
@@ -188,7 +188,7 @@
     "description": "Short for 'Password Generator'."
   },
   "passGenInfo": {
-    "message": "Аўтаматычна ствараць моцныя, унікальныя паролі для вашых імён карыстальніка."
+    "message": "Аўтаматычна ствараць моцныя, унікальныя паролі для вашых уліковых даных."
   },
   "bitWebVault": {
     "message": "Вэб-сховішча Bitwarden"
@@ -303,10 +303,10 @@
     "message": "Ваш вэб-браўзер не падтрымлівае капіяванне даных у буфер абмену. Скапіюйце іх уручную."
   },
   "verifyMasterPassword": {
-    "message": "Праверыць майстар-пароль"
+    "message": "Праверыць асноўны пароль"
   },
   "yourVaultIsLocked": {
-    "message": "Ваша сховішча заблакіравана. Каб працягнуць, увядзіце майстар-пароль."
+    "message": "Ваша сховішча заблакіравана. Каб працягнуць, увядзіце асноўны пароль."
   },
   "unlock": {
     "message": "Разблакіраваць"
@@ -325,10 +325,10 @@
     }
   },
   "invalidMasterPassword": {
-    "message": "Памылковы майстар-пароль"
+    "message": "Памылковы асноўны пароль"
   },
   "vaultTimeout": {
-    "message": "Таймаўт сховішча"
+    "message": "Тайм-аўт сховішча"
   },
   "lockNow": {
     "message": "Заблакіраваць зараз"
@@ -388,19 +388,19 @@
     "message": "Памылковы адрас электроннай пошты."
   },
   "masterPassRequired": {
-    "message": "Патрабуецца майстар-пароль."
+    "message": "Патрабуецца асноўны пароль."
   },
   "masterPassLength": {
-    "message": "Майстар-пароль павінен быць даўжынёй не менш за 8 сімвалаў."
+    "message": "Асноўны пароль павінен быць даўжынёй не менш за 8 сімвалаў."
   },
   "masterPassDoesntMatch": {
-    "message": "Майстры-паролі не супадаюць."
+    "message": "Асноўныя паролі не супадаюць."
   },
   "newAccountCreated": {
     "message": "Ваш уліковы запіс створаны! Вы можаце ўвайсці."
   },
   "masterPassSent": {
-    "message": "Мы адправілі вам на электронную пошту падказку для майстра-пароля."
+    "message": "Мы адправілі вам на электронную пошту падказку для асноўнага пароля."
   },
   "verificationCodeRequired": {
     "message": "Патрабуецца код праверкі."
@@ -443,10 +443,10 @@
     "message": "Папка дададзена"
   },
   "changeMasterPass": {
-    "message": "Змяніць майстар-пароль"
+    "message": "Змяніць асноўны пароль"
   },
   "changeMasterPasswordConfirmation": {
-    "message": "Вы можаце змяніць свой майстар-пароль на bitwarden.com. Перайсці на сайт зараз?"
+    "message": "Вы можаце змяніць свой асноўны пароль на bitwarden.com. Перайсці на сайт зараз?"
   },
   "twoStepLoginConfirmation": {
     "message": "Двухэтапны ўваход робіць ваш уліковы запіс больш бяспечным, патрабуючы пацвярджэння ўваходу на іншай прыладзе, напрыклад, ключом бяспекі, праграмай для праверкі бяспекі, SMS, тэлефонным выклікам або электроннай поштай. Двухэтапны ўваход уключаецца на bitwarden.com. Перайсці на сайт зараз?"
@@ -523,10 +523,10 @@
     "description": "This is the folder for uncategorized items"
   },
   "disableAddLoginNotification": {
-    "message": "Адключыць апавяшчэнне аб даданні імя карыстальніка"
+    "message": "Адключыць апавяшчэнне аб даданні ўліковых даных"
   },
   "addLoginNotificationDesc": {
-    "message": "Апавяшчэнне аб даданні імя карыстальніка аўтаматычна прапануе вам захаваць новыя імёны карыстальніка ў сховішчы."
+    "message": "Апавяшчэнне аб даданні ўліковых даных аўтаматычна прапануе вам захаваць новыя ўліковыя даныя ў сховішчы."
   },
   "dontShowCardsCurrentTab": {
     "message": "Не паказваць карткі на панэлі ўкладак"
@@ -573,14 +573,14 @@
     "message": "Адключыць параметры кантэкстнага меню"
   },
   "disableContextMenuItemDesc": {
-    "message": "Параметры кантэкстнага меню забяспечваюць хуткі доступ да генератара пароляў і імёнам карыстальніка для сайта на бягучай укладцы."
+    "message": "Параметры кантэкстнага меню забяспечваюць хуткі доступ да генератара пароляў і ўліковых даных для сайта на бягучай укладцы."
   },
   "defaultUriMatchDetection": {
     "message": "Выяўленне супадзення URI па змаўчанні",
     "description": "Default URI match detection for auto-fill."
   },
   "defaultUriMatchDetectionDesc": {
-    "message": "Абярыце спосаб па змаўчанні, які выкарыстоўваецца пры вызначэнні адпаведнасці URI для імён карыстальніка пры выкананні такіх дзеянняў, як аўтаматычнае запаўненне."
+    "message": "Выберыце спосаб па змаўчанні, які выкарыстоўваецца пры вызначэнні адпаведнасці URI для ўліковых даных пры выкананні такіх дзеянняў, як аўтаматычнае запаўненне."
   },
   "theme": {
     "message": "Тэма"
@@ -606,11 +606,17 @@
     "message": "УВАГА",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
+  "confirmVaultExport": {
+    "message": "Confirm Vault Export"
+  },
   "exportWarningDesc": {
     "message": "Экспартуемы файл утрымлівае даныя вашага сховішча ў незашыфраваным фармаце. Яго не варта захоўваць ці адпраўляць па небяспечным каналам (напрыклад, па электроннай пошце). Выдаліце яго адразу пасля выкарыстання."
   },
+  "encExportWarningDesc": {
+    "message": "This export encrypts your data using your account's encryption key. If you ever rotate your account's encryption key you should export again since you will not be able to decrypt this export file."
+  },
   "exportMasterPassword": {
-    "message": "Увядзіце ваш майстар-пароль для экспарту даных са сховішча."
+    "message": "Увядзіце ваш асноўны пароль для экспарту даных са сховішча."
   },
   "shared": {
     "message": "Абагуленыя"
@@ -709,7 +715,7 @@
     "message": "Гігіена пароляў, здароўе ўліковага запісу і справаздачы аб уцечках даных для забеспячэння бяспекі вашага сховішча."
   },
   "ppremiumSignUpTotp": {
-    "message": "TOTP-генератар кодаў (2ФА) для імён карыстальнікаў вашага сховішча."
+    "message": "TOTP-генератар кодаў (2ФА) для ўліковых даных вашага сховішча."
   },
   "ppremiumSignUpSupport": {
     "message": "Прыярытэтная падтрымка."
@@ -745,7 +751,7 @@
     "message": "Адключыць аўтаматычнае капіяванне TOTP"
   },
   "disableAutoTotpCopyDesc": {
-    "message": "Калі да вашага імя карыстальніка прымацаваны ключ праверкі сапраўднасці, то код пацвярджэння TOTP будзе скапіяваны пры аўтазапаўненні імені карыстальніка."
+    "message": "Калі да вашых уліковых даных прымацаваны ключ праверкі сапраўднасці, то код пацвярджэння TOTP будзе скапіяваны пры аўтазапаўненні ўліковых даных."
   },
   "premiumRequired": {
     "message": "Патрабуецца прэміяльны статус"
@@ -796,7 +802,7 @@
     "message": "У гэтага ўліковага запісу ўключаны двухэтапны ўваход, аднак ні адзін з наладжаных варыянтаў не падтрымліваецца гэтым вэб-браўзерам."
   },
   "noTwoStepProviders2": {
-    "message": "Выкарыстоўвайце актуальын вэб-браўзар (напрыклад, Chrome) і/або дадайце дадатковыя варыянты праверкі сапраўднасці, якія падтрымліваюцца ў вэб-браўзерах (напрыклад, праграма для праверкі сапраўднасці)."
+    "message": "Выкарыстоўвайце актуальны вэб-браўзер (напрыклад, Chrome) і/або дадайце дадатковыя варыянты праверкі сапраўднасці, якія падтрымліваюцца ў вэб-браўзерах (напрыклад, праграма для праверкі сапраўднасці)."
   },
   "twoStepOptions": {
     "message": "Параметры двухэтапнага ўваходу"
@@ -883,16 +889,19 @@
     "message": "Гэта эксперыментальная функцыя. Выкарыстоўвайце на свой страх і рызыку."
   },
   "commandOpenPopup": {
-    "message": "Адчыніць сховішча ва ўсплываючым акне"
+    "message": "Адкрыць сховішча ва ўсплывальным акне"
   },
   "commandOpenSidebar": {
-    "message": "Адчыніць сховішча ў бакавой панэлі"
+    "message": "Адкрыць сховішча ў бакавой панэлі"
   },
   "commandAutofillDesc": {
-    "message": "Аўтазапаўненне апошняга скарыстанага імя карыстальніка для бягучага вэб-сайта."
+    "message": "Аўтазапаўненне апошніх скарыстаных уліковых даных для бягучага вэб-сайта."
   },
   "commandGeneratePasswordDesc": {
     "message": "Стварыць і капіяваць новы выпадковы парольу буфер абмену."
+  },
+  "commandLockVaultDesc": {
+    "message": "Заблакіраваць сховішча"
   },
   "privateModeMessage": {
     "message": "На жаль, гэта акно недаступна ў прыватным акне гэтага браўзара."
@@ -1066,10 +1075,10 @@
     "message": "Тып"
   },
   "typeLogin": {
-    "message": "Імя карыстальніка"
+    "message": "Уліковыя даныя"
   },
   "typeLogins": {
-    "message": "Імёны карыстальніка"
+    "message": "Уліковыя даныя"
   },
   "typeSecureNote": {
     "message": "Бяспечныя нататкі"
@@ -1105,7 +1114,7 @@
     "message": "Пасведчанні"
   },
   "logins": {
-    "message": "Імёны карыстальніка"
+    "message": "Уліковыя даныя"
   },
   "secureNotes": {
     "message": "Бяспечныя нататкі"
@@ -1220,10 +1229,10 @@
     "description": "ex. A weak password. Scale: Weak -> Good -> Strong"
   },
   "weakMasterPassword": {
-    "message": "Слабы майстар-пароль"
+    "message": "Слабы асноўны пароль"
   },
   "weakMasterPasswordDesc": {
-    "message": "Майстар-пароль, выбраны вамі, з'яўляецца слабым. Для належнай абароны ўліковага запісу Bitwarden, вам належыць выкарыстоўваць моцны майстар-пароль (або парольную фразу). Вы ўпэўнены, што хочаце выкарыстоўваць гэты майстар-пароль?"
+    "message": "Асноўны пароль, выбраны вамі, з'яўляецца слабым. Для належнай абароны ўліковага запісу Bitwarden, вы павінны выкарыстоўваць моцны асноўны пароль (або парольную фразу). Вы ўпэўнены, што хочаце выкарыстоўваць гэты асноўны пароль?"
   },
   "pin": {
     "message": "PIN-код",
@@ -1247,8 +1256,17 @@
   "yourVaultIsLockedPinCode": {
     "message": "Ваша сховішча заблакіравана. Каб працягнуць, увядзіце PIN-код."
   },
+  "unlockWithBiometrics": {
+    "message": "Unlock with biometrics"
+  },
+  "awaitDesktop": {
+    "message": "Awaiting confirmation from desktop"
+  },
+  "awaitDesktopDesc": {
+    "message": "Please confirm using biometrics in the Bitwarden Desktop application to enable biometrics for browser."
+  },
   "lockWithMasterPassOnRestart": {
-    "message": "Блакіраваць майстрам-паролем пры перазапуску браўзера"
+    "message": "Блакіраваць асноўным паролем пры перазапуску браўзера"
   },
   "selectOneCollection": {
     "message": "Вы павінны выбраць прынамсі адну калекцыю."
@@ -1263,7 +1281,7 @@
     "message": "На налады генератара ўплываюць адна або некалькі палітык арганізацый."
   },
   "vaultTimeoutAction": {
-    "message": "Дзеянне пры таймаўце"
+    "message": "Дзеянне пры тайм-аўце"
   },
   "lock": {
     "message": "Заблакіраваць",
@@ -1289,34 +1307,34 @@
     "message": "Аднавіць элемент"
   },
   "restoreItemConfirmation": {
-    "message": "Вы сапраўды жадаеце аднавіць гэты запіс?"
+    "message": "Вы сапраўды жадаеце аднавіць гэты элемент?"
   },
   "restoredItem": {
     "message": "Элемент адноўлены"
   },
   "vaultTimeoutLogOutConfirmation": {
-    "message": "Выхад з сістэмы выдаліць доступ да сховішча і патрабуе анлайн-аутэнтыфікацію па заканчэнні перыяду чакання. Вы сапраўды жадаеце ўключыць гэтую наладу?"
+    "message": "Выхад з сістэмы выдаліць доступ да сховішча і спатрабуе праверку сапраўднасці анлайн па заканчэнні перыяду чакання. Вы сапраўды жадаеце ўключыць гэтую наладу?"
   },
   "vaultTimeoutLogOutConfirmationTitle": {
-    "message": "Пацвярджэнне дзеяння для таймаута"
+    "message": "Пацвярджэнне дзеяння для тайм-аута"
   },
   "autoFillAndSave": {
-    "message": "Auto-fill and Save"
+    "message": "Запоўніць і захаваць"
   },
   "autoFillSuccessAndSavedUri": {
-    "message": "Auto-filled Item and Saved URI"
+    "message": "Аўтазапоўнены элемент і захаваны URI"
   },
   "autoFillSuccess": {
-    "message": "Auto-filled Item"
+    "message": "Аўтазапоўнены элемент"
   },
   "setMasterPassword": {
-    "message": "Set Master Password"
+    "message": "Задаць асноўны пароль"
   },
   "masterPasswordPolicyInEffect": {
-    "message": "One or more organization policies require your master password to meet the following requirements:"
+    "message": "Згодна з адной або некалькімі палітыкамі арганізацыі неабходна, каб ваш асноўны пароль адказваў наступным патрабаванням:"
   },
   "policyInEffectMinComplexity": {
-    "message": "Minimum complexity score of $SCORE$",
+    "message": "Мінімальны ўзровень складанасці $SCORE$",
     "placeholders": {
       "score": {
         "content": "$1",
@@ -1325,7 +1343,7 @@
     }
   },
   "policyInEffectMinLength": {
-    "message": "Minimum length of $LENGTH$",
+    "message": "Мінімальная даўжыня $LENGTH$",
     "placeholders": {
       "length": {
         "content": "$1",
@@ -1334,16 +1352,16 @@
     }
   },
   "policyInEffectUppercase": {
-    "message": "Contain one or more uppercase characters"
+    "message": "Уключыць адну ці больш прапісных літар"
   },
   "policyInEffectLowercase": {
-    "message": "Contain one or more lowercase characters"
+    "message": "Уключыць адну ці больш малых літар"
   },
   "policyInEffectNumbers": {
-    "message": "Contain one or more numbers"
+    "message": "Уключыць адну ці больш лічбаў"
   },
   "policyInEffectSpecial": {
-    "message": "Contain one or more of the following special characters $CHARS$",
+    "message": "Уключаць хаця б адзін з наступных спецыяльных сімвалаў $CHARS$",
     "placeholders": {
       "chars": {
         "content": "$1",
@@ -1352,6 +1370,84 @@
     }
   },
   "masterPasswordPolicyRequirementsNotMet": {
-    "message": "Your new master password does not meet the policy requirements."
+    "message": "Ваш новы асноўны пароль не адпавядае патрабаванням палітыкі арганізацыі."
+  },
+  "acceptPolicies": {
+    "message": "Ставіўшы гэты сцяжок вы пагаджаецеся з наступным:"
+  },
+  "acceptPoliciesError": {
+    "message": "Умовы выкарыстання і Палітыка прыватнасці не былі пацверджаны."
+  },
+  "termsOfService": {
+    "message": "Умовы выкарыстання"
+  },
+  "privacyPolicy": {
+    "message": "Палітыка прыватнасці"
+  },
+  "hintEqualsPassword": {
+    "message": "Your password hint cannot be the same as your password."
+  },
+  "ok": {
+    "message": "ОК"
+  },
+  "desktopSyncVerificationTitle": {
+    "message": "Desktop sync verification"
+  },
+  "desktopIntegrationVerificationText": {
+    "message": "Please verify that the desktop application shows this fingerprint: "
+  },
+  "desktopIntegrationDisabledTitle": {
+    "message": "Browser integration is not enabled"
+  },
+  "desktopIntegrationDisabledDesc": {
+    "message": "Browser integration is not enabled in the Bitwarden Desktop application. Please enable it in the settings within the desktop application."
+  },
+  "startDesktopTitle": {
+    "message": "Start the Bitwarden Desktop application"
+  },
+  "startDesktopDesc": {
+    "message": "The Bitwarden Desktop application needs to be started before this function can be used."
+  },
+  "errorEnableBiometricTitle": {
+    "message": "Unable to enable biometrics"
+  },
+  "errorEnableBiometricDesc": {
+    "message": "Action was canceled by the desktop application"
+  },
+  "nativeMessagingInvalidEncryptionDesc": {
+    "message": "Desktop application invalidated the secure communication channel. Please retry this operation"
+  },
+  "nativeMessagingInvalidEncryptionTitle": {
+    "message": "Desktop communication interrupted"
+  },
+  "nativeMessagingWrongUserDesc": {
+    "message": "The desktop application is logged into a different account. Please ensure both applications are logged into the same account."
+  },
+  "nativeMessagingWrongUserTitle": {
+    "message": "Account missmatch"
+  },
+  "biometricsNotEnabledTitle": {
+    "message": "Biometrics not enabled"
+  },
+  "biometricsNotEnabledDesc": {
+    "message": "Browser biometrics requires desktop biometric to be enabled in the settings first."
+  },
+  "biometricsNotSupportedTitle": {
+    "message": "Biometrics not supported"
+  },
+  "biometricsNotSupportedDesc": {
+    "message": "Browser biometrics is not supported on this device."
+  },
+  "nativeMessaginPermissionErrorTitle": {
+    "message": "Permission not provided"
+  },
+  "nativeMessaginPermissionErrorDesc": {
+    "message": "Without permission to communicate with the Bitwarden Desktop Application we cannot provide biometrics in the browser extension. Please try again."
+  },
+  "personalOwnershipSubmitError": {
+    "message": "Due to an Enterprise Policy, you are restricted from saving items to your personal vault. Change the Ownership option to an organization and choose from available Collections."
+  },
+  "personalOwnershipPolicyInEffect": {
+    "message": "An organization policy is affecting your ownership options."
   }
 }

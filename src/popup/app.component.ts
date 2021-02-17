@@ -139,16 +139,20 @@ export class AppComponent implements OnInit {
 
         BrowserApi.messageListener('app.component', (window as any).bitwardenPopupMainMessageListener);
 
-        this.router.events.subscribe((event) => {
+        this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
                 const url = event.urlAfterRedirects || event.url || '';
                 if (url.startsWith('/tabs/') && (window as any).previousPopupUrl != null &&
                     (window as any).previousPopupUrl.startsWith('/tabs/')) {
                     this.stateService.remove('GroupingsComponent');
                     this.stateService.remove('CiphersComponent');
+                    this.stateService.remove('SendGroupingsComponent');
+                    this.stateService.remove('SendGroupingsComponentScope');
+                    this.stateService.remove('SendTypeComponent');
                 }
                 if (url.startsWith('/tabs/')) {
                     this.stateService.remove('addEditCipherInfo');
+                    // TODO Remove any Send add/edit state information (?)
                 }
                 (window as any).previousPopupUrl = url;
 
@@ -241,6 +245,7 @@ export class AppComponent implements OnInit {
             icon: type as SweetAlertIcon, // required to be any of the SweetAlertIcons to output the iconHtml.
             iconHtml: iconClasses != null ? `<i class="swal-custom-icon fa ${iconClasses}"></i>` : undefined,
             text: msg.text,
+            html: msg.html,
             title: msg.title,
             showCancelButton: (cancelText != null),
             cancelButtonText: cancelText,

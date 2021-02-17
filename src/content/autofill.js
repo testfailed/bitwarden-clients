@@ -820,12 +820,17 @@
             setValueForElement(el);
             afterValSetFunc(el);
             setValueForElementByEvent(el);
-            canSeeElementToStyle(el) && (el.className += ' com-bitwarden-browser-animated-fill',
+
+            // START MODIFICATION
+            if (canSeeElementToStyle(el)) {
+                el.classList.add('com-bitwarden-browser-animated-fill');
                 setTimeout(function () {
-                    // START MODIFICATION
-                    el && el.className && (el.className = el.className.replace(/(\\s)?com-bitwarden-browser-animated-fill/, ''));
-                    // END MODIFICATION
-                }, styleTimeout));
+                    if (el) {
+                        el.classList.remove('com-bitwarden-browser-animated-fill');
+                    }
+                }, styleTimeout);
+            }
+            // END MODIFICATION
         }
 
         document.elementForOPID = getElementByOpId;
@@ -983,35 +988,6 @@
     /*
     End 1Password Extension
     */
-
-    if ((typeof safari !== 'undefined') && navigator.userAgent.indexOf(' Safari/') !== -1 &&
-        navigator.userAgent.indexOf('Chrome') === -1) {
-        if (window.__bitwardenFrameId == null) {
-            window.__bitwardenFrameId = Math.floor(Math.random() * Math.floor(99999999));
-        }
-        safari.self.addEventListener('message', function (msgEvent) {
-            var msg = JSON.parse(msgEvent.message.msg);
-            if (msg.bitwardenFrameId != null && window.__bitwardenFrameId !== msg.bitwardenFrameId) {
-                return;
-            }
-
-            if (msg.command === 'collectPageDetails') {
-                var pageDetails = collect(document);
-                var pageDetailsObj = JSON.parse(pageDetails);
-                safari.extension.dispatchMessage('bitwarden', {
-                    command: 'collectPageDetailsResponse',
-                    tab: msg.tab,
-                    details: pageDetailsObj,
-                    sender: msg.sender,
-                    bitwardenFrameId: window.__bitwardenFrameId
-                });
-            }
-            else if (msg.command === 'fillForm') {
-                fill(document, msg.fillScript);
-            }
-        }, false);
-        return;
-    }
 
     chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
         if (msg.command === 'collectPageDetails') {

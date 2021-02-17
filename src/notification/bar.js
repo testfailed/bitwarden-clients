@@ -3,31 +3,21 @@ require('./bar.scss');
 document.addEventListener('DOMContentLoaded', () => {
     var i18n = {};
     var lang = window.navigator.language;
-    if (typeof safari !== 'undefined') {
-        const responseI18nCommand = 'notificationBarFrameDataResponse';
-        addPlatformEventListener(responseI18nCommand, (msg) => {
-            i18n = msg.data.i18n;
-            load();
-        });
-        sendPlatformMessage({
-            command: 'bgGetDataForTab',
-            responseCommand: responseI18nCommand
-        });
-    } else {
-        i18n.appName = chrome.i18n.getMessage('appName');
-        i18n.close = chrome.i18n.getMessage('close');
-        i18n.yes = chrome.i18n.getMessage('yes');
-        i18n.never = chrome.i18n.getMessage('never');
-        i18n.notificationAddSave = chrome.i18n.getMessage('notificationAddSave');
-        i18n.notificationNeverSave = chrome.i18n.getMessage('notificationNeverSave');
-        i18n.notificationAddDesc = chrome.i18n.getMessage('notificationAddDesc');
-        i18n.notificationChangeSave = chrome.i18n.getMessage('notificationChangeSave');
-        i18n.notificationChangeDesc = chrome.i18n.getMessage('notificationChangeDesc');
-        lang = chrome.i18n.getUILanguage();
+    
+    i18n.appName = chrome.i18n.getMessage('appName');
+    i18n.close = chrome.i18n.getMessage('close');
+    i18n.yes = chrome.i18n.getMessage('yes');
+    i18n.never = chrome.i18n.getMessage('never');
+    i18n.notificationAddSave = chrome.i18n.getMessage('notificationAddSave');
+    i18n.notificationNeverSave = chrome.i18n.getMessage('notificationNeverSave');
+    i18n.notificationAddDesc = chrome.i18n.getMessage('notificationAddDesc');
+    i18n.notificationChangeSave = chrome.i18n.getMessage('notificationChangeSave');
+    i18n.notificationChangeDesc = chrome.i18n.getMessage('notificationChangeDesc');
+    lang = chrome.i18n.getUILanguage();
 
-        // delay 50ms so that we get proper body dimensions
-        setTimeout(load, 50);
-    }
+    // delay 50ms so that we get proper body dimensions
+    setTimeout(load, 50);
+    
 
     const responseFoldersCommand = 'notificationBarGetFoldersList';
     addPlatformEventListener(responseFoldersCommand, (msg) => {
@@ -138,11 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function sendPlatformMessage(msg) {
-        if (typeof safari !== 'undefined') {
-            safari.extension.dispatchMessage('bitwarden', msg);
-        } else {
-            chrome.runtime.sendMessage(msg);
-        }
+        chrome.runtime.sendMessage(msg);
     }
 
     function addPlatformEventListener(command, func) {

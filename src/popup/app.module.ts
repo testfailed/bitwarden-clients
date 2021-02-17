@@ -22,13 +22,18 @@ import { LockComponent } from './accounts/lock.component';
 import { LoginComponent } from './accounts/login.component';
 import { RegisterComponent } from './accounts/register.component';
 import { SetPasswordComponent } from './accounts/set-password.component';
+import { SsoComponent } from './accounts/sso.component';
 import { TwoFactorOptionsComponent } from './accounts/two-factor-options.component';
 import { TwoFactorComponent } from './accounts/two-factor.component';
-import { SsoComponent } from './accounts/sso.component';
-import { AppComponent } from './app.component';
+
 import { PasswordGeneratorHistoryComponent } from './generator/password-generator-history.component';
 import { PasswordGeneratorComponent } from './generator/password-generator.component';
+
+import { AppComponent } from './app.component';
 import { PrivateModeComponent } from './private-mode.component';
+import { TabsComponent } from './tabs.component';
+
+import { ExcludedDomainsComponent } from './settings/excluded-domains.component';
 import { ExportComponent } from './settings/export.component';
 import { FolderAddEditComponent } from './settings/folder-add-edit.component';
 import { FoldersComponent } from './settings/folders.component';
@@ -36,7 +41,7 @@ import { OptionsComponent } from './settings/options.component';
 import { PremiumComponent } from './settings/premium.component';
 import { SettingsComponent } from './settings/settings.component';
 import { SyncComponent } from './settings/sync.component';
-import { TabsComponent } from './tabs.component';
+
 import { AddEditComponent } from './vault/add-edit.component';
 import { AttachmentsComponent } from './vault/attachments.component';
 import { CiphersComponent } from './vault/ciphers.component';
@@ -46,6 +51,9 @@ import { GroupingsComponent } from './vault/groupings.component';
 import { PasswordHistoryComponent } from './vault/password-history.component';
 import { ShareComponent } from './vault/share.component';
 import { ViewComponent } from './vault/view.component';
+
+import { SendGroupingsComponent } from './send/send-groupings.component';
+import { SendTypeComponent } from './send/send-type.component';
 
 import { A11yTitleDirective } from 'jslib/angular/directives/a11y-title.directive';
 import { ApiActionDirective } from 'jslib/angular/directives/api-action.directive';
@@ -66,6 +74,7 @@ import { SearchCiphersPipe } from 'jslib/angular/pipes/search-ciphers.pipe';
 import { ActionButtonsComponent } from './components/action-buttons.component';
 import { CiphersListComponent } from './components/ciphers-list.component';
 import { PopOutComponent } from './components/pop-out.component';
+import { SendListComponent } from './components/send-list.component';
 
 import { CalloutComponent } from 'jslib/angular/components/callout.component';
 import { IconComponent } from 'jslib/angular/components/icon.component';
@@ -102,6 +111,7 @@ import localePtPt from '@angular/common/locales/pt-PT';
 import localeRo from '@angular/common/locales/ro';
 import localeRu from '@angular/common/locales/ru';
 import localeSk from '@angular/common/locales/sk';
+import localeSr from '@angular/common/locales/sr';
 import localeSv from '@angular/common/locales/sv';
 import localeTh from '@angular/common/locales/th';
 import localeTr from '@angular/common/locales/tr';
@@ -138,6 +148,7 @@ registerLocaleData(localePtPt, 'pt-PT');
 registerLocaleData(localeRo, 'ro');
 registerLocaleData(localeRu, 'ru');
 registerLocaleData(localeSk, 'sk');
+registerLocaleData(localeSr, 'sr');
 registerLocaleData(localeSv, 'sv');
 registerLocaleData(localeTh, 'th');
 registerLocaleData(localeTr, 'tr');
@@ -179,6 +190,7 @@ registerLocaleData(localeZhTw, 'zh-TW');
         ColorPasswordPipe,
         CurrentTabComponent,
         EnvironmentComponent,
+        ExcludedDomainsComponent,
         ExportComponent,
         FallbackSrcDirective,
         FolderAddEditComponent,
@@ -201,6 +213,9 @@ registerLocaleData(localeZhTw, 'zh-TW');
         RegisterComponent,
         SearchCiphersPipe,
         SelectCopyDirective,
+        SendGroupingsComponent,
+        SendListComponent,
+        SendTypeComponent,
         SettingsComponent,
         ShareComponent,
         StopClickDirective,
@@ -212,7 +227,7 @@ registerLocaleData(localeZhTw, 'zh-TW');
         TwoFactorComponent,
         SsoComponent,
         ViewComponent,
-        SetPasswordComponent
+        SetPasswordComponent,
     ],
     entryComponents: [],
     providers: [
