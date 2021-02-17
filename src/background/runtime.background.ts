@@ -6,6 +6,7 @@ import { LoginView } from 'jslib/models/view/loginView';
 
 import { CipherService } from 'jslib/abstractions/cipher.service';
 import { EnvironmentService } from 'jslib/abstractions/environment.service';
+import { FolderService } from 'jslib/abstractions/folder.service';
 import { I18nService } from 'jslib/abstractions/i18n.service';
 import { NotificationsService } from 'jslib/abstractions/notifications.service';
 import { PolicyService } from 'jslib/abstractions/policy.service';
@@ -13,7 +14,6 @@ import { StorageService } from 'jslib/abstractions/storage.service';
 import { SystemService } from 'jslib/abstractions/system.service';
 import { UserService } from 'jslib/abstractions/user.service';
 import { VaultTimeoutService } from 'jslib/abstractions/vaultTimeout.service';
-import { FolderService } from 'jslib/abstractions/folder.service';
 import { ConstantsService } from 'jslib/services/constants.service';
 import { AutofillService } from '../services/abstractions/autofill.service';
 import BrowserPlatformUtilsService from '../services/browserPlatformUtils.service';
