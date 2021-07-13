@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fillSelectorWithFolders(folders) {
         const select = document.getElementById("select-folder");
-        select.appendChild(new Option("Select folder...", null, true));
+        select.appendChild(new Option(chrome.i18n.getMessage('selectFolder'), null, true));
         folders.forEach((folder) => {
             //Select "No Folder" (id=null) folder by default
             select.appendChild(new Option(folder.name, folder.id || '', false));
