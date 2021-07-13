@@ -136,10 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function fillSelectorWithFolders(folders) {
         const select = document.getElementById("select-folder");
+        select.appendChild(new Option("Select folder...", null, true));
         folders.forEach((folder) => {
             //Select "No Folder" (id=null) folder by default
-            const opt = new Option(folder.name, folder.id || '', folder.id === null);
-            select.appendChild(opt);
+            select.appendChild(new Option(folder.name, folder.id || '', false));
         });
     }
 });
