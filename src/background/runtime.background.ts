@@ -255,7 +255,7 @@ export default class RuntimeBackground {
             model.type = CipherType.Login;
             model.login = loginModel;
 
-            if (folder !== '') {
+            if (!Utils.isNullOrWhitespace(folder)) {
                 model.folderId = folder;
             }
 

@@ -20,8 +20,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
 
     const responseFoldersCommand = 'notificationBarGetFoldersList';
-    addPlatformEventListener(responseFoldersCommand, (msg) => {
-        fillSelectorWithFolders(msg.data.folders);
+    chrome.runtime.onMessage.addListener((request, sender, response) => {
+        const msg = request;
+        if (msg.command === responseFoldersCommand && msg.data) {
+            fillSelectorWithFolders(msg.data.folders);
+        }
     });
     sendPlatformMessage({
         command: 'bgGetDataForTab',
@@ -129,24 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function sendPlatformMessage(msg) {
         chrome.runtime.sendMessage(msg);
-    }
-
-    function addPlatformEventListener(command, func) {
-        if (typeof safari !== 'undefined') {
-            safari.self.addEventListener('message', (msgEvent) => {
-                const msg = JSON.parse(msgEvent.message.msg);
-                if (msg.command === command && msg.data) {
-                    func(msg);
-                }
-            }, false);
-        } else {
-            chrome.runtime.onMessage.addListener((request, sender, response) => {
-                const msg = request;
-                if (msg.command === command && msg.data) {
-                    func(msg);
-                }
-            });
-        }
     }
 
     function fillSelectorWithFolders(folders) {
