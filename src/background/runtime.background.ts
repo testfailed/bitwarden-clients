@@ -224,7 +224,7 @@ export default class RuntimeBackground {
         this.pageDetailsToAutoFill = [];
     }
 
-    private async saveAddLogin(tab: any, folder: string) {
+    private async saveAddLogin(tab: any, folderId: string) {
         if (await this.vaultTimeoutService.isLocked()) {
             return;
         }
@@ -255,8 +255,10 @@ export default class RuntimeBackground {
             model.type = CipherType.Login;
             model.login = loginModel;
 
-            if (!Utils.isNullOrWhitespace(folder)) {
-                model.folderId = folder;
+            const folders = await this.folderService.getAllDecrypted();
+            const folderExist = folders.some(x => x.id === folderId);
+            if (folderExist && !Utils.isNullOrWhitespace(folderId)) {
+                model.folderId = folderId;
             }
 
             const cipher = await this.cipherService.encrypt(model);
