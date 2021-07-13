@@ -6,7 +6,7 @@ import { LoginView } from 'jslib-common/models/view/loginView';
 
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
-import { FolderService } from 'jslib/abstractions/folder.service';
+import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
@@ -256,7 +256,7 @@ export default class RuntimeBackground {
             model.login = loginModel;
 
             const folders = await this.folderService.getAllDecrypted();
-            const folderExist = folders.some(x => x.id === folderId);
+            const folderExist = folders.some((x) => x.id === folderId);
             if (folderExist && !Utils.isNullOrWhitespace(folderId)) {
                 model.folderId = folderId;
             }
