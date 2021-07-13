@@ -1,12 +1,12 @@
 import { CurrencyPipe } from '@angular/common';
 import { Component } from '@angular/core';
 
-import { ApiService } from 'jslib/abstractions/api.service';
-import { I18nService } from 'jslib/abstractions/i18n.service';
-import { PlatformUtilsService } from 'jslib/abstractions/platformUtils.service';
-import { TokenService } from 'jslib/abstractions/token.service';
+import { ApiService } from 'jslib-common/abstractions/api.service';
+import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
+import { UserService } from 'jslib-common/abstractions/user.service';
 
-import { PremiumComponent as BasePremiumComponent } from 'jslib/angular/components/premium.component';
+import { PremiumComponent as BasePremiumComponent } from 'jslib-angular/components/premium.component';
 
 @Component({
     selector: 'app-premium',
@@ -16,9 +16,9 @@ export class PremiumComponent extends BasePremiumComponent {
     priceString: string;
 
     constructor(i18nService: I18nService, platformUtilsService: PlatformUtilsService,
-        tokenService: TokenService, apiService: ApiService,
+        apiService: ApiService, userService: UserService,
         private currencyPipe: CurrencyPipe) {
-        super(i18nService, platformUtilsService, tokenService, apiService);
+        super(i18nService, platformUtilsService, apiService, userService);
 
         // Support old price string. Can be removed in future once all translations are properly updated.
         const thePrice = this.currencyPipe.transform(this.price, '$');

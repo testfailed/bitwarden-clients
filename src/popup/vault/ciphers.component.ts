@@ -1,5 +1,3 @@
-import { Angulartics2 } from 'angulartics2';
-
 import { Location } from '@angular/common';
 import {
     ChangeDetectorRef,
@@ -15,25 +13,25 @@ import {
 
 import { BrowserApi } from '../../browser/browserApi';
 
-import { CipherService } from 'jslib/abstractions/cipher.service';
-import { CollectionService } from 'jslib/abstractions/collection.service';
-import { FolderService } from 'jslib/abstractions/folder.service';
-import { I18nService } from 'jslib/abstractions/i18n.service';
-import { PlatformUtilsService } from 'jslib/abstractions/platformUtils.service';
-import { SearchService } from 'jslib/abstractions/search.service';
-import { StateService } from 'jslib/abstractions/state.service';
+import { CipherService } from 'jslib-common/abstractions/cipher.service';
+import { CollectionService } from 'jslib-common/abstractions/collection.service';
+import { FolderService } from 'jslib-common/abstractions/folder.service';
+import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
+import { SearchService } from 'jslib-common/abstractions/search.service';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
-import { CipherType } from 'jslib/enums/cipherType';
+import { CipherType } from 'jslib-common/enums/cipherType';
 
-import { CipherView } from 'jslib/models/view/cipherView';
-import { CollectionView } from 'jslib/models/view/collectionView';
-import { FolderView } from 'jslib/models/view/folderView';
+import { CipherView } from 'jslib-common/models/view/cipherView';
+import { CollectionView } from 'jslib-common/models/view/collectionView';
+import { FolderView } from 'jslib-common/models/view/folderView';
 
-import { TreeNode } from 'jslib/models/domain/treeNode';
+import { TreeNode } from 'jslib-common/models/domain/treeNode';
 
-import { BroadcasterService } from 'jslib/angular/services/broadcaster.service';
+import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 
-import { CiphersComponent as BaseCiphersComponent } from 'jslib/angular/components/ciphers.component';
+import { CiphersComponent as BaseCiphersComponent } from 'jslib-angular/components/ciphers.component';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 
@@ -56,6 +54,7 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
     private selectedTimeout: number;
     private preventSelected = false;
     private applySavedState = true;
+    private scrollingContainer = 'cdk-virtual-scroll-viewport';
 
     constructor(searchService: SearchService, private route: ActivatedRoute,
         private router: Router, private location: Location,
@@ -63,17 +62,15 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
         private changeDetectorRef: ChangeDetectorRef, private stateService: StateService,
         private popupUtils: PopupUtilsService, private i18nService: I18nService,
         private folderService: FolderService, private collectionService: CollectionService,
-        private analytics: Angulartics2, private platformUtilsService: PlatformUtilsService,
-        private cipherService: CipherService) {
+        private platformUtilsService: PlatformUtilsService, private cipherService: CipherService) {
         super(searchService);
-        this.pageSize = 100;
         this.applySavedState = (window as any).previousPopupUrl != null &&
             !(window as any).previousPopupUrl.startsWith('/ciphers');
     }
 
     async ngOnInit() {
         this.searchTypeSearch = !this.platformUtilsService.isSafari();
-        const queryParamsSub = this.route.queryParams.subscribe(async (params) => {
+        const queryParamsSub = this.route.queryParams.subscribe(async params => {
             if (this.applySavedState) {
                 this.state = (await this.stateService.get<any>(ComponentId)) || {};
                 if (this.state.searchText) {
@@ -104,7 +101,7 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
                     default:
                         break;
                 }
-                await this.load((c) => c.type === this.type);
+                await this.load(c => c.type === this.type);
             } else if (params.folderId) {
                 this.folderId = params.folderId === 'none' ? null : params.folderId;
                 this.searchPlaceholder = this.i18nService.t('searchFolder');
@@ -118,7 +115,7 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
                 } else {
                     this.groupingTitle = this.i18nService.t('noneFolder');
                 }
-                await this.load((c) => c.folderId === this.folderId);
+                await this.load(c => c.folderId === this.folderId);
             } else if (params.collectionId) {
                 this.collectionId = params.collectionId;
                 this.searchPlaceholder = this.i18nService.t('searchCollection');
@@ -128,14 +125,15 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
                     this.nestedCollections = collectionNode.children != null && collectionNode.children.length > 0 ?
                         collectionNode.children : null;
                 }
-                await this.load((c) => c.collectionIds != null && c.collectionIds.indexOf(this.collectionId) > -1);
+                await this.load(c => c.collectionIds != null && c.collectionIds.indexOf(this.collectionId) > -1);
             } else {
                 this.groupingTitle = this.i18nService.t('allItems');
                 await this.load();
             }
 
             if (this.applySavedState && this.state != null) {
-                window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state.scrollY), 0);
+                window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state.scrollY,
+                    this.scrollingContainer), 0);
             }
             this.stateService.remove(ComponentId);
             if (queryParamsSub != null) {
@@ -196,7 +194,6 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
             window.clearTimeout(this.selectedTimeout);
         }
         this.preventSelected = true;
-        this.analytics.eventTrack.next({ action: 'Launched URI From Listing' });
         await this.cipherService.updateLastLaunchedDate(cipher.id);
         BrowserApi.createNewTab(cipher.login.launchUri);
         if (this.popupUtils.inPopup(window)) {
@@ -231,7 +228,7 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
 
     private async saveState() {
         this.state = {
-            scrollY: this.popupUtils.getContentScrollY(window),
+            scrollY: this.popupUtils.getContentScrollY(window, this.scrollingContainer),
             searchText: this.searchText,
         };
         await this.stateService.save(ComponentId, this.state);

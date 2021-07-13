@@ -3,8 +3,8 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - Gestor de contraseñas gratuito",
-    "description": "Extension name"
+    "message": "Bitwarden",
+    "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
     "message": "Bitwarden es un gestor de contraseñas seguro y gratuito para todos tus dispositivos.",
@@ -150,6 +150,9 @@
   "save": {
     "message": "Guardar"
   },
+  "move": {
+    "message": "Move"
+  },
   "addFolder": {
     "message": "Añadir carpeta"
   },
@@ -160,7 +163,7 @@
     "message": "Editar carpeta"
   },
   "deleteFolder": {
-    "message": "Borrar carpeta"
+    "message": "Eliminar carpeta"
   },
   "folders": {
     "message": "Carpetas"
@@ -498,10 +501,10 @@
     "message": "Elemento editado"
   },
   "deleteItemConfirmation": {
-    "message": "¿Estás seguro de que quieres eliminar este elemento?"
+    "message": "¿Seguro que quieres enviarlo a la papelera?"
   },
   "deletedItem": {
-    "message": "Elemento eliminado"
+    "message": "Elemento enviado a la papelera"
   },
   "overwritePassword": {
     "message": "Sobreescribir contraseña"
@@ -541,7 +544,7 @@
     "message": "Elementos de identidad de su caja fuerte están listados en la página 'Ficha Actual' para el acceso fácil del autorellenado."
   },
   "clearClipboard": {
-    "message": "Limpiar el Portapapeles",
+    "message": "Vaciar portapapeles",
     "description": "Clipboard is the operating system thing where you copy/paste data to on your device."
   },
   "clearClipboardDesc": {
@@ -552,7 +555,7 @@
     "message": "¿Debería Bitwarden recordar esta contraseña por ti?"
   },
   "notificationAddSave": {
-    "message": "Si, guardarla"
+    "message": "Sí, guardar ahora"
   },
   "notificationNeverSave": {
     "message": "Nunca para este sitio"
@@ -596,6 +599,10 @@
     "message": "Claro",
     "description": "Light color"
   },
+  "solarizedDark": {
+    "message": "Solarized Dark",
+    "description": "'Solarized' is a noun and the name of a color scheme. It should not be translated."
+  },
   "exportVault": {
     "message": "Exportar caja fuerte"
   },
@@ -607,13 +614,16 @@
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
   "confirmVaultExport": {
-    "message": "Confirm Vault Export"
+    "message": "Confirma la exportación de la caja fuerte"
   },
   "exportWarningDesc": {
     "message": "Esta exportación contiene los datos de tu caja fuerte en un formato no cifrado. No deberías almacenar o enviar el archivo exportado por canales no seguros (como el correo electrónico). Elimínalo inmediatamente cuando termines de utilizarlo."
   },
-  "encExportWarningDesc": {
-    "message": "This export encrypts your data using your account's encryption key. If you ever rotate your account's encryption key you should export again since you will not be able to decrypt this export file."
+  "encExportKeyWarningDesc": {
+    "message": "Esta exportación encripta tus datos utilizando la clave de encriptación de tu cuenta. Si alguna vez cambias la clave de encriptación de tu cuenta, deberás exportar de nuevo, ya que no podrás descifrar este archivo exportado."
+  },
+  "encExportAccountWarningDesc": {
+    "message": "Las claves de encriptación de las cuentas son únicas para cada cuenta de usuario de Bitwarden, por lo que no se puede importar un archivo exportado y encriptado a una cuenta diferente."
   },
   "exportMasterPassword": {
     "message": "Introduce tu contraseña maestra para exportar la información de tu caja fuerte."
@@ -621,23 +631,33 @@
   "shared": {
     "message": "Compartido"
   },
-  "shareVault": {
-    "message": "Comparte tu caja fuerte"
+  "learnOrg": {
+    "message": "Learn about Organizations"
   },
-  "shareVaultConfirmation": {
-    "message": "Bitwarden te permite compartir tu caja fuerte con otras personas utilizando una cuenta de organización. ¿Quieres visitar la web bitwarden.com para conocer más?"
+  "learnOrgConfirmation": {
+    "message": "Bitwarden allows you to share your vault items with others by using an organization. Would you like to visit the bitwarden.com website to learn more?"
   },
-  "shareItem": {
-    "message": "Compartir elemento"
+  "moveToOrganization": {
+    "message": "Move to Organization"
   },
   "share": {
     "message": "Compartir"
   },
-  "sharedItem": {
-    "message": "Elemento compartido"
+  "movedItemToOrg": {
+    "message": "$ITEMNAME$ moved to $ORGNAME$",
+    "placeholders": {
+      "itemname": {
+        "content": "$1",
+        "example": "Secret Item"
+      },
+      "orgname": {
+        "content": "$2",
+        "example": "Company Name"
+      }
+    }
   },
-  "shareDesc": {
-    "message": "Elige una organización con la que quieras compartir este elemento. Compartir transfiere la propiedad del elemento a la organización. No podrás volver a ser el propietario de este elemento una vez haya sido compartido."
+  "moveToOrgDesc": {
+    "message": "Choose an organization that you wish to move this item to. Moving to an organization transfers ownership of the item to that organization. You will no longer be the direct owner of this item once it has been moved."
   },
   "learnMore": {
     "message": "Más información"
@@ -679,7 +699,7 @@
     "message": "Selecciona un archivo."
   },
   "maxFileSize": {
-    "message": "El tamaño máximo de archivo es de 100MB."
+    "message": "El tamaño máximo de archivo es de 500MB."
   },
   "featureUnavailable": {
     "message": "Característica no disponible"
@@ -795,6 +815,15 @@
   "insertU2f": {
     "message": "Inserta tu llave de seguridad en el puerto USB de tu equipo. Si tiene un botón, púlsalo."
   },
+  "webAuthnNewTab": {
+    "message": "To start the WebAuthn 2FA verification. Click the button below to open a new tab and follow the instructions provided in the new tab."
+  },
+  "webAuthnNewTabOpen": {
+    "message": "Open new tab"
+  },
+  "webAuthnAuthenticate": {
+    "message": "Authenticate WebAuthn"
+  },
   "loginUnavailable": {
     "message": "Entrada no disponible"
   },
@@ -834,11 +863,11 @@
     "message": "Verificar con Duo Security para tu organización usando la aplicación Duo Mobile, SMS, llamada telefónica o llave de seguridad U2F.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
-  "u2fDesc": {
-    "message": "Usa cualquier llave de seguridad FIDO U2F habilitada para acceder a tu cuenta."
+  "webAuthnTitle": {
+    "message": "FIDO2 WebAuthn"
   },
-  "u2fTitle": {
-    "message": "Llave de seguridad FIDO U2F"
+  "webAuthnDesc": {
+    "message": "Use any WebAuthn enabled security key to access your account."
   },
   "emailTitle": {
     "message": "Correo electrónico"
@@ -887,6 +916,24 @@
   },
   "experimentalFeature": {
     "message": "Esta es una característica experimental. Úsala bajo tu propio riesgo."
+  },
+  "defaultAutoFillOnPageLoad": {
+    "message": "Default autofill setting for login items"
+  },
+  "defaultAutoFillOnPageLoadDesc": {
+    "message": "After enabling Auto-fill on Page Load, you can enable or disable the feature for individual login items. This is the default setting for login items that are not separately configured."
+  },
+  "itemAutoFillOnPageLoad": {
+    "message": "Auto-fill on Page Load (if enabled in Options)"
+  },
+  "autoFillOnPageLoadUseDefault": {
+    "message": "Use default setting"
+  },
+  "autoFillOnPageLoadYes": {
+    "message": "Auto-fill on page load"
+  },
+  "autoFillOnPageLoadNo": {
+    "message": "Do not auto-fill on page load"
   },
   "commandOpenPopup": {
     "message": "Abrir ventana emergente de la caja fuerte"
@@ -941,6 +988,12 @@
   },
   "disableFaviconDesc": {
     "message": "Los iconos del sitio web añaden una imagen reconocible al lado de cada entrada de tu caja fuerte."
+  },
+  "disableBadgeCounter": {
+    "message": "Disable Badge Counter"
+  },
+  "disableBadgeCounterDesc": {
+    "message": "Badge counter indicates how many logins you have for the current page in your vault."
   },
   "cardholderName": {
     "message": "Nombre en la tarjeta"
@@ -1257,13 +1310,13 @@
     "message": "Tu caja fuerte está bloqueada. Verifica tu código PIN para continuar."
   },
   "unlockWithBiometrics": {
-    "message": "Unlock with biometrics"
+    "message": "Desbloquear con biométricos"
   },
   "awaitDesktop": {
-    "message": "Awaiting confirmation from desktop"
+    "message": "Esperando la confirmación por parte del escritorio"
   },
   "awaitDesktopDesc": {
-    "message": "Please confirm using biometrics in the Bitwarden Desktop application to enable biometrics for browser."
+    "message": "Por favor confirma el uso de biométricos en la aplicación de escritorio de Bitwarden para habilitar el uso de biométricos en el navegador."
   },
   "lockWithMasterPassOnRestart": {
     "message": "Bloquear con contraseña maestra al reiniciar el navegador"
@@ -1385,69 +1438,319 @@
     "message": "Política de privacidad"
   },
   "hintEqualsPassword": {
-    "message": "Your password hint cannot be the same as your password."
+    "message": "Tu contraseña no puede ser idéntica a la pista de contraseña."
   },
   "ok": {
     "message": "Ok"
   },
   "desktopSyncVerificationTitle": {
-    "message": "Desktop sync verification"
+    "message": "Verificación de sincronización del escritorio"
   },
   "desktopIntegrationVerificationText": {
-    "message": "Please verify that the desktop application shows this fingerprint: "
+    "message": "Favor de verificar que la aplicación de escritorio muestre ésta  huella:"
   },
   "desktopIntegrationDisabledTitle": {
-    "message": "Browser integration is not enabled"
+    "message": "La integración con el navegador se encuentra deshabilitada"
   },
   "desktopIntegrationDisabledDesc": {
-    "message": "Browser integration is not enabled in the Bitwarden Desktop application. Please enable it in the settings within the desktop application."
+    "message": "La integración con el navegador se encuentra deshabilitada en la aplicación de escritorio de Bitwarden. Favor de habilitarla en los ajustes dentro de la aplicación de escritorio."
   },
   "startDesktopTitle": {
-    "message": "Start the Bitwarden Desktop application"
+    "message": "Inicia la aplicación de escritorio de Bitwarden"
   },
   "startDesktopDesc": {
-    "message": "The Bitwarden Desktop application needs to be started before this function can be used."
+    "message": "La aplicación de escritorio de Bitwarden necesita iniciarse para poder utilizar ésta función."
   },
   "errorEnableBiometricTitle": {
-    "message": "Unable to enable biometrics"
+    "message": "No fue posible habilitar biométricos"
   },
   "errorEnableBiometricDesc": {
-    "message": "Action was canceled by the desktop application"
+    "message": "La acción fue cancelada por la aplicación de escritorio"
   },
   "nativeMessagingInvalidEncryptionDesc": {
-    "message": "Desktop application invalidated the secure communication channel. Please retry this operation"
+    "message": "La aplicación de escritorio invalidó el canal seguro de comunicación. Favor de intentar la operación nuevamente"
   },
   "nativeMessagingInvalidEncryptionTitle": {
-    "message": "Desktop communication interrupted"
+    "message": "Se ha interrumpido la comunicación con el escritorio"
   },
   "nativeMessagingWrongUserDesc": {
-    "message": "The desktop application is logged into a different account. Please ensure both applications are logged into the same account."
+    "message": "La aplicación de escritorio está conectada a una cuenta distinta. Favor de asegurar que ambas aplicaciones estén conectadas a la misma cuenta. "
   },
   "nativeMessagingWrongUserTitle": {
-    "message": "Account missmatch"
+    "message": "Las cuentas son distintas"
   },
   "biometricsNotEnabledTitle": {
-    "message": "Biometrics not enabled"
+    "message": "Biometría deshabilitada"
   },
   "biometricsNotEnabledDesc": {
-    "message": "Browser biometrics requires desktop biometric to be enabled in the settings first."
+    "message": "La biometría del navegador requiere activar primero la biometría de escritorio en los ajustes."
   },
   "biometricsNotSupportedTitle": {
-    "message": "Biometrics not supported"
+    "message": "No se admite la biometría"
   },
   "biometricsNotSupportedDesc": {
-    "message": "Browser biometrics is not supported on this device."
+    "message": "La biometría del navegador no es compatible con este dispositivo."
   },
   "nativeMessaginPermissionErrorTitle": {
-    "message": "Permission not provided"
+    "message": "Permiso no proporcionado"
   },
   "nativeMessaginPermissionErrorDesc": {
-    "message": "Without permission to communicate with the Bitwarden Desktop Application we cannot provide biometrics in the browser extension. Please try again."
+    "message": "Sin el permiso para comunicarse con la aplicación de escritorio de Bitwarden, no podemos proporcionar datos biométricos en la extensión del navegador. Por favor, inténtalo de nuevo."
+  },
+  "nativeMessaginPermissionSidebarTitle": {
+    "message": "Error de solicitud de permiso"
+  },
+  "nativeMessaginPermissionSidebarDesc": {
+    "message": "Esta acción no se puede realizar en la barra lateral, por favor, vuelve a intentar la acción en la ventana emergente o popout."
   },
   "personalOwnershipSubmitError": {
-    "message": "Due to an Enterprise Policy, you are restricted from saving items to your personal vault. Change the Ownership option to an organization and choose from available Collections."
+    "message": "Debido a una política de organización, tiene restringido el guardar elementos a su bóveda personal. Cambie la configuración de propietario a organización y elija entre las colecciones disponibles."
   },
   "personalOwnershipPolicyInEffect": {
-    "message": "An organization policy is affecting your ownership options."
+    "message": "Una política de organización está afectando a sus opciones de propiedad."
+  },
+  "excludedDomains": {
+    "message": "Dominios excluidos"
+  },
+  "excludedDomainsDesc": {
+    "message": "Bitwarden no pedirá que se guarden los datos de acceso para estos dominios. Debe actualizar la página para que los cambios surtan efecto."
+  },
+  "excludedDomainsInvalidDomain": {
+    "message": "$DOMAIN$ no es un dominio válido",
+    "placeholders": {
+      "domain": {
+        "content": "$1",
+        "example": "googlecom"
+      }
+    }
+  },
+  "send": {
+    "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "searchSends": {
+    "message": "Buscar Sends",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "addSend": {
+    "message": "Añadir Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeText": {
+    "message": "Texto"
+  },
+  "sendTypeFile": {
+    "message": "Archivo"
+  },
+  "allSends": {
+    "message": "Todos los Sends",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "maxAccessCountReached": {
+    "message": "Número máximo de accesos alcanzado"
+  },
+  "expired": {
+    "message": "Caducado"
+  },
+  "pendingDeletion": {
+    "message": "Borrado pendiente"
+  },
+  "passwordProtected": {
+    "message": "Protegido por contraseña"
+  },
+  "copySendLink": {
+    "message": "Copiar enlace Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "removePassword": {
+    "message": "Eliminar contraseña"
+  },
+  "delete": {
+    "message": "Eliminar"
+  },
+  "removedPassword": {
+    "message": "Contraseña eliminada"
+  },
+  "deletedSend": {
+    "message": "Send eliminado",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLink": {
+    "message": "Enlace Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "disabled": {
+    "message": "Desactivado"
+  },
+  "removePasswordConfirmation": {
+    "message": "¿Está seguro que desea eliminar la contraseña?"
+  },
+  "deleteSend": {
+    "message": "Eliminar Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deleteSendConfirmation": {
+    "message": "¿Está seguro de que desea eliminar este Send?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editSend": {
+    "message": "Editar Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeHeader": {
+    "message": "¿Qué tipo de Send es este?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNameDesc": {
+    "message": "Un nombre amigable para describir este Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFileDesc": {
+    "message": "El archivo que desea enviar."
+  },
+  "deletionDate": {
+    "message": "Fecha de eliminación"
+  },
+  "deletionDateDesc": {
+    "message": "El Send se eliminará permanentemente en la fecha y hora especificadas.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "expirationDate": {
+    "message": "Fecha de caducidad"
+  },
+  "expirationDateDesc": {
+    "message": "Si se establece, el acceso a este Send caducará en la fecha y hora especificadas.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "oneDay": {
+    "message": "1 día"
+  },
+  "days": {
+    "message": "$DAYS$ días",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "custom": {
+    "message": "Personalizado"
+  },
+  "maximumAccessCount": {
+    "message": "Número máximo de accesos"
+  },
+  "maximumAccessCountDesc": {
+    "message": "Si se establece, los usuarios ya no podrán acceder a este Send una vez que se alcance el número máximo de accesos.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDesc": {
+    "message": "Opcionalmente se requiere una contraseña para que los usuarios accedan a este Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNotesDesc": {
+    "message": "Notas privadas sobre este Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisableDesc": {
+    "message": "Desactiva este Send para que nadie pueda acceder a él.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendShareDesc": {
+    "message": "Copy this Send's link to clipboard upon save.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTextDesc": {
+    "message": "El texto que quieres enviar."
+  },
+  "sendHideText": {
+    "message": "Ocultar el texto de este Envío por defecto.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "currentAccessCount": {
+    "message": "Current Access Count"
+  },
+  "createSend": {
+    "message": "Crear Envío nuevo",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "newPassword": {
+    "message": "Nueva contraseña"
+  },
+  "sendDisabled": {
+    "message": "Envío desactivado",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisabledWarning": {
+    "message": "Due to an enterprise policy, you are only able to delete an existing Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "createdSend": {
+    "message": "Envío creado",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editedSend": {
+    "message": "Envío editado",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLinuxChromiumFileWarning": {
+    "message": "In order to choose a file, open the extension in the sidebar (if possible) or pop out to a new window by clicking this banner."
+  },
+  "sendFirefoxFileWarning": {
+    "message": "In order to choose a file using Firefox, open the extension in the sidebar or pop out to a new window by clicking this banner."
+  },
+  "sendSafariFileWarning": {
+    "message": "In order to choose a file using Safari, pop out to a new window by clicking this banner."
+  },
+  "sendFileCalloutHeader": {
+    "message": "Before you start"
+  },
+  "sendFirefoxCustomDatePopoutMessage1": {
+    "message": "To use a calendar style date picker",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read '**To use a calendar style date picker ** click here to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage2": {
+    "message": "haz click aquí",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker **click here** to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage3": {
+    "message": "to pop out your window.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker click here **to pop out your window.**'"
+  },
+  "expirationDateIsInvalid": {
+    "message": "The expiration date provided is not valid."
+  },
+  "deletionDateIsInvalid": {
+    "message": "The deletion date provided is not valid."
+  },
+  "expirationDateAndTimeRequired": {
+    "message": "An expiration date and time are required."
+  },
+  "deletionDateAndTimeRequired": {
+    "message": "A deletion date and time are required."
+  },
+  "dateParsingError": {
+    "message": "There was an error saving your deletion and expiration dates."
+  },
+  "hideEmail": {
+    "message": "Hide my email address from recipients."
+  },
+  "sendOptionsPolicyInEffect": {
+    "message": "One or more organization policies are affecting your Send options."
+  },
+  "passwordPrompt": {
+    "message": "Master password re-prompt"
+  },
+  "passwordConfirmation": {
+    "message": "Master password confirmation"
+  },
+  "passwordConfirmationDesc": {
+    "message": "This action is protected. To continue, please re-enter your master password to verify your identity."
+  },
+  "emailVerificationRequired": {
+    "message": "Email Verification Required"
+  },
+  "emailVerificationRequiredDesc": {
+    "message": "You must verify your email to use this feature. You can verify your email in the web vault."
   }
 }

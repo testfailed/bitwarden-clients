@@ -4,7 +4,7 @@
   },
   "extName": {
     "message": "Bitwarden - Gratis lösenordshanterare",
-    "description": "Extension name"
+    "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
     "message": "Bitwarden är en säker och gratis lösenordshanterare för alla dina enheter.",
@@ -149,6 +149,9 @@
   },
   "save": {
     "message": "Spara"
+  },
+  "move": {
+    "message": "Flytta"
   },
   "addFolder": {
     "message": "Skapa mapp"
@@ -596,6 +599,10 @@
     "message": "Ljust",
     "description": "Light color"
   },
+  "solarizedDark": {
+    "message": "Solarized Dark",
+    "description": "'Solarized' is a noun and the name of a color scheme. It should not be translated."
+  },
   "exportVault": {
     "message": "Exportera valv"
   },
@@ -612,8 +619,11 @@
   "exportWarningDesc": {
     "message": "Den här exporten innehåller ditt valvs okrypterade data i .csv-format. Du bör inte lagra eller skicka filen över osäkra anslutningar (genom t.ex. mejl). Radera filen efter du är färdig med den."
   },
-  "encExportWarningDesc": {
+  "encExportKeyWarningDesc": {
     "message": "Denna export krypterar dina data med kontots krypteringsnyckel. Om du någonsin roterar kontots krypteringsnyckel bör du exportera igen eftersom du inte kommer att kunna dekryptera denna exportfil."
+  },
+  "encExportAccountWarningDesc": {
+    "message": "Kypteringsnycklar är unika för varje Bitwarden-konto, så du kan inte importera en krypterad export till ett annat konto."
   },
   "exportMasterPassword": {
     "message": "Ange ditt huvudlösenord för att exportera ditt valv."
@@ -621,23 +631,33 @@
   "shared": {
     "message": "Delad"
   },
-  "shareVault": {
-    "message": "Dela ditt valv"
+  "learnOrg": {
+    "message": "Lär dig om organisationer"
   },
-  "shareVaultConfirmation": {
-    "message": "Bitwarden gör det möjligt för dig att dela ditt valv med andra genom att använda ett organisationskonto. Vill du besöka bitwarden.com för att lära dig mer?"
+  "learnOrgConfirmation": {
+    "message": "Bitwarden gör det möjligt för dig att objekt i valvet med andra genom att använda en organisation. Vill du besöka bitwarden.com för att lära dig mer?"
   },
-  "shareItem": {
-    "message": "Dela objekt"
+  "moveToOrganization": {
+    "message": "Flytta till organisation"
   },
   "share": {
     "message": "Dela"
   },
-  "sharedItem": {
-    "message": "Delat objekt"
+  "movedItemToOrg": {
+    "message": "$ITEMNAME$ flyttades till $ORGNAME$",
+    "placeholders": {
+      "itemname": {
+        "content": "$1",
+        "example": "Secret Item"
+      },
+      "orgname": {
+        "content": "$2",
+        "example": "Company Name"
+      }
+    }
   },
-  "shareDesc": {
-    "message": "Välj en organisation som du vill dela detta objekt med. Delning överför ägandet av objektet till organisationen. Du kommer inte längre att vara direkt ägare till detta objekt när det har delats."
+  "moveToOrgDesc": {
+    "message": "Välj en organisation som du vill flytta detta objektet till. Flytt till en organisation överför ägandet av objektet till den organisationen. Du kommer inte längre att vara direkt ägare till detta objekt när det har flyttats."
   },
   "learnMore": {
     "message": "Läs mer"
@@ -679,7 +699,7 @@
     "message": "Välj en fil."
   },
   "maxFileSize": {
-    "message": "Filen får vara maximalt 100 MB."
+    "message": "Filen får vara maximalt 500 MB."
   },
   "featureUnavailable": {
     "message": "Funktionen är inte tillgänglig"
@@ -795,6 +815,15 @@
   "insertU2f": {
     "message": "Sätt i din säkerhetsnyckel i en av datorns USB-portar. Om nyckeln har en knapp, sätt fingret på den."
   },
+  "webAuthnNewTab": {
+    "message": "För att påbörja verifieringen av WebAuthn 2FA. Klicka på knappen nedan för att öppna en ny flik och följ instruktionerna i den nya fliken."
+  },
+  "webAuthnNewTabOpen": {
+    "message": "Öppna ny flik"
+  },
+  "webAuthnAuthenticate": {
+    "message": "Autentisera WebAuthn"
+  },
   "loginUnavailable": {
     "message": "Inloggning inte tillgänglig"
   },
@@ -834,11 +863,11 @@
     "message": "Verifiera med Duo Security för din organisation genom att använda Duo Mobile-appen, SMS, telefonsamtal eller en U2F säkerhetsnyckel.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
-  "u2fDesc": {
-    "message": "Använd en FIDO U2F-aktiverad säkerhetsnyckel för att få åtkomst till ditt konto."
+  "webAuthnTitle": {
+    "message": "FIDO2 WebAuthn"
   },
-  "u2fTitle": {
-    "message": "FIDO U2F säkerhetsnyckel"
+  "webAuthnDesc": {
+    "message": "Använd en WebAuthn-aktiverad säkerhetsnyckel för att komma åt ditt konto."
   },
   "emailTitle": {
     "message": "E-post"
@@ -880,13 +909,31 @@
     "message": "Miljö-URL:er har sparats."
   },
   "enableAutoFillOnPageLoad": {
-    "message": "Aktivera automatisk ifyllnad när sidan laddas"
+    "message": "Aktivera automatisk ifyllnad vid sidhämtning"
   },
   "enableAutoFillOnPageLoadDesc": {
-    "message": "Utför automatisk ifyllnad om ett inloggningsformulär upptäcks när webbsidan läses in."
+    "message": "Utför automatisk ifyllnad om ett inloggningsformulär upptäcks när webbsidan laddas."
   },
   "experimentalFeature": {
     "message": "Detta är för närvarande en experimentell funktion. Använd på egen risk."
+  },
+  "defaultAutoFillOnPageLoad": {
+    "message": "Standardinställning för autofyll för inloggningsobjekt"
+  },
+  "defaultAutoFillOnPageLoadDesc": {
+    "message": "Efter att du har aktiverat automatisk ifyllnad vid sidhämtning kan du aktivera eller inaktivera funktionen för enskilda inloggningsobjekt. Detta är standardinställningen för inloggningsobjekt som inte är konfigurerade separat."
+  },
+  "itemAutoFillOnPageLoad": {
+    "message": "Automatisk ifyllning vid sidhämtning (om aktiverat i Alternativ)"
+  },
+  "autoFillOnPageLoadUseDefault": {
+    "message": "Använd standardinställningen"
+  },
+  "autoFillOnPageLoadYes": {
+    "message": "Fyll i automatiskt vid sidladdning"
+  },
+  "autoFillOnPageLoadNo": {
+    "message": "Fyll inte i automatiskt vid sidladdning"
   },
   "commandOpenPopup": {
     "message": "Öppna valvet i ett popupfönster"
@@ -941,6 +988,12 @@
   },
   "disableFaviconDesc": {
     "message": "Webbplatsikoner ger en igenkännbar ikon bredvid varje inloggningsobjekt i ditt valv."
+  },
+  "disableBadgeCounter": {
+    "message": "Inaktivera märkesräknare"
+  },
+  "disableBadgeCounterDesc": {
+    "message": "Märkesräknare visar hur många inloggningar du har för den aktuella sidan i ditt valv."
   },
   "cardholderName": {
     "message": "Kortinnehavarens namn"
@@ -1439,15 +1492,265 @@
     "message": "Biometri i webbläsaren stöds inte på den här enheten."
   },
   "nativeMessaginPermissionErrorTitle": {
-    "message": "Permission not provided"
+    "message": "Behörighet ej beviljad"
   },
   "nativeMessaginPermissionErrorDesc": {
-    "message": "Without permission to communicate with the Bitwarden Desktop Application we cannot provide biometrics in the browser extension. Please try again."
+    "message": "Utan behörighet att kommunicera med Bitwardens skrivbordsprogram kan vi inte tillhandahålla biometri i webbläsartillägget. Försök igen."
+  },
+  "nativeMessaginPermissionSidebarTitle": {
+    "message": "Fel vid behörighetsbegäran"
+  },
+  "nativeMessaginPermissionSidebarDesc": {
+    "message": "Denna åtgärd kan inte utföras i sidofältet. Försök igen i popup- eller popout-fönstret."
   },
   "personalOwnershipSubmitError": {
     "message": "På grund av en av företagets policyer är du begränsad från att spara objekt till ditt personliga valv. Ändra ägarskap till en organisation och välj från tillgängliga samlingar."
   },
   "personalOwnershipPolicyInEffect": {
     "message": "En organisationspolicy påverkar dina ägarskapsalternativ."
+  },
+  "excludedDomains": {
+    "message": "Exkluderade domäner"
+  },
+  "excludedDomainsDesc": {
+    "message": "Bitwarden kommer inte att fråga om att få spara inloggningsuppgifter för dessa domäner. Du måste uppdatera sidan för att ändringarna ska träda i kraft."
+  },
+  "excludedDomainsInvalidDomain": {
+    "message": "$DOMAIN$ är inte en giltig domän",
+    "placeholders": {
+      "domain": {
+        "content": "$1",
+        "example": "googlecom"
+      }
+    }
+  },
+  "send": {
+    "message": "Försändelse",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "searchSends": {
+    "message": "Sök försändelser",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "addSend": {
+    "message": "Lägg till försändelse",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeText": {
+    "message": "Text"
+  },
+  "sendTypeFile": {
+    "message": "Fil"
+  },
+  "allSends": {
+    "message": "Alla försändelser",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "maxAccessCountReached": {
+    "message": "Det maximala antalet åtkomster har uppnåtts"
+  },
+  "expired": {
+    "message": "Utgången"
+  },
+  "pendingDeletion": {
+    "message": "Väntar på radering"
+  },
+  "passwordProtected": {
+    "message": "Lösenordsskyddad"
+  },
+  "copySendLink": {
+    "message": "Kopiera försändelselänk",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "removePassword": {
+    "message": "Ta bort lösenord"
+  },
+  "delete": {
+    "message": "Radera"
+  },
+  "removedPassword": {
+    "message": "Tog bort lösenord"
+  },
+  "deletedSend": {
+    "message": "Raderade försändelse",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLink": {
+    "message": "Försändelselänk",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "disabled": {
+    "message": "Inaktiverad"
+  },
+  "removePasswordConfirmation": {
+    "message": "Är du säker på att du vill ta bort lösenordet?"
+  },
+  "deleteSend": {
+    "message": "Radera försändelse",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deleteSendConfirmation": {
+    "message": "Är du säker på att du vill radera denna försändelse?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editSend": {
+    "message": "Redigera försändelse",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeHeader": {
+    "message": "Vilken typ av försändelse är detta?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNameDesc": {
+    "message": "Ett användarvänligt namn för att beskriva denna försändelse.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFileDesc": {
+    "message": "Filen du vill skicka."
+  },
+  "deletionDate": {
+    "message": "Raderingsdatum"
+  },
+  "deletionDateDesc": {
+    "message": "Försändelsen kommer att raderas permanent på angivet datum och tid.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "expirationDate": {
+    "message": "Utgångsdatum"
+  },
+  "expirationDateDesc": {
+    "message": "Om angivet kommer åtkomst till denna försändelse upphöra på på angivet datum och tid.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "oneDay": {
+    "message": "1 dag"
+  },
+  "days": {
+    "message": "$DAYS$ dagar",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "custom": {
+    "message": "Anpassad"
+  },
+  "maximumAccessCount": {
+    "message": "Maximalt antal åtkomster"
+  },
+  "maximumAccessCountDesc": {
+    "message": "Om angivet kommer användare inte längre komma åt denna försändelse när den maximala antalet åtkomster har uppnåtts.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDesc": {
+    "message": "Kräv ett lösenord från användare innan de kommer åt denna försändelse.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNotesDesc": {
+    "message": "Egna anteckningar om denna försändelse.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisableDesc": {
+    "message": "Inaktivera denna försändelse så att ingen kan komma åt den.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendShareDesc": {
+    "message": "Kopiera länken till den här försändelsen när den har sparats.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTextDesc": {
+    "message": "Texten du vill skicka."
+  },
+  "sendHideText": {
+    "message": "Dölj försändelsens text som standard.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "currentAccessCount": {
+    "message": "Nuvarande antal åtkomster"
+  },
+  "createSend": {
+    "message": "Skapa ny försändelse",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "newPassword": {
+    "message": "Nytt lösenord"
+  },
+  "sendDisabled": {
+    "message": "Försändelser inaktiverade",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisabledWarning": {
+    "message": "På grund av en företagspolicy kan du bara radera befintliga försändelser.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "createdSend": {
+    "message": "Skapade försändelse",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editedSend": {
+    "message": "Redigerade försändelse",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLinuxChromiumFileWarning": {
+    "message": "För att välja en fil, öppna tillägget i sidofältet (om möjligt) eller skapa ett nytt fönster genom att klicka på denna banner."
+  },
+  "sendFirefoxFileWarning": {
+    "message": "För att välja en fil med Firefox, öppna tillägget i sidofältet eller öppna ett nytt fönster genom att klicka på denna banner."
+  },
+  "sendSafariFileWarning": {
+    "message": "För att välja en fil med Safari, öppna ett nytt fönster genom att klicka på denna banner."
+  },
+  "sendFileCalloutHeader": {
+    "message": "Innan du börjar"
+  },
+  "sendFirefoxCustomDatePopoutMessage1": {
+    "message": "För att använda en datumväljare med kalenderstil",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read '**To use a calendar style date picker ** click here to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage2": {
+    "message": "klicka här",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker **click here** to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage3": {
+    "message": "för att öppna ett nytt fönster.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker click here **to pop out your window.**'"
+  },
+  "expirationDateIsInvalid": {
+    "message": "Det angivna utgångsdatumet är inte giltigt."
+  },
+  "deletionDateIsInvalid": {
+    "message": "Det angivna raderingsdatumet är inte giltigt."
+  },
+  "expirationDateAndTimeRequired": {
+    "message": "Ett utgångsdatum och tid krävs."
+  },
+  "deletionDateAndTimeRequired": {
+    "message": "Ett raderingsdatum och tid krävs."
+  },
+  "dateParsingError": {
+    "message": "Det gick inte att spara raderings- och utgångsdatum."
+  },
+  "hideEmail": {
+    "message": "Dölj min e-postadress för mottagare."
+  },
+  "sendOptionsPolicyInEffect": {
+    "message": "En eller flera organisationsriktlinjer påverkar dina Send-inställningar."
+  },
+  "passwordPrompt": {
+    "message": "Återupprepa huvudlösenord"
+  },
+  "passwordConfirmation": {
+    "message": "Bekräfta huvudlösenord"
+  },
+  "passwordConfirmationDesc": {
+    "message": "Denna åtgärd är skyddad. För att fortsätta, vänligen verifiera din identitet genom att ange ditt huvudlösenord."
+  },
+  "emailVerificationRequired": {
+    "message": "E-postverifiering krävs"
+  },
+  "emailVerificationRequiredDesc": {
+    "message": "Du måste verifiera din e-postadress för att använda den här funktionen. Du kan verifiera din e-postadress i webbvalvet."
   }
 }

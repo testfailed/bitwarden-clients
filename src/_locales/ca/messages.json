@@ -3,8 +3,8 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - Administrador de contrasenyes gratuït",
-    "description": "Extension name"
+    "message": "Bitwarden",
+    "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
     "message": "Administrador de contrasenyes segur i gratuït per a tots els vostres dispositius.",
@@ -149,6 +149,9 @@
   },
   "save": {
     "message": "Guarda"
+  },
+  "move": {
+    "message": "Desplaça"
   },
   "addFolder": {
     "message": "Afegeix carpeta"
@@ -596,6 +599,10 @@
     "message": "Clar",
     "description": "Light color"
   },
+  "solarizedDark": {
+    "message": "Solaritzat fosc",
+    "description": "'Solarized' is a noun and the name of a color scheme. It should not be translated."
+  },
   "exportVault": {
     "message": "Exporta caixa forta"
   },
@@ -612,8 +619,11 @@
   "exportWarningDesc": {
     "message": "Aquesta exportació conté les dades de la vostra caixa forta en un format no xifrat. No hauríeu d'emmagatzemar o enviar el fitxer exportat a través de canals no segurs (com ara el correu electrònic). Elimineu-lo immediatament després d'haver acabat d'usar-lo."
   },
-  "encExportWarningDesc": {
-    "message": "Aquesta exportació xifra les vostres dades mitjançant la vostra clau de xifratge. Si alguna vegada gireu eixa clau, hauríeu d'exportar de nou, ja que no podreu desxifrar aquest fitxer d'exportació."
+  "encExportKeyWarningDesc": {
+    "message": "Aquesta exportació xifra les vostres dades mitjançant la clau de xifratge del vostre compte. Si alguna vegada gireu eixa clau, hauríeu d'exportar de nou, ja que no podreu desxifrar aquest fitxer d'exportació."
+  },
+  "encExportAccountWarningDesc": {
+    "message": "Les claus de xifratge són exclusives de cada compte d'usuari Bitwarden, de manera que no podeu importar una exportació xifrada a un compte diferent."
   },
   "exportMasterPassword": {
     "message": "Introduïu la contrasenya mestra per exportar les dades de la caixa forta."
@@ -621,23 +631,33 @@
   "shared": {
     "message": "Compartit"
   },
-  "shareVault": {
-    "message": "Comparteix la vostra caixa forta"
+  "learnOrg": {
+    "message": "Més informació sobre les organitzacions"
   },
-  "shareVaultConfirmation": {
-    "message": "Bitwarden us permet compartir la vostra caixa forta amb altres usuaris mitjançant un compte d'organització. Voleu visitar el lloc web de bitwarden.com per obtenir més informació?"
+  "learnOrgConfirmation": {
+    "message": "Bitwarden us permet compartir els elements de la vostra caixa forta amb altres usuaris mitjançant una organització. Voleu visitar el lloc web de bitwarden.com per obtenir més informació?"
   },
-  "shareItem": {
-    "message": "Comparteix element"
+  "moveToOrganization": {
+    "message": "Desplaça a l'organització"
   },
   "share": {
     "message": "Comparteix"
   },
-  "sharedItem": {
-    "message": "Element compartit"
+  "movedItemToOrg": {
+    "message": "$ITEMNAME$ desplaçat a $ORGNAME$",
+    "placeholders": {
+      "itemname": {
+        "content": "$1",
+        "example": "Secret Item"
+      },
+      "orgname": {
+        "content": "$2",
+        "example": "Company Name"
+      }
+    }
   },
-  "shareDesc": {
-    "message": "Trieu una organització amb la qual vulgueu compartir aquest element. Compartir les transferències de la propietat de l'element a l'organització. Ja no sereu el propietari directe d'aquest element una vegada que s'haja compartit."
+  "moveToOrgDesc": {
+    "message": "Trieu una organització a la qual vulgueu desplaçar aquest element. El trasllat a una organització transfereix la propietat de l'element a aquesta organització. Ja no sereu el propietari directe d'aquest element una vegada s'haja mogut."
   },
   "learnMore": {
     "message": "Més informació"
@@ -679,7 +699,7 @@
     "message": "Seleccioneu un fitxer."
   },
   "maxFileSize": {
-    "message": "La mida màxima del fitxer és de 100 MB."
+    "message": "La mida màxima del fitxer és de 500 MB."
   },
   "featureUnavailable": {
     "message": "Característica no disponible"
@@ -795,6 +815,15 @@
   "insertU2f": {
     "message": "Introduïu la vostra clau de seguretat al port USB de l'ordinador. Si té un botó, premeu-lo."
   },
+  "webAuthnNewTab": {
+    "message": "\nPer iniciar la verificació de WebAuthn 2FA. Feu clic al botó següent per obrir una pestanya nova i seguiu les instruccions d'aquesta."
+  },
+  "webAuthnNewTabOpen": {
+    "message": "Obri una pestanya nova"
+  },
+  "webAuthnAuthenticate": {
+    "message": "Autenticar WebAuthn"
+  },
   "loginUnavailable": {
     "message": "Inici de sessió no disponible"
   },
@@ -834,11 +863,11 @@
     "message": "Verifiqueu amb Duo Security per a la vostra organització mitjançant l'aplicació Duo Mobile, SMS, trucada telefònica o clau de seguretat U2F.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
-  "u2fDesc": {
-    "message": "Utilitzeu qualsevol clau de seguretat habilitada per FIDO U2F per accedir al vostre compte."
+  "webAuthnTitle": {
+    "message": "FIDO2 WebAuthn"
   },
-  "u2fTitle": {
-    "message": "Clau de seguretat FIDO U2F"
+  "webAuthnDesc": {
+    "message": "Utilitzeu qualsevol clau de seguretat habilitada per WebAuthn per accedir al vostre compte."
   },
   "emailTitle": {
     "message": "Correu electrònic"
@@ -887,6 +916,24 @@
   },
   "experimentalFeature": {
     "message": "Actualment és una característica experimental. Utilitzeu sota el vostre propi risc."
+  },
+  "defaultAutoFillOnPageLoad": {
+    "message": "Configuració per defecte d'emplenament automàtic per als elements d'inici de sessió"
+  },
+  "defaultAutoFillOnPageLoadDesc": {
+    "message": "Després d'habilitar l'emplenament automàtic a la càrrega de la pàgina, podeu habilitar o inhabilitar la característica per a elements d'inici de sessió individuals. Aquesta és la configuració per defecte per als elements d'inici de sessió que no estan configurats per separat."
+  },
+  "itemAutoFillOnPageLoad": {
+    "message": "Emplenament automàtic a la càrrega de la pàgina (si està habilitat a Opcions)"
+  },
+  "autoFillOnPageLoadUseDefault": {
+    "message": "Utilitza la configuració per defecte"
+  },
+  "autoFillOnPageLoadYes": {
+    "message": "Emplenament automàtic a la càrrega de la pàgina"
+  },
+  "autoFillOnPageLoadNo": {
+    "message": "No s'emplena automàticament a la càrrega de la pàgina"
   },
   "commandOpenPopup": {
     "message": "Obri l'emergent de la caixa forta"
@@ -941,6 +988,12 @@
   },
   "disableFaviconDesc": {
     "message": "Les icones del lloc web proporcionen una imatge que es pot reconèixer al costat de cada element d'inici de sessió a la vostra caixa forta."
+  },
+  "disableBadgeCounter": {
+    "message": "Deshabilita el comptador d'insígnies"
+  },
+  "disableBadgeCounterDesc": {
+    "message": "El comptador d’insígnies indica quants inicis de sessió teniu de la pàgina actual en la vostra caixa forta."
   },
   "cardholderName": {
     "message": "Nom del titular de la targeta"
@@ -1439,15 +1492,265 @@
     "message": "La biometria del navegador no és compatible amb aquest dispositiu."
   },
   "nativeMessaginPermissionErrorTitle": {
-    "message": "Permission not provided"
+    "message": "No s'ha proporcionat el permís"
   },
   "nativeMessaginPermissionErrorDesc": {
-    "message": "Without permission to communicate with the Bitwarden Desktop Application we cannot provide biometrics in the browser extension. Please try again."
+    "message": "Sense permís per comunicar-nos amb l’aplicació d’escriptori Bitwarden, no podem proporcionar dades biomètriques a l’extensió del navegador. Torneu-ho a provar."
+  },
+  "nativeMessaginPermissionSidebarTitle": {
+    "message": "Error de sol·licitud de permís"
+  },
+  "nativeMessaginPermissionSidebarDesc": {
+    "message": "Aquesta acció no es pot fer a la barra lateral, torneu-ho a provar a la finestra emergent o l'emergent."
   },
   "personalOwnershipSubmitError": {
     "message": "A causa d'una política empresarial, no podeu guardar elements a la vostra caixa forta personal. Canvieu l'opció Propietat en organització i trieu entre les col·leccions disponibles."
   },
   "personalOwnershipPolicyInEffect": {
     "message": "Una política d’organització afecta les vostres opcions de propietat."
+  },
+  "excludedDomains": {
+    "message": "Dominis exclosos"
+  },
+  "excludedDomainsDesc": {
+    "message": "Bitwarden no demanarà que es guarden les dades d’inici de sessió d’aquests dominis. Heu d'actualitzar la pàgina perquè els canvis tinguen efecte."
+  },
+  "excludedDomainsInvalidDomain": {
+    "message": "$DOMAIN$ no és un domini vàlid",
+    "placeholders": {
+      "domain": {
+        "content": "$1",
+        "example": "googlecom"
+      }
+    }
+  },
+  "send": {
+    "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "searchSends": {
+    "message": "Cerca Sends",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "addSend": {
+    "message": "Afig Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeText": {
+    "message": "Text"
+  },
+  "sendTypeFile": {
+    "message": "Fitxer"
+  },
+  "allSends": {
+    "message": "Tots els Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "maxAccessCountReached": {
+    "message": "S'ha assolit el recompte màxim d'accesos"
+  },
+  "expired": {
+    "message": "Caducat"
+  },
+  "pendingDeletion": {
+    "message": "Pendent de supressió"
+  },
+  "passwordProtected": {
+    "message": "Protegit amb contrasenya"
+  },
+  "copySendLink": {
+    "message": "Copia l'enllaç Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "removePassword": {
+    "message": "Suprimeix la contrasenya"
+  },
+  "delete": {
+    "message": "Suprimeix"
+  },
+  "removedPassword": {
+    "message": "Contrasenya suprimida"
+  },
+  "deletedSend": {
+    "message": "Send suprimit",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLink": {
+    "message": "Enllaç Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "disabled": {
+    "message": "Deshabilitat"
+  },
+  "removePasswordConfirmation": {
+    "message": "Esteu segur que voleu suprimir la contrasenya?"
+  },
+  "deleteSend": {
+    "message": "Suprimeix el Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deleteSendConfirmation": {
+    "message": "Esteu segur que voleu suprimir aquest Send?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editSend": {
+    "message": "Edita Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeHeader": {
+    "message": "Quin tipus de Send és aquest?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNameDesc": {
+    "message": "Un nom apropiat per descriure aquest Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFileDesc": {
+    "message": "El fitxer que voleu enviar."
+  },
+  "deletionDate": {
+    "message": "Data de supressió"
+  },
+  "deletionDateDesc": {
+    "message": "L'enviament se suprimirà permanentment a la data i hora especificades.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "expirationDate": {
+    "message": "Data de caducitat"
+  },
+  "expirationDateDesc": {
+    "message": "Si s'estableix, l'accés a aquest enviament caducarà en la data i hora especificades.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "oneDay": {
+    "message": "1 dia"
+  },
+  "days": {
+    "message": "$DAYS$ dies",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "custom": {
+    "message": "Personalitzat"
+  },
+  "maximumAccessCount": {
+    "message": "Recompte màxim d'accessos"
+  },
+  "maximumAccessCountDesc": {
+    "message": "Si s’estableix, els usuaris ja no podran accedir a aquest Send una vegada s’assolisca el nombre màxim d’accessos.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDesc": {
+    "message": "Opcionalment, necessiteu una contrasenya perquè els usuaris accedisquen a aquest Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNotesDesc": {
+    "message": "Notes privades sobre aquest Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisableDesc": {
+    "message": "Desactiveu aquest Send perquè ningú no hi puga accedir.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendShareDesc": {
+    "message": "Copieu l'enllaç d'aquest Send al porta-retalls després de guardar-lo.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTextDesc": {
+    "message": "El text que voleu enviar."
+  },
+  "sendHideText": {
+    "message": "Amaga el text d'aquest Send per defecte.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "currentAccessCount": {
+    "message": "Recompte d’accessos actual"
+  },
+  "createSend": {
+    "message": "Crea un nou Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "newPassword": {
+    "message": "Contrasenya nova"
+  },
+  "sendDisabled": {
+    "message": "Send desactivat",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisabledWarning": {
+    "message": "A causa d'una política empresarial, només podeu suprimir un Send existent.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "createdSend": {
+    "message": "Send creat",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editedSend": {
+    "message": "Send editat",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLinuxChromiumFileWarning": {
+    "message": "Per triar un fitxer, obriu l'extensió a la barra lateral (si és possible) o eixiu a una finestra nova fent clic a aquest bàner."
+  },
+  "sendFirefoxFileWarning": {
+    "message": "Per triar un fitxer mitjançant Firefox, obriu l'extensió a la barra lateral o bé apareixerà a una finestra nova fent clic a aquest bàner."
+  },
+  "sendSafariFileWarning": {
+    "message": "Per triar un fitxer mitjançant Safari, eixiu a una finestra nova fent clic en aquest bàner."
+  },
+  "sendFileCalloutHeader": {
+    "message": "Abans de començar"
+  },
+  "sendFirefoxCustomDatePopoutMessage1": {
+    "message": "Per utilitzar un selector de dates d'estil calendari",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read '**To use a calendar style date picker ** click here to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage2": {
+    "message": "feu clic ací",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker **click here** to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage3": {
+    "message": "per eixir de la finestra.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker click here **to pop out your window.**'"
+  },
+  "expirationDateIsInvalid": {
+    "message": "La data de caducitat proporcionada no és vàlida."
+  },
+  "deletionDateIsInvalid": {
+    "message": "La data de supressió proporcionada no és vàlida."
+  },
+  "expirationDateAndTimeRequired": {
+    "message": "Requereix una data i hora de caducitat."
+  },
+  "deletionDateAndTimeRequired": {
+    "message": "Requereix una data i hora de supressió."
+  },
+  "dateParsingError": {
+    "message": "S'ha produït un error en guardar les dates de supressió i caducitat."
+  },
+  "hideEmail": {
+    "message": "Amagueu la meua adreça de correu electrònic als destinataris."
+  },
+  "sendOptionsPolicyInEffect": {
+    "message": "Una o més polítiques d'organització afecten les vostres opcions del Send."
+  },
+  "passwordPrompt": {
+    "message": "Sol·licitud de la contrasenya mestra"
+  },
+  "passwordConfirmation": {
+    "message": "Confirmació de la contrasenya mestra"
+  },
+  "passwordConfirmationDesc": {
+    "message": "Aquesta acció està protegida. Per continuar, torneu a introduir la contrasenya principal per verificar la vostra identitat."
+  },
+  "emailVerificationRequired": {
+    "message": "Es requereix verificació del correu electrònic"
+  },
+  "emailVerificationRequiredDesc": {
+    "message": "Heu de verificar el correu electrònic per utilitzar aquesta característica. Podeu verificar el vostre correu electrònic a la caixa forta web."
   }
 }

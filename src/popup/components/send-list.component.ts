@@ -5,9 +5,9 @@ import {
     Output,
 } from '@angular/core';
 
-import { SendView } from 'jslib/models/view/sendView';
+import { SendView } from 'jslib-common/models/view/sendView';
 
-import { SendType } from 'jslib/enums/sendType';
+import { SendType } from 'jslib-common/enums/sendType';
 
 @Component({
     selector: 'app-send-list',
@@ -16,6 +16,7 @@ import { SendType } from 'jslib/enums/sendType';
 export class SendListComponent {
     @Input() sends: SendView[];
     @Input() title: string;
+    @Input() disabledByPolicy = false;
     @Output() onSelected = new EventEmitter<SendView>();
     @Output() onCopySendLink = new EventEmitter<SendView>();
     @Output() onRemovePassword = new EventEmitter<SendView>();

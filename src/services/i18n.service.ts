@@ -1,4 +1,4 @@
-import { I18nService as BaseI18nService } from 'jslib/services/i18n.service';
+import { I18nService as BaseI18nService } from 'jslib-common/services/i18n.service';
 
 export default class I18nService extends BaseI18nService {
     constructor(systemLanguage: string) {
@@ -9,8 +9,8 @@ export default class I18nService extends BaseI18nService {
         });
 
         this.supportedTranslationLocales = [
-            'en', 'be', 'bg', 'ca', 'cs', 'da', 'de', 'el', 'en-GB', 'es', 'et', 'fa', 'fi', 'fr', 'he', 'hr', 'hu',
-            'id', 'it', 'ja', 'ko', 'nb', 'nl', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'sk', 'sr', 'sv', 'th', 'tr', 'uk',
+            'az', 'en', 'be', 'bg', 'bn', 'ca', 'cs', 'da', 'de', 'el', 'en-GB', 'en-IN', 'es', 'et', 'fa', 'fi', 'fr', 'he', 'hr', 'hu',
+            'id', 'it', 'ja', 'kn', 'ko', 'lv', 'ml', 'nb', 'nl', 'pl', 'pt-BR', 'pt-PT', 'ro', 'ru', 'sk', 'sr', 'sv', 'th', 'tr', 'uk',
             'vi', 'zh-CN', 'zh-TW',
         ];
     }

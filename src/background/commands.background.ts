@@ -2,19 +2,16 @@ import { BrowserApi } from '../browser/browserApi';
 
 import MainBackground from './main.background';
 
-import { Analytics } from 'jslib/misc';
-
-import { PasswordGenerationService } from 'jslib/abstractions/passwordGeneration.service';
-import { PlatformUtilsService } from 'jslib/abstractions/platformUtils.service';
-import { VaultTimeoutService } from 'jslib/abstractions/vaultTimeout.service';
+import { PasswordGenerationService } from 'jslib-common/abstractions/passwordGeneration.service';
+import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
+import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 
 export default class CommandsBackground {
     private isSafari: boolean;
     private isVivaldi: boolean;
 
     constructor(private main: MainBackground, private passwordGenerationService: PasswordGenerationService,
-        private platformUtilsService: PlatformUtilsService, private analytics: Analytics,
-        private vaultTimeoutService: VaultTimeoutService) {
+        private platformUtilsService: PlatformUtilsService, private vaultTimeoutService: VaultTimeoutService) {
         this.isSafari = this.platformUtilsService.isSafari();
         this.isVivaldi = this.platformUtilsService.isVivaldi();
     }
@@ -57,11 +54,6 @@ export default class CommandsBackground {
         const password = await this.passwordGenerationService.generatePassword(options);
         this.platformUtilsService.copyToClipboard(password, { window: window });
         this.passwordGenerationService.addHistory(password);
-
-        this.analytics.ga('send', {
-            hitType: 'event',
-            eventAction: 'Generated Password From Command',
-        });
     }
 
     private async autoFillLogin(tab?: any) {
@@ -78,11 +70,6 @@ export default class CommandsBackground {
         }
 
         await this.main.collectPageDetailsForContentScript(tab, 'autofill_cmd');
-
-        this.analytics.ga('send', {
-            hitType: 'event',
-            eventAction: 'Autofilled From Command',
-        });
     }
 
     private async openPopup() {
@@ -92,9 +79,5 @@ export default class CommandsBackground {
         }
 
         this.main.openPopup();
-        this.analytics.ga('send', {
-            hitType: 'event',
-            eventAction: 'Opened Popup From Command',
-        });
     }
 }

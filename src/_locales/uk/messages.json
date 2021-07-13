@@ -3,8 +3,8 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - Безкоштовний менеджер паролів",
-    "description": "Extension name"
+    "message": "Bitwarden",
+    "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
     "message": "Bitwarden - це захищений і безкоштовний менеджер паролів для всіх ваших пристроїв.",
@@ -149,6 +149,9 @@
   },
   "save": {
     "message": "Зберегти"
+  },
+  "move": {
+    "message": "Перемістити"
   },
   "addFolder": {
     "message": "Додати теку"
@@ -596,6 +599,10 @@
     "message": "Світла",
     "description": "Light color"
   },
+  "solarizedDark": {
+    "message": "Solarized темна",
+    "description": "'Solarized' is a noun and the name of a color scheme. It should not be translated."
+  },
   "exportVault": {
     "message": "Експорт сховища"
   },
@@ -612,8 +619,11 @@
   "exportWarningDesc": {
     "message": "Експортовані дані вашого сховища знаходяться в незашифрованому вигляді. Вам не слід зберігати чи надсилати їх через незахищені канали (наприклад, е-поштою). Після використання негайно видаліть їх."
   },
-  "encExportWarningDesc": {
+  "encExportKeyWarningDesc": {
     "message": "Цей експорт шифрує ваші дані за допомогою ключа шифрування облікового запису. Якщо ви коли-небудь оновите ключ шифрування облікового запису, ви повинні виконати експорт знову, оскільки не зможете розшифрувати цей файл експорту."
+  },
+  "encExportAccountWarningDesc": {
+    "message": "Ключі шифрування унікальні для кожного облікового запису користувача Bitwarden, тому ви не можете імпортувати зашифрований експорт до іншого облікового запису."
   },
   "exportMasterPassword": {
     "message": "Введіть головний пароль, щоб експортувати дані сховища."
@@ -621,23 +631,33 @@
   "shared": {
     "message": "Спільні"
   },
-  "shareVault": {
-    "message": "Поділитися своїм сховищем"
+  "learnOrg": {
+    "message": "Докладніше про організації"
   },
-  "shareVaultConfirmation": {
-    "message": "Bitwarden дозволяє вам надавати доступ до свого сховища іншим за допомогою облікового запису організації. Чи не бажаєте перейти на вебсайт bitwarden.com, щоб дізнатися більше?"
+  "learnOrgConfirmation": {
+    "message": "Bitwarden дозволяє вам надавати доступ до записів свого сховища іншим за допомогою облікового запису організації. Бажаєте перейти на веб-сайт bitwarden.com, щоб дізнатися більше?"
   },
-  "shareItem": {
-    "message": "Поділитися записом"
+  "moveToOrganization": {
+    "message": "Перемістити до організації"
   },
   "share": {
     "message": "Поділитися"
   },
-  "sharedItem": {
-    "message": "Спільний запис"
+  "movedItemToOrg": {
+    "message": "$ITEMNAME$ переміщено до $ORGNAME$",
+    "placeholders": {
+      "itemname": {
+        "content": "$1",
+        "example": "Secret Item"
+      },
+      "orgname": {
+        "content": "$2",
+        "example": "Company Name"
+      }
+    }
   },
-  "shareDesc": {
-    "message": "Оберіть організацію, з якою хочете поділитися. Зробивши це, ви передасте доступ до цього запису іншій організації та більше не будете його одноосібним власником."
+  "moveToOrgDesc": {
+    "message": "Виберіть організацію, до якої ви бажаєте перемістити цей запис. При переміщенні до організації власність запису передається тій організації. Ви більше не будете єдиним власником цього запису після переміщення."
   },
   "learnMore": {
     "message": "Докладніше"
@@ -679,7 +699,7 @@
     "message": "Оберіть файл."
   },
   "maxFileSize": {
-    "message": "Максимальний розмір файлу 100 Мб."
+    "message": "Максимальний розмір файлу 500 Мб."
   },
   "featureUnavailable": {
     "message": "Функція недоступна"
@@ -795,6 +815,15 @@
   "insertU2f": {
     "message": "Вставте свій ключ безпеки в USB порт комп'ютера. Якщо в нього є кнопка, натисніть її."
   },
+  "webAuthnNewTab": {
+    "message": "Щоб почати перевірку WebAuthn 2FA, натисніть кнопку внизу для відкриття нової вкладки і дотримуйтесь зазначених на ній настанов."
+  },
+  "webAuthnNewTabOpen": {
+    "message": "Відкрити нову вкладку"
+  },
+  "webAuthnAuthenticate": {
+    "message": "Авторизація WebAuthn"
+  },
   "loginUnavailable": {
     "message": "Вхід недоступний"
   },
@@ -834,11 +863,11 @@
     "message": "Авторизуйтесь за допомогою Duo Security для вашої організації з використанням мобільного додатку Duo Mobile, SMS, телефонного виклику, або ключа безпеки U2F.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
-  "u2fDesc": {
-    "message": "Використовуйте будь-який ключ безпеки FIDO U2F для доступу до сховища."
+  "webAuthnTitle": {
+    "message": "FIDO2 WebAuthn"
   },
-  "u2fTitle": {
-    "message": "Ключ безпеки FIDO U2F"
+  "webAuthnDesc": {
+    "message": "Використовуйте будь-який ключ безпеки WebAuthn для доступу до сховища."
   },
   "emailTitle": {
     "message": "Е-пошта"
@@ -887,6 +916,24 @@
   },
   "experimentalFeature": {
     "message": "Це експериментальна функція. При її використанні ви берете ризик на себе."
+  },
+  "defaultAutoFillOnPageLoad": {
+    "message": "Типове налаштування автозаповнення для записів входу"
+  },
+  "defaultAutoFillOnPageLoadDesc": {
+    "message": "Після увімкнення автозаповнення на сторінці ви можете увімкнути чи вимкнути цю функцію для окремих записів входу. Це налаштування є типовим для записів входу, які не мають окремого налаштування."
+  },
+  "itemAutoFillOnPageLoad": {
+    "message": "Автозаповнення на сторінці (якщо не увімкнено в налаштуваннях)"
+  },
+  "autoFillOnPageLoadUseDefault": {
+    "message": "Типове налаштування"
+  },
+  "autoFillOnPageLoadYes": {
+    "message": "Автозаповнення на сторінці"
+  },
+  "autoFillOnPageLoadNo": {
+    "message": "Не заповнювати автоматично"
   },
   "commandOpenPopup": {
     "message": "Відкрити сховище у виринаючому вікні"
@@ -941,6 +988,12 @@
   },
   "disableFaviconDesc": {
     "message": "Впізнавані піктограми вебсайтів додаються біля кожного запису вашого сховища."
+  },
+  "disableBadgeCounter": {
+    "message": "Вимкнути лічильник значка"
+  },
+  "disableBadgeCounterDesc": {
+    "message": "Лічильник значка показує кількість записів у сховищі для поточної сторінки."
   },
   "cardholderName": {
     "message": "Ім'я власника картки"
@@ -1278,7 +1331,7 @@
     "message": "Клонувати"
   },
   "passwordGeneratorPolicyInEffect": {
-    "message": "Політика однієї або декількох організацій впливає на ваші параметри генерування."
+    "message": "На параметри генератора впливають одна чи декілька політик організації."
   },
   "vaultTimeoutAction": {
     "message": "Дія після часу очікування сховища"
@@ -1331,7 +1384,7 @@
     "message": "Встановити головний пароль"
   },
   "masterPasswordPolicyInEffect": {
-    "message": "Одна або декілька політик організації зобов'язують дотримання таких вимог для головного пароля:"
+    "message": "Одна або декілька політик організації вимагають дотримання таких вимог для головного пароля:"
   },
   "policyInEffectMinComplexity": {
     "message": "Мінімальний рівень складності $SCORE$",
@@ -1439,15 +1492,265 @@
     "message": "Біометрія в браузері не підтримується на цьому пристрої."
   },
   "nativeMessaginPermissionErrorTitle": {
-    "message": "Permission not provided"
+    "message": "Дозвіл не надано"
   },
   "nativeMessaginPermissionErrorDesc": {
-    "message": "Without permission to communicate with the Bitwarden Desktop Application we cannot provide biometrics in the browser extension. Please try again."
+    "message": "Без дозволу з'єднання з програмою Bitwarden на комп'ютері неможливо використовувати біометрію в розширенні браузера. Спробуйте знову."
+  },
+  "nativeMessaginPermissionSidebarTitle": {
+    "message": "Помилка запиту дозволу"
+  },
+  "nativeMessaginPermissionSidebarDesc": {
+    "message": "Цю дію неможливо виконати в бічній панелі. Спробуйте знову в спливному чи окремому вікні."
   },
   "personalOwnershipSubmitError": {
     "message": "У зв'язку з корпоративною політикою, вам не дозволено зберігати записи до особистого сховища. Змініть налаштування власності на організацію та виберіть серед доступних збірок."
   },
   "personalOwnershipPolicyInEffect": {
     "message": "Політика організації впливає на ваші параметри власності."
+  },
+  "excludedDomains": {
+    "message": "Виключені домени"
+  },
+  "excludedDomainsDesc": {
+    "message": "Bitwarden не запитуватиме про збереження даних входу для цих доменів. Ви повинні оновити сторінку для застосування змін."
+  },
+  "excludedDomainsInvalidDomain": {
+    "message": "$DOMAIN$ не є дійсним доменом",
+    "placeholders": {
+      "domain": {
+        "content": "$1",
+        "example": "googlecom"
+      }
+    }
+  },
+  "send": {
+    "message": "Відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "searchSends": {
+    "message": "Пошук відправлень",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "addSend": {
+    "message": "Додати відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeText": {
+    "message": "Текст"
+  },
+  "sendTypeFile": {
+    "message": "Файл"
+  },
+  "allSends": {
+    "message": "Усі відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "maxAccessCountReached": {
+    "message": "Досягнуто максимальну кількість доступів"
+  },
+  "expired": {
+    "message": "Термін дії завершився"
+  },
+  "pendingDeletion": {
+    "message": "Очікується видалення"
+  },
+  "passwordProtected": {
+    "message": "Захищено паролем"
+  },
+  "copySendLink": {
+    "message": "Копіювати посилання відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "removePassword": {
+    "message": "Вилучити пароль"
+  },
+  "delete": {
+    "message": "Видалити"
+  },
+  "removedPassword": {
+    "message": "Пароль вилучено"
+  },
+  "deletedSend": {
+    "message": "Відправлення видалено",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLink": {
+    "message": "Посилання на відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "disabled": {
+    "message": "Вимкнено"
+  },
+  "removePasswordConfirmation": {
+    "message": "Ви дійсно хочете вилучити пароль?"
+  },
+  "deleteSend": {
+    "message": "Видалити відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deleteSendConfirmation": {
+    "message": "Ви дійсно хочете видалити це відправлення?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editSend": {
+    "message": "Змінити відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeHeader": {
+    "message": "Який це тип відправлення?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNameDesc": {
+    "message": "Опис цього відправлення.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFileDesc": {
+    "message": "Файл, який ви хочете відправити."
+  },
+  "deletionDate": {
+    "message": "Дата видалення"
+  },
+  "deletionDateDesc": {
+    "message": "Відправлення буде остаточно видалено у вказаний час.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "expirationDate": {
+    "message": "Дата завершення"
+  },
+  "expirationDateDesc": {
+    "message": "Якщо встановлено, термін дії цього відправлення завершиться у вказаний час.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "oneDay": {
+    "message": "1 день"
+  },
+  "days": {
+    "message": "$DAYS$ днів",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "custom": {
+    "message": "Спеціальний"
+  },
+  "maximumAccessCount": {
+    "message": "Максимальна кількість доступів"
+  },
+  "maximumAccessCountDesc": {
+    "message": "Якщо встановлено, користувачі більше не зможуть отримати доступ до цього відправлення після досягнення максимальної кількості доступів.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDesc": {
+    "message": "За бажанням вимагати пароль в користувачів для доступу до цього відправлення.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNotesDesc": {
+    "message": "Особисті нотатки про це відправлення.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisableDesc": {
+    "message": "Деактивувати це відправлення для скасування доступу до нього.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendShareDesc": {
+    "message": "Копіювати посилання цього відправлення перед збереженням.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTextDesc": {
+    "message": "Текст, який ви хочете відправити."
+  },
+  "sendHideText": {
+    "message": "Приховувати текст цього відправлення.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "currentAccessCount": {
+    "message": "Поточна кількість доступів"
+  },
+  "createSend": {
+    "message": "Створити нове відправлення",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "newPassword": {
+    "message": "Новий пароль"
+  },
+  "sendDisabled": {
+    "message": "Відправлення вимкнено",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisabledWarning": {
+    "message": "У зв'язку з політикою компанії, ви можете лише видалити наявне відправлення.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "createdSend": {
+    "message": "Відправлення створено",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editedSend": {
+    "message": "Відправлення змінено",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLinuxChromiumFileWarning": {
+    "message": "Щоб вибрати файл, відкрийте розширення в бічній панелі (якщо можливо) або в новому вікні, натиснувши цей банер."
+  },
+  "sendFirefoxFileWarning": {
+    "message": "Щоб вибрати файл з використанням Firefox, відкрийте розширення в бічній панелі або в новому вікні, натиснувши цей банер."
+  },
+  "sendSafariFileWarning": {
+    "message": "Щоб вибрати файл з використанням Safari, відкрийте розширення в новому вікні, натиснувши на цей банер."
+  },
+  "sendFileCalloutHeader": {
+    "message": "Перед початком"
+  },
+  "sendFirefoxCustomDatePopoutMessage1": {
+    "message": "Щоб використовувати календарний стиль вибору дати",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read '**To use a calendar style date picker ** click here to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage2": {
+    "message": "натисніть тут",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker **click here** to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage3": {
+    "message": "щоб відкріпити ваше вікно.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker click here **to pop out your window.**'"
+  },
+  "expirationDateIsInvalid": {
+    "message": "Вказано недійсний термін дії."
+  },
+  "deletionDateIsInvalid": {
+    "message": "Вказано недійсну дату видалення."
+  },
+  "expirationDateAndTimeRequired": {
+    "message": "Необхідно вказати час і дату терміну дії."
+  },
+  "deletionDateAndTimeRequired": {
+    "message": "Необхідно вказати час і дату видалення."
+  },
+  "dateParsingError": {
+    "message": "При збереженні дат видалення і терміну дії виникла помилка."
+  },
+  "hideEmail": {
+    "message": "Приховувати мою адресу електронної пошти від отримувачів."
+  },
+  "sendOptionsPolicyInEffect": {
+    "message": "На параметри відправлень впливають одна чи декілька політик організації."
+  },
+  "passwordPrompt": {
+    "message": "Повторний запит головного пароля"
+  },
+  "passwordConfirmation": {
+    "message": "Підтвердження головного пароля"
+  },
+  "passwordConfirmationDesc": {
+    "message": "Ця дія захищена. Щоб продовжити, повторно введіть головний пароль."
+  },
+  "emailVerificationRequired": {
+    "message": "Необхідно підтвердити е-пошту"
+  },
+  "emailVerificationRequiredDesc": {
+    "message": "Для використання цієї функції необхідно підтвердити електронну пошту. Ви можете виконати підтвердження у веб сховищі."
   }
 }

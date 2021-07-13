@@ -6,53 +6,57 @@ import {
 
 import { ToasterModule } from 'angular2-toaster';
 
+import { DebounceNavigationService } from './debounceNavigationService';
 import { LaunchGuardService } from './launch-guard.service';
+import { LockGuardService } from './lock-guard.service';
+import { UnauthGuardService } from './unauth-guard.service';
 
-import { AuthGuardService } from 'jslib/angular/services/auth-guard.service';
-import { BroadcasterService } from 'jslib/angular/services/broadcaster.service';
-import { ValidationService } from 'jslib/angular/services/validation.service';
+import { AuthGuardService } from 'jslib-angular/services/auth-guard.service';
+import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
+import { ValidationService } from 'jslib-angular/services/validation.service';
 
 import { BrowserApi } from '../../browser/browserApi';
 
-import { ApiService } from 'jslib/abstractions/api.service';
-import { AppIdService } from 'jslib/abstractions/appId.service';
-import { AuditService } from 'jslib/abstractions/audit.service';
-import { AuthService as AuthServiceAbstraction } from 'jslib/abstractions/auth.service';
-import { CipherService } from 'jslib/abstractions/cipher.service';
-import { CollectionService } from 'jslib/abstractions/collection.service';
-import { CryptoFunctionService } from 'jslib/abstractions/cryptoFunction.service';
-import { CryptoService } from 'jslib/abstractions/crypto.service';
-import { EnvironmentService } from 'jslib/abstractions/environment.service';
-import { EventService } from 'jslib/abstractions/event.service';
-import { ExportService } from 'jslib/abstractions/export.service';
-import { FolderService } from 'jslib/abstractions/folder.service';
-import { I18nService } from 'jslib/abstractions/i18n.service';
-import { MessagingService } from 'jslib/abstractions/messaging.service';
-import { NotificationsService } from 'jslib/abstractions/notifications.service';
-import { PasswordGenerationService } from 'jslib/abstractions/passwordGeneration.service';
-import { PlatformUtilsService } from 'jslib/abstractions/platformUtils.service';
-import { PolicyService } from 'jslib/abstractions/policy.service';
-import { SearchService as SearchServiceAbstraction } from 'jslib/abstractions/search.service';
-import { SendService } from 'jslib/abstractions/send.service';
-import { SettingsService } from 'jslib/abstractions/settings.service';
-import { StateService as StateServiceAbstraction } from 'jslib/abstractions/state.service';
-import { StorageService } from 'jslib/abstractions/storage.service';
-import { SyncService } from 'jslib/abstractions/sync.service';
-import { TokenService } from 'jslib/abstractions/token.service';
-import { TotpService } from 'jslib/abstractions/totp.service';
-import { UserService } from 'jslib/abstractions/user.service';
-import { VaultTimeoutService } from 'jslib/abstractions/vaultTimeout.service';
+import { ApiService } from 'jslib-common/abstractions/api.service';
+import { AppIdService } from 'jslib-common/abstractions/appId.service';
+import { AuditService } from 'jslib-common/abstractions/audit.service';
+import { AuthService as AuthServiceAbstraction } from 'jslib-common/abstractions/auth.service';
+import { CipherService } from 'jslib-common/abstractions/cipher.service';
+import { CollectionService } from 'jslib-common/abstractions/collection.service';
+import { CryptoService } from 'jslib-common/abstractions/crypto.service';
+import { CryptoFunctionService } from 'jslib-common/abstractions/cryptoFunction.service';
+import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
+import { EventService } from 'jslib-common/abstractions/event.service';
+import { ExportService } from 'jslib-common/abstractions/export.service';
+import { FileUploadService } from 'jslib-common/abstractions/fileUpload.service';
+import { FolderService } from 'jslib-common/abstractions/folder.service';
+import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { MessagingService } from 'jslib-common/abstractions/messaging.service';
+import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
+import { PasswordGenerationService } from 'jslib-common/abstractions/passwordGeneration.service';
+import { PasswordRepromptService as PasswordRepromptServiceAbstraction } from 'jslib-common/abstractions/passwordReprompt.service';
+import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
+import { PolicyService } from 'jslib-common/abstractions/policy.service';
+import { SearchService as SearchServiceAbstraction } from 'jslib-common/abstractions/search.service';
+import { SendService } from 'jslib-common/abstractions/send.service';
+import { SettingsService } from 'jslib-common/abstractions/settings.service';
+import { StateService as StateServiceAbstraction } from 'jslib-common/abstractions/state.service';
+import { StorageService } from 'jslib-common/abstractions/storage.service';
+import { SyncService } from 'jslib-common/abstractions/sync.service';
+import { TokenService } from 'jslib-common/abstractions/token.service';
+import { TotpService } from 'jslib-common/abstractions/totp.service';
+import { UserService } from 'jslib-common/abstractions/user.service';
+import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
+import { PasswordRepromptService } from 'jslib-common/services/passwordReprompt.service';
 
 import { AutofillService } from '../../services/abstractions/autofill.service';
 import BrowserMessagingService from '../../services/browserMessaging.service';
 
-import { AuthService } from 'jslib/services/auth.service';
-import { ConstantsService } from 'jslib/services/constants.service';
-import { SearchService } from 'jslib/services/search.service';
-import { StateService } from 'jslib/services/state.service';
-import { ConsoleLogService } from 'jslib/services/consoleLog.service';
-
-import { Analytics } from 'jslib/misc/analytics';
+import { AuthService } from 'jslib-common/services/auth.service';
+import { ConsoleLogService } from 'jslib-common/services/consoleLog.service';
+import { ConstantsService } from 'jslib-common/services/constants.service';
+import { SearchService } from 'jslib-common/services/search.service';
+import { StateService } from 'jslib-common/services/state.service';
 
 import { PopupSearchService } from './popup-search.service';
 import { PopupUtilsService } from './popup-utils.service';
@@ -64,15 +68,15 @@ function getBgService<T>(service: string) {
     };
 }
 
-export const stateService = new StateService();
-export const messagingService = new BrowserMessagingService();
-export const authService = new AuthService(getBgService<CryptoService>('cryptoService')(),
-    getBgService<ApiService>('apiService')(), getBgService<UserService>('userService')(),
-    getBgService<TokenService>('tokenService')(), getBgService<AppIdService>('appIdService')(),
-    getBgService<I18nService>('i18nService')(), getBgService<PlatformUtilsService>('platformUtilsService')(),
-    messagingService, getBgService<VaultTimeoutService>('vaultTimeoutService')(), getBgService<ConsoleLogService>('consoleLogService')());
-export const searchService = new PopupSearchService(getBgService<SearchService>('searchService')(),
-    getBgService<CipherService>('cipherService')(), getBgService<ConsoleLogService>('consoleLogService')());
+const isPrivateMode = BrowserApi.getBackgroundPage() == null;
+
+const stateService = new StateService();
+const messagingService = new BrowserMessagingService();
+const searchService = isPrivateMode ? null : new PopupSearchService(getBgService<SearchService>('searchService')(),
+    getBgService<CipherService>('cipherService')(), getBgService<ConsoleLogService>('consoleLogService')(),
+    getBgService<I18nService>('i18nService')());
+const passwordRepromptService = isPrivateMode ? null : new PasswordRepromptService(getBgService<I18nService>('i18nService')(),
+    getBgService<CryptoService>('cryptoService')(), getBgService<PlatformUtilsService>('platformUtilsService')());
 
 export function initFactory(platformUtilsService: PlatformUtilsService, i18nService: I18nService, storageService: StorageService,
     popupUtilsService: PopupUtilsService): Function {
@@ -85,31 +89,24 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
             window.document.body.classList.add('body-sm');
         }
 
-        if (BrowserApi.getBackgroundPage() != null) {
-            stateService.save(ConstantsService.disableFaviconKey,
+        if (!isPrivateMode) {
+            await stateService.save(ConstantsService.disableFaviconKey,
                 await storageService.get<boolean>(ConstantsService.disableFaviconKey));
+
+            await stateService.save(ConstantsService.disableBadgeCounterKey,
+                await storageService.get<boolean>(ConstantsService.disableBadgeCounterKey));
 
             let theme = await storageService.get<string>(ConstantsService.themeKey);
             if (theme == null) {
-                theme = platformUtilsService.getDefaultSystemTheme();
+                theme = await platformUtilsService.getDefaultSystemTheme();
 
-                platformUtilsService.onDefaultSystemThemeChange((theme) => {
+                platformUtilsService.onDefaultSystemThemeChange(sysTheme => {
                     window.document.documentElement.classList.remove('theme_light', 'theme_dark');
-                    window.document.documentElement.classList.add('theme_' + theme);
+                    window.document.documentElement.classList.add('theme_' + sysTheme);
                 });
             }
             window.document.documentElement.classList.add('locale_' + i18nService.translationLocale);
             window.document.documentElement.classList.add('theme_' + theme);
-
-            authService.init();
-
-            const analytics = new Analytics(window, () => BrowserApi.gaFilter(), null, null, null, () => {
-                const bgPage = BrowserApi.getBackgroundPage();
-                if (bgPage == null || bgPage.bitwardenMain == null) {
-                    throw new Error('Cannot resolve background page main.');
-                }
-                return bgPage.bitwardenMain;
-            });
         }
     };
 }
@@ -122,14 +119,18 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
     providers: [
         ValidationService,
         AuthGuardService,
+        LockGuardService,
         LaunchGuardService,
+        UnauthGuardService,
+        DebounceNavigationService,
         PopupUtilsService,
         BroadcasterService,
         { provide: MessagingService, useValue: messagingService },
-        { provide: AuthServiceAbstraction, useValue: authService },
+        { provide: AuthServiceAbstraction, useFactory: getBgService<AuthService>('authService'), deps: [] },
         { provide: StateServiceAbstraction, useValue: stateService },
         { provide: SearchServiceAbstraction, useValue: searchService },
         { provide: AuditService, useFactory: getBgService<AuditService>('auditService'), deps: [] },
+        { provide: FileUploadService, useFactory: getBgService<FileUploadService>('fileUploadService'), deps: [] },
         { provide: CipherService, useFactory: getBgService<CipherService>('cipherService'), deps: [] },
         {
             provide: CryptoFunctionService,
@@ -182,9 +183,10 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         },
         {
             provide: LOCALE_ID,
-            useFactory: () => getBgService<I18nService>('i18nService')().translationLocale,
+            useFactory: () => isPrivateMode ? null : getBgService<I18nService>('i18nService')().translationLocale,
             deps: [],
         },
+        { provide: PasswordRepromptServiceAbstraction, useValue: passwordRepromptService },
     ],
 })
 export class ServicesModule {

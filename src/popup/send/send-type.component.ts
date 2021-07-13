@@ -6,28 +6,29 @@ import {
 
 import {
     ActivatedRoute,
+    Router,
 } from '@angular/router';
 
 import { Location } from '@angular/common';
 
-import { SendView } from 'jslib/models/view/sendView';
+import { SendView } from 'jslib-common/models/view/sendView';
 
-import { SendComponent as BaseSendComponent } from 'jslib/angular/components/send/send.component';
+import { SendComponent as BaseSendComponent } from 'jslib-angular/components/send/send.component';
 
-import { EnvironmentService } from 'jslib/abstractions/environment.service';
-import { I18nService } from 'jslib/abstractions/i18n.service';
-import { PlatformUtilsService } from 'jslib/abstractions/platformUtils.service';
-import { PolicyService } from 'jslib/abstractions/policy.service';
-import { SearchService } from 'jslib/abstractions/search.service';
-import { SendService } from 'jslib/abstractions/send.service';
-import { StateService } from 'jslib/abstractions/state.service';
-import { UserService } from 'jslib/abstractions/user.service';
+import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
+import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
+import { PolicyService } from 'jslib-common/abstractions/policy.service';
+import { SearchService } from 'jslib-common/abstractions/search.service';
+import { SendService } from 'jslib-common/abstractions/send.service';
+import { StateService } from 'jslib-common/abstractions/state.service';
+import { UserService } from 'jslib-common/abstractions/user.service';
 
-import { BroadcasterService } from 'jslib/angular/services/broadcaster.service';
+import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 
-import { SendType } from 'jslib/enums/sendType';
+import { SendType } from 'jslib-common/enums/sendType';
 
 const ComponentId = 'SendTypeComponent';
 
@@ -47,7 +48,7 @@ export class SendTypeComponent extends BaseSendComponent {
         policyService: PolicyService, userService: UserService, searchService: SearchService,
         private popupUtils: PopupUtilsService, private stateService: StateService,
         private route: ActivatedRoute, private location: Location, private changeDetectorRef: ChangeDetectorRef,
-        private broadcasterService: BroadcasterService) {
+        private broadcasterService: BroadcasterService, private router: Router) {
         super(sendService, i18nService, platformUtilsService, environmentService, ngZone, searchService,
             policyService, userService);
         super.onSuccessfulLoad = async () => {
@@ -127,11 +128,21 @@ export class SendTypeComponent extends BaseSendComponent {
     }
 
     async selectSend(s: SendView) {
-        // TODO -> Route to edit send
+        this.router.navigate(['/edit-send'], { queryParams: { sendId: s.id } });
     }
 
     async addSend() {
-        // TODO -> Route to create send
+        if (this.disableSend) {
+            return;
+        }
+        this.router.navigate(['/add-send'], { queryParams: { type: this.type } });
+    }
+
+    async removePassword(s: SendView): Promise<boolean> {
+        if (this.disableSend) {
+            return;
+        }
+        super.removePassword(s);
     }
 
     back() {

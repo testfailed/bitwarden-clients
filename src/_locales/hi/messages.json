@@ -3,8 +3,8 @@
     "message": "bitwarden"
   },
   "extName": {
-    "message": "bitwarden - नि: शुल्क पासवर्ड प्रबंधक   password ",
-    "description": "Extension name"
+    "message": "Bitwarden",
+    "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
     "message": "bitwarden is a secure and free password manager for all of your devices.",
@@ -132,7 +132,7 @@
     "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their public key with another user, for the purposes of sharing."
   },
   "yourAccountsFingerprint": {
-    "message": "Your account's fingerprint phrase",
+    "message": "आपके खाते का फिंगरप्रिंट वाक्यांश",
     "description": "A 'fingerprint phrase' is a unique word phrase (similar to a passphrase) that a user can use to authenticate their public key with another user, for the purposes of sharing."
   },
   "twoStepLogin": {
@@ -149,6 +149,9 @@
   },
   "save": {
     "message": "सेव करें"
+  },
+  "move": {
+    "message": "ले जाएं"
   },
   "addFolder": {
     "message": "Add Folder"
@@ -188,7 +191,7 @@
     "description": "Short for 'Password Generator'."
   },
   "passGenInfo": {
-    "message": "Automatically generate strong, unique passwords for your logins."
+    "message": "स्वचालित रूप से अपने लॉगिन के लिए मजबूत, अद्वितीय पासवर्ड उत्पन्न करते हैं।"
   },
   "bitWebVault": {
     "message": "bitwarden Web Vault"
@@ -218,11 +221,11 @@
     "message": "Word Separator"
   },
   "capitalize": {
-    "message": "Capitalize",
+    "message": "कैपिटलाइज़ करें",
     "description": "Make the first letter of a work uppercase."
   },
   "includeNumber": {
-    "message": "Include Number"
+    "message": "नंबर शामिल करें"
   },
   "minNumbers": {
     "message": "Minimum Numbers"
@@ -234,10 +237,10 @@
     "message": "Avoid Ambiguous Characters"
   },
   "searchVault": {
-    "message": "Search vault"
+    "message": "वॉल्ट खोजे"
   },
   "edit": {
-    "message": "संशोधन करें"
+    "message": "संपादन करें"
   },
   "view": {
     "message": "देखें"
@@ -300,19 +303,19 @@
     "message": "कृपया एक अच्छी समीक्षा के साथ हमारी मदत करने पर विचार करें!"
   },
   "browserNotSupportClipboard": {
-    "message": "Your web browser does not support easy clipboard copying. Copy it manually instead."
+    "message": "आपका वेब ब्राउज़र आसान क्लिपबोर्ड कॉपीिंग का समर्थन नहीं करता है। इसके बजाय इसे मैन्युअल रूप से कॉपी करें।"
   },
   "verifyMasterPassword": {
     "message": "Verify Master Password"
   },
   "yourVaultIsLocked": {
-    "message": "Your vault is locked. Verify your master password to continue."
+    "message": "आपकी वॉल्ट लॉक हो गई है। जारी रखने के लिए अपने मास्टर पासवर्ड को सत्यापित करें।"
   },
   "unlock": {
-    "message": "Unlock"
+    "message": "ताला खोलें"
   },
   "loggedInAsOn": {
-    "message": "Logged in as $EMAIL$ on $HOSTNAME$.",
+    "message": "पर के रूप में लॉग इन किया ।",
     "placeholders": {
       "email": {
         "content": "$1",
@@ -325,46 +328,46 @@
     }
   },
   "invalidMasterPassword": {
-    "message": "Invalid master password"
+    "message": "अमान्य मास्टर पासवर्ड"
   },
   "vaultTimeout": {
-    "message": "Vault Timeout"
+    "message": "वॉल्ट मध्यांतर"
   },
   "lockNow": {
     "message": "Lock Now"
   },
   "immediately": {
-    "message": "Immediately"
+    "message": "तत्‍काल"
   },
   "tenSeconds": {
-    "message": "10 seconds"
+    "message": "10 सेकंड"
   },
   "twentySeconds": {
-    "message": "20 seconds"
+    "message": "20 सेकंड"
   },
   "thirtySeconds": {
-    "message": "30 seconds"
+    "message": "30 सेकंड"
   },
   "oneMinute": {
-    "message": "1 minute"
+    "message": "1 मिनट"
   },
   "twoMinutes": {
-    "message": "2 minutes"
+    "message": "2 मिनट"
   },
   "fiveMinutes": {
-    "message": "5 minutes"
+    "message": "5 मिनट"
   },
   "fifteenMinutes": {
-    "message": "15 minutes"
+    "message": "15 मिनट"
   },
   "thirtyMinutes": {
-    "message": "30 minutes"
+    "message": "30 मिनट"
   },
   "oneHour": {
-    "message": "1 hour"
+    "message": "1 घंटा"
   },
   "fourHours": {
-    "message": "4 hours"
+    "message": "4 घंटे"
   },
   "onLocked": {
     "message": "On Locked"
@@ -373,37 +376,37 @@
     "message": "On Restart"
   },
   "never": {
-    "message": "Never"
+    "message": "कभी नहीं"
   },
   "security": {
-    "message": "Security"
+    "message": "सुरक्षा"
   },
   "errorOccurred": {
-    "message": "An error has occurred"
+    "message": "कोई ग़लती हुई।"
   },
   "emailRequired": {
-    "message": "Email address is required."
+    "message": "ई-मेल पते की आवश्यकता है।"
   },
   "invalidEmail": {
-    "message": "Invalid email address."
+    "message": "अमान्य ई-मेल |"
   },
   "masterPassRequired": {
-    "message": "Master password is required."
+    "message": "मास्टर पासवर्ड की आवश्यकता है।"
   },
   "masterPassLength": {
-    "message": "Master password must be at least 8 characters long."
+    "message": "मास्टर पासवर्ड कम से कम 8 अक्षर लंबे होने चाहिए।"
   },
   "masterPassDoesntMatch": {
-    "message": "Master password confirmation does not match."
+    "message": "मास्टर पासवर्ड पुष्टि मेल नहीं खाती है।"
   },
   "newAccountCreated": {
-    "message": "Your new account has been created! You may now log in."
+    "message": "आपका नया खाता बनाया गया है! अब आप लॉग इन कर सकते हैं।"
   },
   "masterPassSent": {
-    "message": "We've sent you an email with your master password hint."
+    "message": "हमने आपको अपने मास्टर पासवर्ड संकेत के साथ एक ईमेल भेजा है।"
   },
   "verificationCodeRequired": {
-    "message": "Verification code is required."
+    "message": "सत्यापन टोकन आवश्यक है"
   },
   "valueCopied": {
     "message": " copied",
@@ -419,10 +422,10 @@
     "message": "Unable to auto-fill the selected login on this page. Copy/paste your username and/or password instead."
   },
   "loggedOut": {
-    "message": "Logged out"
+    "message": "लॉग आउट"
   },
   "loginExpired": {
-    "message": "Your login session has expired."
+    "message": "अपने लॉगिन सत्र समाप्त हो गया है।"
   },
   "logOutConfirmation": {
     "message": "क्या आप वाकई लॉग आउट करना चाहते हैं?"
@@ -440,13 +443,13 @@
     "message": "नाम आवश्यक है"
   },
   "addedFolder": {
-    "message": "Added folder"
+    "message": "जोड़ा गया फ़ोल्डर"
   },
   "changeMasterPass": {
     "message": "Change Master Password"
   },
   "changeMasterPasswordConfirmation": {
-    "message": "You can change your master password on the bitwarden.com web vault. Do you want to visit the website now?"
+    "message": "आप वेब वॉल्ट bitwarden.com पर अपना मास्टर पासवर्ड बदल सकते हैं।क्या आप अब वेबसाइट पर जाना चाहते हैं?"
   },
   "twoStepLoginConfirmation": {
     "message": "Two-step login makes your account more secure by requiring you to enter a security code from an authenticator app whenever you log in. Two-step login can be enabled on the bitwarden.com web vault. Do you want to visit the website now?"
@@ -455,31 +458,31 @@
     "message": "Edited Folder"
   },
   "deleteFolderConfirmation": {
-    "message": "Are you sure you want to delete this folder?"
+    "message": "क्या आप वाकई इस फ़ोल्डर को हटाना चाहते हैं?"
   },
   "deletedFolder": {
-    "message": "Deleted folder"
+    "message": "हटाए गए फ़ोल्डर"
   },
   "gettingStartedTutorial": {
     "message": "Getting Started Tutorial"
   },
   "gettingStartedTutorialVideo": {
-    "message": "Watch our getting started tutorial to learn how to get the most out of the browser extension."
+    "message": "ब्राउज़र एक्सटेंशन का सबसे अधिक जानने के लिए हमारे शुरू ट्यूटोरियल देखें।"
   },
   "syncingComplete": {
-    "message": "Syncing complete"
+    "message": "सिंकिंग पूर्ण"
   },
   "syncingFailed": {
-    "message": "Syncing failed"
+    "message": "सिंकिंग असफल।"
   },
   "passwordCopied": {
-    "message": "Password copied"
+    "message": "कूटशब्द की नकल हुइ"
   },
   "uri": {
-    "message": "URI"
+    "message": "यूआरआइ"
   },
   "uriPosition": {
-    "message": "URI $POSITION$",
+    "message": "यू.आर.ऐ",
     "description": "A listing of URIs. Ex: URI 1, URI 2, URI 3, etc.",
     "placeholders": {
       "position": {
@@ -495,7 +498,7 @@
     "message": "Added item"
   },
   "editedItem": {
-    "message": "Edited item"
+    "message": "संपादित आइटम "
   },
   "deleteItemConfirmation": {
     "message": "Do you really want to send to the trash?"
@@ -596,6 +599,10 @@
     "message": "Light",
     "description": "Light color"
   },
+  "solarizedDark": {
+    "message": "Solarized Dark",
+    "description": "'Solarized' is a noun and the name of a color scheme. It should not be translated."
+  },
   "exportVault": {
     "message": "Export Vault"
   },
@@ -612,8 +619,11 @@
   "exportWarningDesc": {
     "message": "This export contains your vault data in an unencrypted format. You should not store or send the exported file over unsecure channels (such as email). Delete it immediately after you are done using it."
   },
-  "encExportWarningDesc": {
+  "encExportKeyWarningDesc": {
     "message": "This export encrypts your data using your account's encryption key. If you ever rotate your account's encryption key you should export again since you will not be able to decrypt this export file."
+  },
+  "encExportAccountWarningDesc": {
+    "message": "Account encryption keys are unique to each Bitwarden user account, so you can't import an encrypted export into a different account."
   },
   "exportMasterPassword": {
     "message": "Enter your master password to export your vault data."
@@ -621,23 +631,33 @@
   "shared": {
     "message": "Shared"
   },
-  "shareVault": {
-    "message": "Share Your Vault"
+  "learnOrg": {
+    "message": "Learn about Organizations"
   },
-  "shareVaultConfirmation": {
-    "message": "Bitwarden allows you to share your vault with others by using an organization account. Would you like to visit the bitwarden.com website to learn more?"
+  "learnOrgConfirmation": {
+    "message": "Bitwarden allows you to share your vault items with others by using an organization. Would you like to visit the bitwarden.com website to learn more?"
   },
-  "shareItem": {
-    "message": "Share Item"
+  "moveToOrganization": {
+    "message": "Move to Organization"
   },
   "share": {
     "message": "Share"
   },
-  "sharedItem": {
-    "message": "Shared Item"
+  "movedItemToOrg": {
+    "message": "$ITEMNAME$ moved to $ORGNAME$",
+    "placeholders": {
+      "itemname": {
+        "content": "$1",
+        "example": "Secret Item"
+      },
+      "orgname": {
+        "content": "$2",
+        "example": "Company Name"
+      }
+    }
   },
-  "shareDesc": {
-    "message": "Choose an organization that you wish to share this item with. Sharing transfers ownership of the item to the organization. You will no longer be the direct owner of this item once it has been shared."
+  "moveToOrgDesc": {
+    "message": "Choose an organization that you wish to move this item to. Moving to an organization transfers ownership of the item to that organization. You will no longer be the direct owner of this item once it has been moved."
   },
   "learnMore": {
     "message": "Learn more"
@@ -679,7 +699,7 @@
     "message": "Select a file."
   },
   "maxFileSize": {
-    "message": "Maximum file size is 100 MB."
+    "message": "Maximum file size is 500 MB."
   },
   "featureUnavailable": {
     "message": "Feature Unavailable"
@@ -795,6 +815,15 @@
   "insertU2f": {
     "message": "Insert your security key into your computer's USB port. If it has a button, touch it."
   },
+  "webAuthnNewTab": {
+    "message": "To start the WebAuthn 2FA verification. Click the button below to open a new tab and follow the instructions provided in the new tab."
+  },
+  "webAuthnNewTabOpen": {
+    "message": "Open new tab"
+  },
+  "webAuthnAuthenticate": {
+    "message": "Authenticate WebAuthn"
+  },
   "loginUnavailable": {
     "message": "Login Unavailable"
   },
@@ -834,11 +863,11 @@
     "message": "Verify with Duo Security for your organization using the Duo Mobile app, SMS, phone call, or U2F security key.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
-  "u2fDesc": {
-    "message": "Use any FIDO U2F enabled security key to access your account."
+  "webAuthnTitle": {
+    "message": "FIDO2 WebAuthn"
   },
-  "u2fTitle": {
-    "message": "FIDO U2F Security Key"
+  "webAuthnDesc": {
+    "message": "Use any WebAuthn enabled security key to access your account."
   },
   "emailTitle": {
     "message": "Email"
@@ -887,6 +916,24 @@
   },
   "experimentalFeature": {
     "message": "This is currently an experimental feature. Use at your own risk."
+  },
+  "defaultAutoFillOnPageLoad": {
+    "message": "Default autofill setting for login items"
+  },
+  "defaultAutoFillOnPageLoadDesc": {
+    "message": "After enabling Auto-fill on Page Load, you can enable or disable the feature for individual login items. This is the default setting for login items that are not separately configured."
+  },
+  "itemAutoFillOnPageLoad": {
+    "message": "Auto-fill on Page Load (if enabled in Options)"
+  },
+  "autoFillOnPageLoadUseDefault": {
+    "message": "Use default setting"
+  },
+  "autoFillOnPageLoadYes": {
+    "message": "Auto-fill on page load"
+  },
+  "autoFillOnPageLoadNo": {
+    "message": "Do not auto-fill on page load"
   },
   "commandOpenPopup": {
     "message": "Open vault popup"
@@ -941,6 +988,12 @@
   },
   "disableFaviconDesc": {
     "message": "Website Icons provides a recognizable icon next to each login item in your vault."
+  },
+  "disableBadgeCounter": {
+    "message": "Disable Badge Counter"
+  },
+  "disableBadgeCounterDesc": {
+    "message": "Badge counter indicates how many logins you have for the current page in your vault."
   },
   "cardholderName": {
     "message": "Cardholder Name"
@@ -1444,10 +1497,260 @@
   "nativeMessaginPermissionErrorDesc": {
     "message": "Without permission to communicate with the Bitwarden Desktop Application we cannot provide biometrics in the browser extension. Please try again."
   },
+  "nativeMessaginPermissionSidebarTitle": {
+    "message": "Permission request error"
+  },
+  "nativeMessaginPermissionSidebarDesc": {
+    "message": "This action cannot be done in the sidebar, please retry the action in the popup or popout."
+  },
   "personalOwnershipSubmitError": {
     "message": "Due to an Enterprise Policy, you are restricted from saving items to your personal vault. Change the Ownership option to an organization and choose from available Collections."
   },
   "personalOwnershipPolicyInEffect": {
     "message": "An organization policy is affecting your ownership options."
+  },
+  "excludedDomains": {
+    "message": "Excluded Domains"
+  },
+  "excludedDomainsDesc": {
+    "message": "Bitwarden will not ask to save login details for these domains. You must refresh the page for changes to take effect."
+  },
+  "excludedDomainsInvalidDomain": {
+    "message": "$DOMAIN$ is not a valid domain",
+    "placeholders": {
+      "domain": {
+        "content": "$1",
+        "example": "googlecom"
+      }
+    }
+  },
+  "send": {
+    "message": "Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "searchSends": {
+    "message": "Search Sends",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "addSend": {
+    "message": "Add Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeText": {
+    "message": "Text"
+  },
+  "sendTypeFile": {
+    "message": "File"
+  },
+  "allSends": {
+    "message": "All Sends",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "maxAccessCountReached": {
+    "message": "Max access count reached"
+  },
+  "expired": {
+    "message": "Expired"
+  },
+  "pendingDeletion": {
+    "message": "Pending deletion"
+  },
+  "passwordProtected": {
+    "message": "Password protected"
+  },
+  "copySendLink": {
+    "message": "Copy Send link",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "removePassword": {
+    "message": "Remove Password"
+  },
+  "delete": {
+    "message": "Delete"
+  },
+  "removedPassword": {
+    "message": "Removed Password"
+  },
+  "deletedSend": {
+    "message": "Deleted Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLink": {
+    "message": "Send link",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "disabled": {
+    "message": "Disabled"
+  },
+  "removePasswordConfirmation": {
+    "message": "Are you sure you want to remove the password?"
+  },
+  "deleteSend": {
+    "message": "Delete Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deleteSendConfirmation": {
+    "message": "Are you sure you want to delete this Send?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editSend": {
+    "message": "Edit Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeHeader": {
+    "message": "What type of Send is this?",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNameDesc": {
+    "message": "A friendly name to describe this Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFileDesc": {
+    "message": "The file you want to send."
+  },
+  "deletionDate": {
+    "message": "Deletion Date"
+  },
+  "deletionDateDesc": {
+    "message": "The Send will be permanently deleted on the specified date and time.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "expirationDate": {
+    "message": "Expiration Date"
+  },
+  "expirationDateDesc": {
+    "message": "If set, access to this Send will expire on the specified date and time.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "oneDay": {
+    "message": "1 day"
+  },
+  "days": {
+    "message": "$DAYS$ days",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "custom": {
+    "message": "Custom"
+  },
+  "maximumAccessCount": {
+    "message": "Maximum Access Count"
+  },
+  "maximumAccessCountDesc": {
+    "message": "If set, users will no longer be able to access this Send once the maximum access count is reached.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDesc": {
+    "message": "Optionally require a password for users to access this Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNotesDesc": {
+    "message": "Private notes about this Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisableDesc": {
+    "message": "Disable this Send so that no one can access it.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendShareDesc": {
+    "message": "Copy this Send's link to clipboard upon save.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTextDesc": {
+    "message": "The text you want to send."
+  },
+  "sendHideText": {
+    "message": "Hide this Send's text by default.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "currentAccessCount": {
+    "message": "Current Access Count"
+  },
+  "createSend": {
+    "message": "Create New Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "newPassword": {
+    "message": "New Password"
+  },
+  "sendDisabled": {
+    "message": "Send Disabled",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisabledWarning": {
+    "message": "Due to an enterprise policy, you are only able to delete an existing Send.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "createdSend": {
+    "message": "Created Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editedSend": {
+    "message": "Edited Send",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLinuxChromiumFileWarning": {
+    "message": "In order to choose a file, open the extension in the sidebar (if possible) or pop out to a new window by clicking this banner."
+  },
+  "sendFirefoxFileWarning": {
+    "message": "In order to choose a file using Firefox, open the extension in the sidebar or pop out to a new window by clicking this banner."
+  },
+  "sendSafariFileWarning": {
+    "message": "In order to choose a file using Safari, pop out to a new window by clicking this banner."
+  },
+  "sendFileCalloutHeader": {
+    "message": "Before you start"
+  },
+  "sendFirefoxCustomDatePopoutMessage1": {
+    "message": "To use a calendar style date picker",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read '**To use a calendar style date picker ** click here to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage2": {
+    "message": "click here",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker **click here** to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage3": {
+    "message": "to pop out your window.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker click here **to pop out your window.**'"
+  },
+  "expirationDateIsInvalid": {
+    "message": "The expiration date provided is not valid."
+  },
+  "deletionDateIsInvalid": {
+    "message": "The deletion date provided is not valid."
+  },
+  "expirationDateAndTimeRequired": {
+    "message": "An expiration date and time are required."
+  },
+  "deletionDateAndTimeRequired": {
+    "message": "A deletion date and time are required."
+  },
+  "dateParsingError": {
+    "message": "There was an error saving your deletion and expiration dates."
+  },
+  "hideEmail": {
+    "message": "Hide my email address from recipients."
+  },
+  "sendOptionsPolicyInEffect": {
+    "message": "One or more organization policies are affecting your Send options."
+  },
+  "passwordPrompt": {
+    "message": "Master password re-prompt"
+  },
+  "passwordConfirmation": {
+    "message": "Master password confirmation"
+  },
+  "passwordConfirmationDesc": {
+    "message": "This action is protected. To continue, please re-enter your master password to verify your identity."
+  },
+  "emailVerificationRequired": {
+    "message": "Email Verification Required"
+  },
+  "emailVerificationRequiredDesc": {
+    "message": "You must verify your email to use this feature. You can verify your email in the web vault."
   }
 }

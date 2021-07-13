@@ -6,9 +6,11 @@ import {
     Routes,
 } from '@angular/router';
 
-import { AuthGuardService } from 'jslib/angular/services/auth-guard.service';
+import { AuthGuardService } from 'jslib-angular/services/auth-guard.service';
 
+import { DebounceNavigationService } from './services/debounceNavigationService';
 import { LaunchGuardService } from './services/launch-guard.service';
+import { LockGuardService } from './services/lock-guard.service';
 
 import { EnvironmentComponent } from './accounts/environment.component';
 import { HintComponent } from './accounts/hint.component';
@@ -46,6 +48,7 @@ import { PasswordHistoryComponent } from './vault/password-history.component';
 import { ShareComponent } from './vault/share.component';
 import { ViewComponent } from './vault/view.component';
 
+import { SendAddEditComponent } from './send/send-add-edit.component';
 import { SendGroupingsComponent } from './send/send-groupings.component';
 import { SendTypeComponent } from './send/send-type.component';
 
@@ -75,6 +78,7 @@ const routes: Routes = [
     {
         path: 'lock',
         component: LockComponent,
+        canActivate: [LockGuardService],
         data: { state: 'lock' },
     },
     {
@@ -139,14 +143,16 @@ const routes: Routes = [
     {
         path: 'add-cipher',
         component: AddEditComponent,
-        canActivate: [AuthGuardService],
+        canActivate: [AuthGuardService, DebounceNavigationService],
         data: { state: 'add-cipher' },
+        runGuardsAndResolvers: 'always',
     },
     {
         path: 'edit-cipher',
         component: AddEditComponent,
-        canActivate: [AuthGuardService],
+        canActivate: [AuthGuardService, DebounceNavigationService],
         data: { state: 'edit-cipher' },
+        runGuardsAndResolvers: 'always',
     },
     {
         path: 'share-cipher',
@@ -242,6 +248,18 @@ const routes: Routes = [
         component: SendTypeComponent,
         canActivate: [AuthGuardService],
         data: { state: 'send-type' },
+    },
+    {
+        path: 'add-send',
+        component: SendAddEditComponent,
+        canActivate: [AuthGuardService],
+        data: { state: 'add-send' },
+    },
+    {
+        path: 'edit-send',
+        component: SendAddEditComponent,
+        canActivate: [AuthGuardService],
+        data: { state: 'edit-send' },
     },
     {
         path: 'tabs',

@@ -1,32 +1,32 @@
-import { CipherType } from 'jslib/enums';
+import { CipherType } from 'jslib-common/enums';
 
-import { CipherView } from 'jslib/models/view/cipherView';
-import { LoginUriView } from 'jslib/models/view/loginUriView';
-import { LoginView } from 'jslib/models/view/loginView';
+import { CipherView } from 'jslib-common/models/view/cipherView';
+import { LoginUriView } from 'jslib-common/models/view/loginUriView';
+import { LoginView } from 'jslib-common/models/view/loginView';
 
-import { CipherService } from 'jslib/abstractions/cipher.service';
-import { EnvironmentService } from 'jslib/abstractions/environment.service';
+import { CipherService } from 'jslib-common/abstractions/cipher.service';
+import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { FolderService } from 'jslib/abstractions/folder.service';
-import { I18nService } from 'jslib/abstractions/i18n.service';
-import { NotificationsService } from 'jslib/abstractions/notifications.service';
-import { PolicyService } from 'jslib/abstractions/policy.service';
-import { StorageService } from 'jslib/abstractions/storage.service';
-import { SystemService } from 'jslib/abstractions/system.service';
-import { UserService } from 'jslib/abstractions/user.service';
-import { VaultTimeoutService } from 'jslib/abstractions/vaultTimeout.service';
-import { ConstantsService } from 'jslib/services/constants.service';
+import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { MessagingService } from 'jslib-common/abstractions/messaging.service';
+import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
+import { PolicyService } from 'jslib-common/abstractions/policy.service';
+import { StorageService } from 'jslib-common/abstractions/storage.service';
+import { SystemService } from 'jslib-common/abstractions/system.service';
+import { UserService } from 'jslib-common/abstractions/user.service';
+import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
+import { ConstantsService } from 'jslib-common/services/constants.service';
 import { AutofillService } from '../services/abstractions/autofill.service';
 import BrowserPlatformUtilsService from '../services/browserPlatformUtils.service';
 
 import { BrowserApi } from '../browser/browserApi';
 
 import MainBackground from './main.background';
+ 
+import { Utils } from 'jslib-common/misc/utils';
 
-import { Analytics } from 'jslib/misc';
-import { Utils } from 'jslib/misc/utils';
-
-import { OrganizationUserStatusType } from 'jslib/enums/organizationUserStatusType';
-import { PolicyType } from 'jslib/enums/policyType';
+import { OrganizationUserStatusType } from 'jslib-common/enums/organizationUserStatusType';
+import { PolicyType } from 'jslib-common/enums/policyType';
 
 export default class RuntimeBackground {
     private runtime: any;
@@ -37,10 +37,11 @@ export default class RuntimeBackground {
     constructor(private main: MainBackground, private autofillService: AutofillService,
         private cipherService: CipherService, private platformUtilsService: BrowserPlatformUtilsService,
         private storageService: StorageService, private i18nService: I18nService,
-        private analytics: Analytics, private notificationsService: NotificationsService,
+        private notificationsService: NotificationsService,
         private systemService: SystemService, private vaultTimeoutService: VaultTimeoutService,
         private environmentService: EnvironmentService, private policyService: PolicyService,
-        private userService: UserService, private folderService: FolderService) {
+        private userService: UserService, private messagingService: MessagingService,
+        private folderService: FolderService) {
 
         // onInstalled listener must be wired up before anything else, so we do it in the ctor
         chrome.runtime.onInstalled.addListener((details: any) => {
@@ -177,6 +178,31 @@ export default class RuntimeBackground {
                 }
                 catch { }
                 break;
+            case 'webAuthnResult':
+                let vaultUrl2 = this.environmentService.getWebVaultUrl();
+                if (vaultUrl2 == null) {
+                    vaultUrl2 = 'https://vault.bitwarden.com';
+                }
+
+                if (msg.referrer == null || Utils.getHostname(vaultUrl2) !== msg.referrer) {
+                    return;
+                }
+
+                const params = `webAuthnResponse=${encodeURIComponent(msg.data)};remember=${msg.remember}`;
+                BrowserApi.createNewTab(`popup/index.html?uilocation=popout#/2fa;${params}`, undefined, false);
+                break;
+            case 'reloadPopup':
+                this.messagingService.send('reloadPopup');
+                break;
+            case 'emailVerificationRequired':
+                this.messagingService.send('showDialog', {
+                    dialogId: 'emailVerificationRequired',
+                    title: this.i18nService.t('emailVerificationRequired'),
+                    text: this.i18nService.t('emailVerificationRequiredDesc'),
+                    confirmText: this.i18nService.t('ok'),
+                    type: 'info',
+                });
+                break;
             default:
                 break;
         }
@@ -235,10 +261,6 @@ export default class RuntimeBackground {
 
             const cipher = await this.cipherService.encrypt(model);
             await this.cipherService.saveWithServer(cipher);
-            this.analytics.ga('send', {
-                hitType: 'event',
-                eventAction: 'Added Login from Notification Bar',
-            });
         }
     }
 
@@ -267,10 +289,6 @@ export default class RuntimeBackground {
                 model.login.password = queueMessage.newPassword;
                 const newCipher = await this.cipherService.encrypt(model);
                 await this.cipherService.saveWithServer(newCipher);
-                this.analytics.ga('send', {
-                    hitType: 'event',
-                    eventAction: 'Changed Password from Notification Bar',
-                });
             }
         }
     }
@@ -401,10 +419,6 @@ export default class RuntimeBackground {
                     await this.setDefaultSettings();
                 }
 
-                this.analytics.ga('send', {
-                    hitType: 'event',
-                    eventAction: 'onInstalled ' + this.onInstalledReason,
-                });
                 this.onInstalledReason = null;
             }
         }, 100);

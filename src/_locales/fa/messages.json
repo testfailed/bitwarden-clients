@@ -3,8 +3,8 @@
     "message": "Bitwarden"
   },
   "extName": {
-    "message": "Bitwarden - مدیریت گذرواژه رایگان",
-    "description": "Extension name"
+    "message": "Bitwarden - مدیریت کلمه عبور رایگان",
+    "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
   },
   "extDesc": {
     "message": "یک مدیریت کننده کلمه عبور رایگان برای تمامی دستگاههایتان.",
@@ -47,7 +47,7 @@
     "message": "تایپ دوباره کلمه عبور اصلی"
   },
   "masterPassHint": {
-    "message": "راهنمای گذرواژه اصلی (اختیاری)"
+    "message": "راهنمای کلمه عبور اصلی (اختیاری)"
   },
   "tab": {
     "message": "زبانه"
@@ -65,7 +65,7 @@
     "message": "زبانه فعلی"
   },
   "copyPassword": {
-    "message": "رونوشت کلمه عبور"
+    "message": "کپی رمز عبور"
   },
   "copyNote": {
     "message": "کپی یادداشت"
@@ -150,6 +150,9 @@
   "save": {
     "message": "ذخیره"
   },
+  "move": {
+    "message": "انتقال"
+  },
   "addFolder": {
     "message": "افزودن پوشه"
   },
@@ -175,7 +178,7 @@
     "message": "همگام سازی"
   },
   "syncVaultNow": {
-    "message": "همگام سازی گاو صندوق"
+    "message": "همگام سازی گاوصندوق"
   },
   "lastSync": {
     "message": "آخرین همگام سازی:"
@@ -306,7 +309,7 @@
     "message": "تایید کلمه عبور اصلی"
   },
   "yourVaultIsLocked": {
-    "message": "صندوق شما قفل است. برای ادامه کلمه عبور اصلی خود را وارد کنید."
+    "message": "گاوصندوق شما قفل است. برای ادامه کلمه عبور اصلی خود را وارد کنید."
   },
   "unlock": {
     "message": "بازکردن"
@@ -596,6 +599,10 @@
     "message": "روشن",
     "description": "Light color"
   },
+  "solarizedDark": {
+    "message": "تاریک خورشیدی",
+    "description": "'Solarized' is a noun and the name of a color scheme. It should not be translated."
+  },
   "exportVault": {
     "message": "صادر کردن گاوصندوق"
   },
@@ -612,8 +619,11 @@
   "exportWarningDesc": {
     "message": "This export contains your vault data in an unencrypted format. You should not store or send the exported file over unsecure channels (such as email). Delete it immediately after you are done using it."
   },
-  "encExportWarningDesc": {
+  "encExportKeyWarningDesc": {
     "message": "این صادرات با استفاده از کلید رمزگذاری حساب شما ، اطلاعات شما را رمزگذاری می کند. اگر حتی کلید رمزگذاری حساب خود را بچرخانید ، باید دوباره صادر کنید چون قادر به رمزگشایی این پرونده صادراتی نخواهید بود."
+  },
+  "encExportAccountWarningDesc": {
+    "message": "کلیدهای رمزگذاری حساب برای هر حساب کاربری Bitwarden منحصر به فرد است ، بنابراین نمی توانید صادرات رمزگذاری شده را به حساب دیگری وارد کنید."
   },
   "exportMasterPassword": {
     "message": "کلمه عبور اصلی خود را برای صادرات داده ها از گاوصندوقتان وارد کنید."
@@ -621,23 +631,33 @@
   "shared": {
     "message": "اشتراک گذاری شد"
   },
-  "shareVault": {
-    "message": "اشتراک گذاری گاوصندوقتان"
+  "learnOrg": {
+    "message": "درباره سازمانها اطلاعات کسب کنید"
   },
-  "shareVaultConfirmation": {
-    "message": "Bitwarden به شما اجازه می دهد با استفاده از سازماندهی حساب، گاوصندوقهای خود را با دیگران به اشتراک بگذارید. آیا مایل به بازدید از وب سایت bitwarden.com برای کسب اطلاعات بیشتر هستید؟"
+  "learnOrgConfirmation": {
+    "message": "Bitwarden به شما اجازه می دهد با استفاده از یک سازمان، موارد گاوصندوق خود را با دیگران به اشتراک بگذارید. آیا مایل به بازدید از وب سایت bitwarden.com برای کسب اطلاعات بیشتر هستید؟"
   },
-  "shareItem": {
-    "message": "اشتراک گذاری مورد"
+  "moveToOrganization": {
+    "message": "انتقال به سازمان"
   },
   "share": {
     "message": "اشتراک گذاری"
   },
-  "sharedItem": {
-    "message": "مورد اشتراک گذاری شد"
+  "movedItemToOrg": {
+    "message": "$ITEMNAME$ منتقل شد به $ORGNAME$",
+    "placeholders": {
+      "itemname": {
+        "content": "$1",
+        "example": "Secret Item"
+      },
+      "orgname": {
+        "content": "$2",
+        "example": "Company Name"
+      }
+    }
   },
-  "shareDesc": {
-    "message": "Choose an organization that you wish to share this item with. Sharing transfers ownership of the item to the organization. You will no longer be the direct owner of this item once it has been shared."
+  "moveToOrgDesc": {
+    "message": "سازمانی را انتخاب کنید که می خواهید این مورد را به آن منتقل کنید. انتقال به یک سازمان، مالکیت مورد را به آن سازمان منتقل می کند. پس از انتقال این مورد، دیگر مالک مستقیم آن نخواهید بود."
   },
   "learnMore": {
     "message": "بیشتر بدانید"
@@ -679,7 +699,7 @@
     "message": "انتخاب یک فایل."
   },
   "maxFileSize": {
-    "message": "بیشترین حجم فایل 100 مگابایت است."
+    "message": "بیشترین حجم فایل 500 مگابایت است."
   },
   "featureUnavailable": {
     "message": "ویژگی موجود نیست"
@@ -795,6 +815,15 @@
   "insertU2f": {
     "message": "کلید امنیتی خود را وارد پورت USB رایانه کنید، اگر دکمه ای دارد آن را بفشارید."
   },
+  "webAuthnNewTab": {
+    "message": "تأیید WebAuthn 2FA را در برگه جدید ادامه دهید."
+  },
+  "webAuthnNewTabOpen": {
+    "message": "باز کردن زبانه جدید"
+  },
+  "webAuthnAuthenticate": {
+    "message": "تأیید اعتبار در WebAuthn"
+  },
   "loginUnavailable": {
     "message": "ورود به سیستم موجود نیست"
   },
@@ -834,11 +863,11 @@
     "message": "Duo Security را برای سازماندهی خود با استفاده از برنامه Duo Mobile، SMS، تماس تلفنی یا کلید امنیتی U2F تأیید کنید.",
     "description": "'Duo Security' and 'Duo Mobile' are product names and should not be translated."
   },
-  "u2fDesc": {
-    "message": "از هر FIDO استفاده کنید U2F کلید امنیتی را فعال کنید تا به حساب کاربریتان دسترسی یابید."
+  "webAuthnTitle": {
+    "message": "FIDO2 WebAuthn\n"
   },
-  "u2fTitle": {
-    "message": "کلید امنیتی FIDO U2F"
+  "webAuthnDesc": {
+    "message": "برای دسترسی به حساب خود از هر کلید امنیتی فعال شده WebAuthn استفاده کنید."
   },
   "emailTitle": {
     "message": "ایمیل"
@@ -887,6 +916,24 @@
   },
   "experimentalFeature": {
     "message": "در حال حاضر این یک ویژگی آزمایشی است. با مسئولیت خود استفاده کنید."
+  },
+  "defaultAutoFillOnPageLoad": {
+    "message": "تنظیم خودکار پیش فرض برای موارد ورود به سیستم"
+  },
+  "defaultAutoFillOnPageLoadDesc": {
+    "message": "پس از فعال کردن پرکردن خودکار بارگذاری صفحه، می توانید این ویژگی را برای موارد ورود به سیستم جداگانه فعال یا غیرفعال کنید. این تنظیمات پیش فرض برای موارد ورود به سیستم است که به طور جداگانه پیکربندی نشده اند."
+  },
+  "itemAutoFillOnPageLoad": {
+    "message": "پر کردن خودکار بارگذاری صفحه (درصورت فعال بودن در گزینه ها)"
+  },
+  "autoFillOnPageLoadUseDefault": {
+    "message": "استفاده از تنظيمات پيشفرض"
+  },
+  "autoFillOnPageLoadYes": {
+    "message": "بارگذاری صفحه را به طور خودکار پر کن"
+  },
+  "autoFillOnPageLoadNo": {
+    "message": "بارگذاری صفحه را به طور خودکار پر نکن"
   },
   "commandOpenPopup": {
     "message": "بازکردن پنجره گاوصندوق"
@@ -941,6 +988,12 @@
   },
   "disableFaviconDesc": {
     "message": "آیکون های وبسایت یک تصویر قابل تشخیص در کنار هر داده ورودی ارائه میدهد."
+  },
+  "disableBadgeCounter": {
+    "message": "شمارنده نشان را غیرفعال کن"
+  },
+  "disableBadgeCounterDesc": {
+    "message": "شمارنده نشان، نشان می دهد که چه تعداد ورود به سیستم برای صفحه فعلی در گاو‌صندوق خود دارید."
   },
   "cardholderName": {
     "message": "نام صاحب کارت"
@@ -1232,7 +1285,7 @@
     "message": "کلمه عبور اصلی ضعیف"
   },
   "weakMasterPasswordDesc": {
-    "message": "کلمه عبور اصلی که شما انتخاب کرده اید ضعیف است. شما باید یک کلمه عبور اصلی قوی انتخاب کنید (یا یک عبارت عبور) تا به درستی از اکانت Bitwarden خود محافظت کنید. آیا مطمعن هستید می‌خواهید از این کلمه عبور اصلی استفاده کنید؟ "
+    "message": "کلمه عبور اصلی که شما انتخاب کرده اید ضعیف است. شما باید یک کلمه عبور اصلی قوی انتخاب کنید (یا یک عبارت عبور) تا به درستی از اکانت Bitwarden خود محافظت کنید. آیا مطمئن هستید می‌خواهید از این کلمه عبور اصلی استفاده کنید؟ "
   },
   "pin": {
     "message": "پین",
@@ -1288,11 +1341,11 @@
     "description": "Verb form: to make secure or inaccesible by"
   },
   "trash": {
-    "message": "زباله ها",
+    "message": "زباله‌ها",
     "description": "Noun: a special folder to hold deleted items"
   },
   "searchTrash": {
-    "message": "جستجوی زباله ها"
+    "message": "جستجوی زباله‌ها"
   },
   "permanentlyDeleteItem": {
     "message": "حذف دائمی مورد"
@@ -1331,7 +1384,7 @@
     "message": "تنظیم کلمه عبور اصلی"
   },
   "masterPasswordPolicyInEffect": {
-    "message": "یک یا چند سیاست سازمانی برای تأمین شرایط زیر به گذرواژه اصلی شما احتیاج دارد:"
+    "message": "یک یا چند سیاست سازمانی برای تأمین شرایط زیر به کلمه عبور اصلی شما احتیاج دارد:"
   },
   "policyInEffectMinComplexity": {
     "message": "حداقل نمره پیچیدگی $SCORE$",
@@ -1385,7 +1438,7 @@
     "message": "سیاست حفظ حریم خصوصی"
   },
   "hintEqualsPassword": {
-    "message": "نکته رمز عبور شما نمی تواند همان رمز عبور شما باشد."
+    "message": "نکته کلمه عبور شما نمی تواند همان کلمه عبور شما باشد."
   },
   "ok": {
     "message": "تایید"
@@ -1444,10 +1497,260 @@
   "nativeMessaginPermissionErrorDesc": {
     "message": "بدون اجازه ارتباط با برنامه دسکتاپ Bitwarden ، نمی توانیم بیومتریک را در افزونه مرورگر ارائه دهیم. لطفا دوباره تلاش کنید."
   },
+  "nativeMessaginPermissionSidebarTitle": {
+    "message": "خطای درخواست مجوز"
+  },
+  "nativeMessaginPermissionSidebarDesc": {
+    "message": "این عمل را نمی توان در نوار کناری انجام داد، لطفاً اقدام را در پنجره بازشو یا پنجره بازخوانی کنید."
+  },
   "personalOwnershipSubmitError": {
     "message": "به دلیل خط مشی Enterprise ، برای ذخیره موارد در گاوصندوق شخصی خود محدود شده اید. گزینه مالکیت را به یک سازمان تغییر دهید و مجموعه های موجود را انتخاب کنید."
   },
   "personalOwnershipPolicyInEffect": {
     "message": "خط مشی سازمانی بر تنظیمات مالکیت شما تأثیر می گذارد."
+  },
+  "excludedDomains": {
+    "message": "دامنه های مستثنی"
+  },
+  "excludedDomainsDesc": {
+    "message": "Bitwarden برای ذخیره جزئیات ورود به سیستم این دامنه ها سوال نمی‌کند. برای اینکه تغییرات اعمال شود باید صفحه را تازه کنید."
+  },
+  "excludedDomainsInvalidDomain": {
+    "message": "$DOMAIN$ دامنه معتبری نیست",
+    "placeholders": {
+      "domain": {
+        "content": "$1",
+        "example": "googlecom"
+      }
+    }
+  },
+  "send": {
+    "message": "ارسال",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "searchSends": {
+    "message": "ارسال ها را جستجو کن",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "addSend": {
+    "message": "افزودن ارسال",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeText": {
+    "message": "متن"
+  },
+  "sendTypeFile": {
+    "message": "فایل"
+  },
+  "allSends": {
+    "message": "همه ارسال ها",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "maxAccessCountReached": {
+    "message": "به حداکثر تعداد دسترسی رسیده است"
+  },
+  "expired": {
+    "message": "منقضی شده"
+  },
+  "pendingDeletion": {
+    "message": "در انتظار حذف"
+  },
+  "passwordProtected": {
+    "message": "محافظت ‌شده با کلمه عبور"
+  },
+  "copySendLink": {
+    "message": "پیوند ارسال را کپی کن",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "removePassword": {
+    "message": "حذف کلمه عبور"
+  },
+  "delete": {
+    "message": "حذف"
+  },
+  "removedPassword": {
+    "message": "کلمه عبور حذف شد"
+  },
+  "deletedSend": {
+    "message": "ارسال پاک شد",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLink": {
+    "message": "ارسال پیوند",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "disabled": {
+    "message": "غیرفعال شد"
+  },
+  "removePasswordConfirmation": {
+    "message": "مطمئنید می‌خواهید این کلمه عبور حذف شود؟"
+  },
+  "deleteSend": {
+    "message": "ارسال پاک شد",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "deleteSendConfirmation": {
+    "message": "آیا مطمئن هستید می خواهید این ارسال را حذف کنید؟",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editSend": {
+    "message": "ویرایش ارسال",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTypeHeader": {
+    "message": "این چه نوع ارسالی است؟",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNameDesc": {
+    "message": "یک نام دوستانه برای توصیف این ارسال.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendFileDesc": {
+    "message": "فایلی که می خواهید ارسال کنید."
+  },
+  "deletionDate": {
+    "message": "تاریخ حذف"
+  },
+  "deletionDateDesc": {
+    "message": "ارسال در تاریخ و ساعت مشخص شده برای همیشه حذف خواهد شد.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "expirationDate": {
+    "message": "تاريخ انقضاء"
+  },
+  "expirationDateDesc": {
+    "message": "در صورت تنظیم، دسترسی به این ارسال در تاریخ و ساعت مشخص شده منقضی می شود.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "oneDay": {
+    "message": "۱ روز"
+  },
+  "days": {
+    "message": "$DAYS$ روز",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "custom": {
+    "message": "سفارشی"
+  },
+  "maximumAccessCount": {
+    "message": "تعداد دسترسی حداکثر"
+  },
+  "maximumAccessCountDesc": {
+    "message": "در صورت تنظیم، با رسیدن به حداکثر تعداد دسترسی، کاربران دیگر نمی توانند به این ارسال دسترسی پیدا کنند.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendPasswordDesc": {
+    "message": "به صورت اختیاری برای دسترسی کاربران به این ارسال به یک کلمه عبور نیاز دارید.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendNotesDesc": {
+    "message": "یادداشت های خصوصی در مورد این ارسال.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisableDesc": {
+    "message": "این ارسال را غیرفعال کنید تا کسی نتواند به آن دسترسی پیدا کند.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendShareDesc": {
+    "message": "پس از ذخیره، این پیوند ارسال را به کلیپ بورد کپی کن.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendTextDesc": {
+    "message": "متنی که می خواهید ارسال کنید."
+  },
+  "sendHideText": {
+    "message": "متن این ارسال را به طور پیش فرض پنهان کن.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "currentAccessCount": {
+    "message": "تعداد دسترسی فعلی"
+  },
+  "createSend": {
+    "message": "ساختن ارسال جدید",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "newPassword": {
+    "message": "کلمه عبور جدید"
+  },
+  "sendDisabled": {
+    "message": "ارسال غیرفعال شد",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendDisabledWarning": {
+    "message": "به دلیل خط مشی سازمانی، شما فقط می توانید ارسال موجود را حذف کنید.",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "createdSend": {
+    "message": "ارسال جدید ساخته شد",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "editedSend": {
+    "message": "ارسال جدید ویرایش شد",
+    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
+  },
+  "sendLinuxChromiumFileWarning": {
+    "message": "برای انتخاب پرونده، پسوند را در نوار کناری باز کنید (در صورت امکان) یا با کلیک بر روی این آگهی به پنجره جدیدی باز شوید."
+  },
+  "sendFirefoxFileWarning": {
+    "message": "برای انتخاب یک فایل با استفاده از Firefox، افزونه را در نوار کناری باز کنید یا با کلیک بر روی این بنر به پنجره جدید باز شوید."
+  },
+  "sendSafariFileWarning": {
+    "message": "برای انتخاب فایلی با استفاده از Safari، با کلیک روی این بنر به پنجره جدیدی باز شوید."
+  },
+  "sendFileCalloutHeader": {
+    "message": "قبل از اینکه شروع کنی"
+  },
+  "sendFirefoxCustomDatePopoutMessage1": {
+    "message": "برای استفاده از انتخابگر تاریخ به سبک تقویم",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read '**To use a calendar style date picker ** click here to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage2": {
+    "message": "اینجا کلیک کنید",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker **click here** to pop out your window.'"
+  },
+  "sendFirefoxCustomDatePopoutMessage3": {
+    "message": "برای خروج از پنجره خود.",
+    "description": "This will be used as part of a larger sentence, broken up to include links. The full sentence will read 'To use a calendar style date picker click here **to pop out your window.**'"
+  },
+  "expirationDateIsInvalid": {
+    "message": "تاریخ انقضا ارائه شده معتبر نیست."
+  },
+  "deletionDateIsInvalid": {
+    "message": "تاریخ حذف ارائه شده معتبر نیست."
+  },
+  "expirationDateAndTimeRequired": {
+    "message": "تاریخ انقضا و زمان لازم است."
+  },
+  "deletionDateAndTimeRequired": {
+    "message": "تاریخ و زمان حذف لازم است."
+  },
+  "dateParsingError": {
+    "message": "هنگام ذخیره حذف و تاریخ انقضا شما خطایی روی داد."
+  },
+  "hideEmail": {
+    "message": "آدرس ایمیلم را از گیرندگان مخفی کن."
+  },
+  "sendOptionsPolicyInEffect": {
+    "message": "یک یا چند سیاست سازمان بر گزینه های ارسال شما تأثیر می گذارد."
+  },
+  "passwordPrompt": {
+    "message": "کلمه عبور اصلی دوباره تولید می شود"
+  },
+  "passwordConfirmation": {
+    "message": "تأیید کلمه عبور اصلی"
+  },
+  "passwordConfirmationDesc": {
+    "message": "این عمل محافظت می شود. برای ادامه، لطفاً کلمه ورود اصلی خود را دوباره وارد کنید تا هویتان را تأیید کنید."
+  },
+  "emailVerificationRequired": {
+    "message": "تایید ایمیل لازم است"
+  },
+  "emailVerificationRequiredDesc": {
+    "message": "برای استفاده از این ویژگی باید ایمیل خود را تأیید کنید. می توانید ایمیل خود را در گاوصندوق وب تأیید کنید."
   }
 }
