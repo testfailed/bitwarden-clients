@@ -17,19 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // delay 50ms so that we get proper body dimensions
     setTimeout(load, 50);
-    
-
-    const responseFoldersCommand = 'notificationBarGetFoldersList';
-    chrome.runtime.onMessage.addListener((request, sender, response) => {
-        const msg = request;
-        if (msg.command === responseFoldersCommand && msg.data) {
-            fillSelectorWithFolders(msg.data.folders);
-        }
-    });
-    sendPlatformMessage({
-        command: 'bgGetDataForTab',
-        responseCommand: responseFoldersCommand
-    });
 
     function load() {
         var closeButton = document.getElementById('close-button'),
@@ -75,6 +62,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 sendPlatformMessage({
                     command: 'bgNeverSave'
                 });
+            });
+
+            const responseFoldersCommand = 'notificationBarGetFoldersList';
+            chrome.runtime.onMessage.addListener((request, sender, response) => {
+                const msg = request;
+                if (msg.command === responseFoldersCommand && msg.data) {
+                    fillSelectorWithFolders(msg.data.folders);
+                }
+            });
+            sendPlatformMessage({
+                command: 'bgGetDataForTab',
+                responseCommand: responseFoldersCommand
             });
         } else if (getQueryVariable('change')) {
             setContent(document.getElementById('template-change'));
