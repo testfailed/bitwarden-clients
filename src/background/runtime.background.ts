@@ -22,11 +22,10 @@ import BrowserPlatformUtilsService from '../services/browserPlatformUtils.servic
 import { BrowserApi } from '../browser/browserApi';
 
 import MainBackground from './main.background';
- 
-import { Utils } from 'jslib-common/misc/utils';
 
 import { OrganizationUserStatusType } from 'jslib-common/enums/organizationUserStatusType';
 import { PolicyType } from 'jslib-common/enums/policyType';
+import { Utils } from 'jslib-common/misc/utils';
 
 export default class RuntimeBackground {
     private runtime: any;
@@ -255,10 +254,11 @@ export default class RuntimeBackground {
             model.type = CipherType.Login;
             model.login = loginModel;
 
-            const folders = await this.folderService.getAllDecrypted();
-            const folderExist = folders.some((x) => x.id === folderId);
-            if (folderExist && !Utils.isNullOrWhitespace(folderId)) {
-                model.folderId = folderId;
+            if (!Utils.isNullOrWhitespace(folderId)) {
+                const folders = await this.folderService.getAllDecrypted();
+                if (folders.some(x => x.id === folderId)) {
+                    model.folderId = folderId;
+                }
             }
 
             const cipher = await this.cipherService.encrypt(model);
