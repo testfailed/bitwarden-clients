@@ -9,10 +9,12 @@ import { ToasterModule } from 'angular2-toaster';
 import { DebounceNavigationService } from './debounceNavigationService';
 import { LaunchGuardService } from './launch-guard.service';
 import { LockGuardService } from './lock-guard.service';
+import { PasswordRepromptService } from './password-reprompt.service';
 import { UnauthGuardService } from './unauth-guard.service';
 
 import { AuthGuardService } from 'jslib-angular/services/auth-guard.service';
 import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
+import { ModalService } from 'jslib-angular/services/modal.service';
 import { ValidationService } from 'jslib-angular/services/validation.service';
 
 import { BrowserApi } from '../../browser/browserApi';
@@ -31,6 +33,7 @@ import { ExportService } from 'jslib-common/abstractions/export.service';
 import { FileUploadService } from 'jslib-common/abstractions/fileUpload.service';
 import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService as LogServiceAbstraction } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
 import { PasswordGenerationService } from 'jslib-common/abstractions/passwordGeneration.service';
@@ -47,7 +50,6 @@ import { TokenService } from 'jslib-common/abstractions/token.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
 import { UserService } from 'jslib-common/abstractions/user.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
-import { PasswordRepromptService } from 'jslib-common/services/passwordReprompt.service';
 
 import { AutofillService } from '../../services/abstractions/autofill.service';
 import BrowserMessagingService from '../../services/browserMessaging.service';
@@ -75,8 +77,6 @@ const messagingService = new BrowserMessagingService();
 const searchService = isPrivateMode ? null : new PopupSearchService(getBgService<SearchService>('searchService')(),
     getBgService<CipherService>('cipherService')(), getBgService<ConsoleLogService>('consoleLogService')(),
     getBgService<I18nService>('i18nService')());
-const passwordRepromptService = isPrivateMode ? null : new PasswordRepromptService(getBgService<I18nService>('i18nService')(),
-    getBgService<CryptoService>('cryptoService')(), getBgService<PlatformUtilsService>('platformUtilsService')());
 
 export function initFactory(platformUtilsService: PlatformUtilsService, i18nService: I18nService, storageService: StorageService,
     popupUtilsService: PopupUtilsService): Function {
@@ -125,6 +125,7 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         DebounceNavigationService,
         PopupUtilsService,
         BroadcasterService,
+        ModalService,
         { provide: MessagingService, useValue: messagingService },
         { provide: AuthServiceAbstraction, useFactory: getBgService<AuthService>('authService'), deps: [] },
         { provide: StateServiceAbstraction, useValue: stateService },
@@ -139,6 +140,7 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         },
         { provide: FolderService, useFactory: getBgService<FolderService>('folderService'), deps: [] },
         { provide: CollectionService, useFactory: getBgService<CollectionService>('collectionService'), deps: [] },
+        { provide: LogServiceAbstraction, useFactory: getBgService<ConsoleLogService>('logService'), deps: [] },
         { provide: EnvironmentService, useFactory: getBgService<EnvironmentService>('environmentService'), deps: [] },
         { provide: TotpService, useFactory: getBgService<TotpService>('totpService'), deps: [] },
         { provide: TokenService, useFactory: getBgService<TokenService>('tokenService'), deps: [] },
@@ -186,7 +188,7 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
             useFactory: () => isPrivateMode ? null : getBgService<I18nService>('i18nService')().translationLocale,
             deps: [],
         },
-        { provide: PasswordRepromptServiceAbstraction, useValue: passwordRepromptService },
+        { provide: PasswordRepromptServiceAbstraction, useClass: PasswordRepromptService },
     ],
 })
 export class ServicesModule {
