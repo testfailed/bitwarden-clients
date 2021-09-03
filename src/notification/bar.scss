@@ -82,7 +82,7 @@ button.link {
     }
 
 body[class*='lang-en'] .add-buttons {
-    width: 175px;
+    width: 50px;
 }
 
 @media (min-width: 768px) {
@@ -97,8 +97,3 @@ body[class*='lang-en'] .add-buttons {
     }
 }
 
-@media (max-width: 768px) {
-    #select-folder{
-        display: none; 
-    }       
-}

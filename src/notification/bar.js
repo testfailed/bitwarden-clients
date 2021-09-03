@@ -33,10 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bodyRect.width < 768) {
             document.querySelector('#template-add .add-save').textContent = i18n.yes;
             document.querySelector('#template-add .never-save').textContent = i18n.never;
+            document.querySelector('#template-add .select-folder').style.display = 'none';
             document.querySelector('#template-change .change-save').textContent = i18n.yes;
         } else {
             document.querySelector('#template-add .add-save').textContent = i18n.notificationAddSave;
             document.querySelector('#template-add .never-save').textContent = i18n.notificationNeverSave;
+            document.querySelector('#template-add .select-folder').style.display = 'initial';
             document.querySelector('#template-change .change-save').textContent = i18n.notificationChangeSave;
         }
 
@@ -65,8 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const responseFoldersCommand = 'notificationBarGetFoldersList';
-            chrome.runtime.onMessage.addListener((request, sender, response) => {
-                const msg = request;
+            chrome.runtime.onMessage.addListener((msg) => {
                 if (msg.command === responseFoldersCommand && msg.data) {
                     fillSelectorWithFolders(msg.data.folders);
                 }
@@ -134,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function fillSelectorWithFolders(folders) {
-        const select = document.getElementById("select-folder");
+        const select = document.querySelector('#template-add-clone .select-folder');
         select.appendChild(new Option(chrome.i18n.getMessage('selectFolder'), null, true));
         folders.forEach((folder) => {
             //Select "No Folder" (id=null) folder by default
