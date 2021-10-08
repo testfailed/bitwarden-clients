@@ -19,15 +19,14 @@ import { CipherView } from 'jslib-common/models/view/cipherView';
 import { CollectionView } from 'jslib-common/models/view/collectionView';
 import { FolderView } from 'jslib-common/models/view/folderView';
 
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { CollectionService } from 'jslib-common/abstractions/collection.service';
 import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
 import { StateService } from 'jslib-common/abstractions/state.service';
-import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
-import { UserService } from 'jslib-common/abstractions/user.service';
 
 import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 
@@ -76,14 +75,14 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
     private allCiphers: CipherView[] = null;
 
     constructor(collectionService: CollectionService, folderService: FolderService,
-        storageService: StorageService, userService: UserService,
         private cipherService: CipherService, private router: Router,
         private ngZone: NgZone, private broadcasterService: BroadcasterService,
         private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute,
         private stateService: StateService, private popupUtils: PopupUtilsService,
         private syncService: SyncService, private platformUtilsService: PlatformUtilsService,
-        private searchService: SearchService, private location: Location) {
-        super(collectionService, folderService, storageService, userService);
+        private searchService: SearchService, private location: Location,
+        activeAccount: ActiveAccountService) {
+        super(collectionService, folderService, activeAccount);
         this.noFolderListSize = 100;
     }
 

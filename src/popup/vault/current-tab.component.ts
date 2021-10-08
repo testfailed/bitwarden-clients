@@ -16,18 +16,17 @@ import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 
 import { CipherRepromptType } from 'jslib-common/enums/cipherRepromptType';
 import { CipherType } from 'jslib-common/enums/cipherType';
+import { StorageKey } from 'jslib-common/enums/storageKey';
 
 import { CipherView } from 'jslib-common/models/view/cipherView';
 
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { PasswordRepromptService } from 'jslib-common/abstractions/passwordReprompt.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
-import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
-
-import { ConstantsService } from 'jslib-common/services/constants.service';
 
 import { AutofillService } from '../../services/abstractions/autofill.service';
 
@@ -63,7 +62,7 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
         private toasterService: ToasterService, private i18nService: I18nService, private router: Router,
         private ngZone: NgZone, private broadcasterService: BroadcasterService,
         private changeDetectorRef: ChangeDetectorRef, private syncService: SyncService,
-        private searchService: SearchService, private storageService: StorageService,
+        private searchService: SearchService, private activeAccount: ActiveAccountService,
         private passwordRepromptService: PasswordRepromptService) {
     }
 
@@ -209,9 +208,9 @@ export class CurrentTabComponent implements OnInit, OnDestroy {
         });
 
         const otherTypes: CipherType[] = [];
-        const dontShowCards = await this.storageService.get<boolean>(ConstantsService.dontShowCardsCurrentTab);
-        const dontShowIdentities = await this.storageService.get<boolean>(
-            ConstantsService.dontShowIdentitiesCurrentTab);
+        const dontShowCards = await this.activeAccount.getInformation<boolean>(StorageKey.DontShowCardsCurrentTab);
+        const dontShowIdentities = await this.activeAccount.getInformation<boolean>(
+            StorageKey.DontShowIdentitiesCurrentTab);
         if (!dontShowCards) {
             otherTypes.push(CipherType.Card);
         }

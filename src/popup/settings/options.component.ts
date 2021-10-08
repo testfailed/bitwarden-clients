@@ -3,16 +3,14 @@ import {
     OnInit,
 } from '@angular/core';
 
+import { StorageKey } from 'jslib-common/enums/storageKey';
 import { ThemeType } from 'jslib-common/enums/themeType';
 import { UriMatchType } from 'jslib-common/enums/uriMatchType';
 
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
-import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
-
-import { ConstantsService } from 'jslib-common/services/constants.service';
 
 @Component({
     selector: 'app-options',
@@ -41,8 +39,8 @@ export class OptionsComponent implements OnInit {
     showAutofill: boolean = true;
     showDisplay: boolean = true;
 
-    constructor(private messagingService: MessagingService, private storageService: StorageService,
-        private stateService: StateService, private totpService: TotpService, i18nService: I18nService) {
+    constructor(private messagingService: MessagingService, private activeAccount: ActiveAccountService,
+        private totpService: TotpService, i18nService: I18nService) {
         this.themeOptions = [
             { name: i18nService.t('default'), value: null },
             { name: i18nService.t('light'), value: ThemeType.Light },
@@ -74,97 +72,93 @@ export class OptionsComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.enableAutoFillOnPageLoad = await this.storageService.get<boolean>(
-            ConstantsService.enableAutoFillOnPageLoadKey);
+        this.enableAutoFillOnPageLoad = await this.activeAccount.getInformation<boolean>(
+            StorageKey.EnableAutoFillOnPageLoad);
 
-        this.autoFillOnPageLoadDefault = await this.storageService.get<boolean>(
-            ConstantsService.autoFillOnPageLoadDefaultKey) ?? true;
+        this.autoFillOnPageLoadDefault = await this.activeAccount.getInformation<boolean>(
+            StorageKey.AutoFillOnPageLoadDefault) ?? true;
 
-        this.disableAddLoginNotification = await this.storageService.get<boolean>(
-            ConstantsService.disableAddLoginNotificationKey);
+        this.disableAddLoginNotification = await this.activeAccount.getInformation<boolean>(
+            StorageKey.DisableAddLoginNotification);
 
-        this.disableChangedPasswordNotification = await this.storageService.get<boolean>(
-            ConstantsService.disableChangedPasswordNotificationKey);
+        this.disableChangedPasswordNotification = await this.activeAccount.getInformation<boolean>(
+            StorageKey.DisableChangedPasswordNotification);
 
-        this.disableContextMenuItem = await this.storageService.get<boolean>(
-            ConstantsService.disableContextMenuItemKey);
+        this.disableContextMenuItem = await this.activeAccount.getInformation<boolean>(
+            StorageKey.DisableContextMenuItem);
 
-        this.dontShowCards = await this.storageService.get<boolean>(ConstantsService.dontShowCardsCurrentTab);
-        this.dontShowIdentities = await this.storageService.get<boolean>(ConstantsService.dontShowIdentitiesCurrentTab);
+        this.dontShowCards = await this.activeAccount.getInformation<boolean>(StorageKey.DontShowCardsCurrentTab);
+        this.dontShowIdentities = await this.activeAccount.getInformation<boolean>(StorageKey.DontShowIdentitiesCurrentTab);
 
         this.disableAutoTotpCopy = !(await this.totpService.isAutoCopyEnabled());
 
-        this.disableFavicon = await this.storageService.get<boolean>(ConstantsService.disableFaviconKey);
+        this.disableFavicon = await this.activeAccount.getInformation<boolean>(StorageKey.DisableFavicon);
 
-        this.disableBadgeCounter = await this.storageService.get<boolean>(ConstantsService.disableBadgeCounterKey);
+        this.disableBadgeCounter = await this.activeAccount.getInformation<boolean>(StorageKey.DisableBadgeCounter);
 
-        this.theme = await this.storageService.get<string>(ConstantsService.themeKey);
+        this.theme = await this.activeAccount.getInformation<string>(StorageKey.Theme);
 
-        const defaultUriMatch = await this.storageService.get<UriMatchType>(ConstantsService.defaultUriMatch);
+        const defaultUriMatch = await this.activeAccount.getInformation<UriMatchType>(StorageKey.DefaultUriMatch);
         this.defaultUriMatch = defaultUriMatch == null ? UriMatchType.Domain : defaultUriMatch;
 
-        this.clearClipboard = await this.storageService.get<number>(ConstantsService.clearClipboardKey);
+        this.clearClipboard = await this.activeAccount.getInformation<number>(StorageKey.ClearClipboard);
     }
 
     async updateAddLoginNotification() {
-        await this.storageService.save(ConstantsService.disableAddLoginNotificationKey,
+        await this.activeAccount.saveInformation(StorageKey.DisableAddLoginNotification,
             this.disableAddLoginNotification);
     }
 
     async updateChangedPasswordNotification() {
-        await this.storageService.save(ConstantsService.disableChangedPasswordNotificationKey,
+        await this.activeAccount.saveInformation(StorageKey.DisableChangedPasswordNotification,
             this.disableChangedPasswordNotification);
     }
 
     async updateDisableContextMenuItem() {
-        await this.storageService.save(ConstantsService.disableContextMenuItemKey,
+        await this.activeAccount.saveInformation(StorageKey.DisableContextMenuItem,
             this.disableContextMenuItem);
         this.messagingService.send('bgUpdateContextMenu');
     }
 
     async updateAutoTotpCopy() {
-        await this.storageService.save(ConstantsService.disableAutoTotpCopyKey, this.disableAutoTotpCopy);
+        await this.activeAccount.saveInformation(StorageKey.DisableAutoTotpCopy, this.disableAutoTotpCopy);
     }
 
     async updateAutoFillOnPageLoad() {
-        await this.storageService.save(ConstantsService.enableAutoFillOnPageLoadKey, this.enableAutoFillOnPageLoad);
+        await this.activeAccount.saveInformation(StorageKey.EnableAutoFillOnPageLoad, this.enableAutoFillOnPageLoad);
     }
 
     async updateAutoFillOnPageLoadDefault() {
-        await this.storageService.save(ConstantsService.autoFillOnPageLoadDefaultKey, this.autoFillOnPageLoadDefault);
+        await this.activeAccount.saveInformation(StorageKey.AutoFillOnPageLoadDefault, this.autoFillOnPageLoadDefault);
     }
 
     async updateDisableFavicon() {
-        await this.storageService.save(ConstantsService.disableFaviconKey, this.disableFavicon);
-        await this.stateService.save(ConstantsService.disableFaviconKey, this.disableFavicon);
+        await this.activeAccount.saveInformation(StorageKey.DisableFavicon, this.disableFavicon);
     }
 
     async updateDisableBadgeCounter() {
-        await this.storageService.save(ConstantsService.disableBadgeCounterKey, this.disableBadgeCounter);
-        await this.stateService.save(ConstantsService.disableBadgeCounterKey, this.disableBadgeCounter);
+        await this.activeAccount.saveInformation(StorageKey.DisableBadgeCounter, this.disableBadgeCounter);
         this.messagingService.send('bgUpdateContextMenu');
     }
 
     async updateShowCards() {
-        await this.storageService.save(ConstantsService.dontShowCardsCurrentTab, this.dontShowCards);
-        await this.stateService.save(ConstantsService.dontShowCardsCurrentTab, this.dontShowCards);
+        await this.activeAccount.saveInformation(StorageKey.DontShowCardsCurrentTab, this.dontShowCards);
     }
 
     async updateShowIdentities() {
-        await this.storageService.save(ConstantsService.dontShowIdentitiesCurrentTab, this.dontShowIdentities);
-        await this.stateService.save(ConstantsService.dontShowIdentitiesCurrentTab, this.dontShowIdentities);
+        await this.activeAccount.saveInformation(StorageKey.DontShowIdentitiesCurrentTab, this.dontShowIdentities);
     }
 
     async saveTheme() {
-        await this.storageService.save(ConstantsService.themeKey, this.theme);
+        await this.activeAccount.saveInformation(StorageKey.Theme, this.theme);
         window.setTimeout(() => window.location.reload(), 200);
     }
 
     async saveDefaultUriMatch() {
-        await this.storageService.save(ConstantsService.defaultUriMatch, this.defaultUriMatch);
+        await this.activeAccount.saveInformation(StorageKey.DefaultUriMatch, this.defaultUriMatch);
     }
 
     async saveClearClipboard() {
-        await this.storageService.save(ConstantsService.clearClipboardKey, this.clearClipboard);
+        await this.activeAccount.saveInformation(StorageKey.ClearClipboard, this.clearClipboard);
     }
 }

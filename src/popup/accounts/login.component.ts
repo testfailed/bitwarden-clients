@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { AuthService } from 'jslib-common/abstractions/auth.service';
 import { CryptoFunctionService } from 'jslib-common/abstractions/cryptoFunction.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
@@ -23,8 +24,10 @@ export class LoginComponent extends BaseLoginComponent {
         protected stateService: StateService, protected environmentService: EnvironmentService,
         protected passwordGenerationService: PasswordGenerationService,
         protected cryptoFunctionService: CryptoFunctionService, storageService: StorageService,
-        syncService: SyncService) {
-        super(authService, router, platformUtilsService, i18nService, stateService, environmentService, passwordGenerationService, cryptoFunctionService, storageService);
+        syncService: SyncService, protected activeAccount: ActiveAccountService) {
+        super(authService, router, platformUtilsService, i18nService,
+            stateService, environmentService, passwordGenerationService, cryptoFunctionService,
+            storageService, activeAccount);
         super.onSuccessfulLogin = async () => {
             await syncService.fullSync(true);
         };

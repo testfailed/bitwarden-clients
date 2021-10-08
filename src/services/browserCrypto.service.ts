@@ -1,4 +1,5 @@
-import { KeySuffixOptions } from 'jslib-common/abstractions/storage.service';
+import { KeySuffixOptions } from 'jslib-common/models/domain/settingStorageOptions';
+
 import { CryptoService } from 'jslib-common/services/crypto.service';
 
 export class BrowserCryptoService extends CryptoService {
@@ -10,5 +11,4 @@ export class BrowserCryptoService extends CryptoService {
 
         return await super.retrieveKeyFromStorage(keySuffix);
     }
-
 }

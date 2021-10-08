@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ConstantsService } from 'jslib-common/services/constants.service';
-
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
@@ -10,12 +9,12 @@ import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { StateService } from 'jslib-common/abstractions/state.service';
-import { StorageService } from 'jslib-common/abstractions/storage.service';
-import { UserService } from 'jslib-common/abstractions/user.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 
 import { LockComponent as BaseLockComponent } from 'jslib-angular/components/lock.component';
 import Swal from 'sweetalert2';
+
+import { StorageKey } from 'jslib-common/enums/storageKey';
 
 @Component({
     selector: 'app-lock',
@@ -26,20 +25,20 @@ export class LockComponent extends BaseLockComponent {
 
     constructor(router: Router, i18nService: I18nService,
         platformUtilsService: PlatformUtilsService, messagingService: MessagingService,
-        userService: UserService, cryptoService: CryptoService,
-        storageService: StorageService, vaultTimeoutService: VaultTimeoutService,
-        environmentService: EnvironmentService, stateService: StateService,
-        apiService: ApiService) {
-        super(router, i18nService, platformUtilsService, messagingService, userService, cryptoService,
-            storageService, vaultTimeoutService, environmentService, stateService, apiService);
+        activeAccount: ActiveAccountService, cryptoService: CryptoService,
+        vaultTimeoutService: VaultTimeoutService, environmentService: EnvironmentService,
+        stateService: StateService, apiService: ApiService) {
+        super(router, i18nService, platformUtilsService,
+            messagingService, cryptoService, vaultTimeoutService,
+            environmentService, stateService, apiService, activeAccount);
         this.successRoute = '/tabs/current';
         this.isInitialLockScreen = (window as any).previousPopupUrl == null;
     }
 
     async ngOnInit() {
         await super.ngOnInit();
-        const disableAutoBiometricsPrompt = await this.storageService.get<boolean>(
-            ConstantsService.disableAutoBiometricsPromptKey) ?? true;
+        const disableAutoBiometricsPrompt = await this.activeAccount.getInformation<boolean>(
+            StorageKey.DisableAutoBiometricsPrompt) ?? true;
 
         window.setTimeout(async () => {
             document.getElementById(this.pinLock ? 'pin' : 'masterPassword').focus();

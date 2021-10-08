@@ -13,12 +13,12 @@ import { EventType } from 'jslib-common/enums/eventType';
 
 import { CipherView } from 'jslib-common/models/view/cipherView';
 
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { EventService } from 'jslib-common/abstractions/event.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { PasswordRepromptService } from 'jslib-common/abstractions/passwordReprompt.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
-import { UserService } from 'jslib-common/abstractions/user.service';
 
 @Component({
     selector: 'app-action-buttons',
@@ -35,11 +35,11 @@ export class ActionButtonsComponent {
 
     constructor(private toasterService: ToasterService, private i18nService: I18nService,
         private platformUtilsService: PlatformUtilsService, private eventService: EventService,
-        private totpService: TotpService, private userService: UserService,
+        private totpService: TotpService, private activeAccount: ActiveAccountService,
         private passwordRepromptService: PasswordRepromptService) { }
 
     async ngOnInit() {
-        this.userHasPremiumAccess = await this.userService.canAccessPremium();
+        this.userHasPremiumAccess = this.activeAccount.canAccessPremium;
     }
 
     launchCipher() {

@@ -22,7 +22,6 @@ import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
 import { SendService } from 'jslib-common/abstractions/send.service';
 import { StateService } from 'jslib-common/abstractions/state.service';
-import { UserService } from 'jslib-common/abstractions/user.service';
 
 import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 
@@ -45,12 +44,12 @@ export class SendTypeComponent extends BaseSendComponent {
 
     constructor(sendService: SendService, i18nService: I18nService,
         platformUtilsService: PlatformUtilsService, environmentService: EnvironmentService, ngZone: NgZone,
-        policyService: PolicyService, userService: UserService, searchService: SearchService,
+        policyService: PolicyService, searchService: SearchService,
         private popupUtils: PopupUtilsService, private stateService: StateService,
         private route: ActivatedRoute, private location: Location, private changeDetectorRef: ChangeDetectorRef,
         private broadcasterService: BroadcasterService, private router: Router) {
         super(sendService, i18nService, platformUtilsService, environmentService, ngZone, searchService,
-            policyService, userService);
+            policyService);
         super.onSuccessfulLoad = async () => {
             this.selectType(this.type);
         };

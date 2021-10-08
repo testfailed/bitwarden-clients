@@ -19,6 +19,8 @@ import { ValidationService } from 'jslib-angular/services/validation.service';
 
 import { BrowserApi } from '../../browser/browserApi';
 
+import { AccountsManagementService } from 'jslib-common/abstractions/accountsManagement.service';
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { AppIdService } from 'jslib-common/abstractions/appId.service';
 import { AuditService } from 'jslib-common/abstractions/audit.service';
@@ -36,10 +38,12 @@ import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { LogService as LogServiceAbstraction } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
+import { OrganizationService } from 'jslib-common/abstractions/organization.service';
 import { PasswordGenerationService } from 'jslib-common/abstractions/passwordGeneration.service';
 import { PasswordRepromptService as PasswordRepromptServiceAbstraction } from 'jslib-common/abstractions/passwordReprompt.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
+import { ProviderService } from 'jslib-common/abstractions/provider.service';
 import { SearchService as SearchServiceAbstraction } from 'jslib-common/abstractions/search.service';
 import { SendService } from 'jslib-common/abstractions/send.service';
 import { SettingsService } from 'jslib-common/abstractions/settings.service';
@@ -48,7 +52,6 @@ import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 import { TokenService } from 'jslib-common/abstractions/token.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
-import { UserService } from 'jslib-common/abstractions/user.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 
 import { AutofillService } from '../../services/abstractions/autofill.service';
@@ -56,13 +59,13 @@ import BrowserMessagingService from '../../services/browserMessaging.service';
 
 import { AuthService } from 'jslib-common/services/auth.service';
 import { ConsoleLogService } from 'jslib-common/services/consoleLog.service';
-import { ConstantsService } from 'jslib-common/services/constants.service';
 import { SearchService } from 'jslib-common/services/search.service';
 import { StateService } from 'jslib-common/services/state.service';
 
 import { PopupSearchService } from './popup-search.service';
 import { PopupUtilsService } from './popup-utils.service';
 
+import { StorageKey } from 'jslib-common/enums/storageKey';
 import { ThemeType } from 'jslib-common/enums/themeType';
 
 function getBgService<T>(service: string) {
@@ -92,17 +95,17 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         }
 
         if (!isPrivateMode) {
-            await stateService.save(ConstantsService.disableFaviconKey,
-                await storageService.get<boolean>(ConstantsService.disableFaviconKey));
+            await stateService.save(StorageKey.DisableFavicon,
+                await storageService.get<boolean>(StorageKey.DisableFavicon));
 
-            await stateService.save(ConstantsService.disableBadgeCounterKey,
-                await storageService.get<boolean>(ConstantsService.disableBadgeCounterKey));
+            await stateService.save(StorageKey.DisableBadgeCounter,
+                await storageService.get<boolean>(StorageKey.DisableBadgeCounter));
 
             const htmlEl = window.document.documentElement;
             const theme = await platformUtilsService.getEffectiveTheme();
             htmlEl.classList.add('theme_' + theme);
             platformUtilsService.onDefaultSystemThemeChange(async sysTheme => {
-                const bwTheme = await storageService.get<ThemeType>(ConstantsService.themeKey);
+                const bwTheme = await storageService.get<ThemeType>(StorageKey.Theme);
                 if (bwTheme == null || bwTheme === ThemeType.System) {
                     htmlEl.classList.remove('theme_' + ThemeType.Light, 'theme_' + ThemeType.Dark);
                     htmlEl.classList.add('theme_' + sysTheme);
@@ -162,7 +165,6 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         },
         { provide: ApiService, useFactory: getBgService<ApiService>('apiService'), deps: [] },
         { provide: SyncService, useFactory: getBgService<SyncService>('syncService'), deps: [] },
-        { provide: UserService, useFactory: getBgService<UserService>('userService'), deps: [] },
         { provide: SettingsService, useFactory: getBgService<SettingsService>('settingsService'), deps: [] },
         { provide: StorageService, useFactory: getBgService<StorageService>('storageService'), deps: [] },
         { provide: AppIdService, useFactory: getBgService<AppIdService>('appIdService'), deps: [] },
@@ -191,6 +193,11 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
             deps: [],
         },
         { provide: PasswordRepromptServiceAbstraction, useClass: PasswordRepromptService },
+        { provide: PasswordRepromptServiceAbstraction, useClass: PasswordRepromptService },
+        { provide: ActiveAccountService, useFactory: getBgService<ActiveAccountService>('activeAccount'), deps: [] },
+        { provide: AccountsManagementService, useFactory: getBgService<AccountsManagementService>('accountsManagementService'), deps: [] },
+        { provide: OrganizationService, useFactory: getBgService<OrganizationService>('organizationService'), deps: [] },
+        { provide: ProviderService, useFactory: getBgService<ProviderService>('providerService'), deps: [] },
     ],
 })
 export class ServicesModule {

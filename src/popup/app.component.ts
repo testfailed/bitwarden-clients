@@ -31,9 +31,8 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 import { StateService } from 'jslib-common/abstractions/state.service';
 import { StorageService } from 'jslib-common/abstractions/storage.service';
 
-import { ConstantsService } from 'jslib-common/services/constants.service';
+import { StorageKey } from 'jslib-common/enums/storageKey';
 
-import BrowserPlatformUtilsService from 'src/services/browserPlatformUtils.service';
 import { routerTransition } from './app-routing.animations';
 
 @Component({
@@ -174,7 +173,7 @@ export class AppComponent implements OnInit {
         }
 
         this.lastActivity = now;
-        this.storageService.save(ConstantsService.lastActiveKey, now);
+        this.storageService.save(StorageKey.LastActive, now);
     }
 
     private showToast(msg: any) {

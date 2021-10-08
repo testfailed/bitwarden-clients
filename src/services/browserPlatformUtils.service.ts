@@ -4,11 +4,10 @@ import { SafariApp } from '../browser/safariApp';
 import { DeviceType } from 'jslib-common/enums/deviceType';
 import { ThemeType } from 'jslib-common/enums/themeType';
 
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StorageService } from 'jslib-common/abstractions/storage.service';
-
-import { ConstantsService } from 'jslib-common/services/constants.service';
+import { StorageKey } from 'jslib-common/enums/storageKey';
 
 const DialogPromiseExpiration = 600000; // 10 minutes
 
@@ -20,7 +19,7 @@ export default class BrowserPlatformUtilsService implements PlatformUtilsService
     private deviceCache: DeviceType = null;
     private prefersColorSchemeDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-    constructor(private messagingService: MessagingService, private storageService: StorageService,
+    constructor(private messagingService: MessagingService, private activeAccount: ActiveAccountService,
         private clipboardWriteCallback: (clipboardValue: string, clearMs: number) => void,
         private biometricCallback: () => Promise<boolean>) { }
 
@@ -332,7 +331,7 @@ export default class BrowserPlatformUtilsService implements PlatformUtilsService
     }
 
     async getEffectiveTheme() {
-        const theme = await this.storageService.get<ThemeType>(ConstantsService.themeKey);
+        const theme = await this.activeAccount.getInformation<ThemeType>(StorageKey.Theme);
         if (theme == null || theme === ThemeType.System) {
             return this.getDefaultSystemTheme();
         } else {

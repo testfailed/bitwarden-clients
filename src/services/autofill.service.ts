@@ -1,7 +1,7 @@
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { EventService } from 'jslib-common/abstractions/event.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
-import { UserService } from 'jslib-common/abstractions/user.service';
 
 import { AutofillService as AutofillServiceInterface } from './abstractions/autofill.service';
 
@@ -130,7 +130,7 @@ var IsoProvinces: { [id: string]: string; } = {
 
 export default class AutofillService implements AutofillServiceInterface {
 
-    constructor(private cipherService: CipherService, private userService: UserService,
+    constructor(private cipherService: CipherService, private activeAccount: ActiveAccountService,
         private totpService: TotpService, private eventService: EventService) { }
 
     getFormsWithPasswordFields(pageDetails: AutofillPageDetails): any[] {
@@ -172,7 +172,7 @@ export default class AutofillService implements AutofillServiceInterface {
             throw new Error('Nothing to auto-fill.');
         }
 
-        const canAccessPremium = await this.userService.canAccessPremium();
+        const canAccessPremium = this.activeAccount.canAccessPremium;
         let didAutofill = false;
         options.pageDetails.forEach((pd: any) => {
             // make sure we're still on correct tab

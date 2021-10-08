@@ -12,16 +12,14 @@ import Swal from 'sweetalert2/src/sweetalert2.js';
 import { BrowserApi } from '../../browser/browserApi';
 
 import { DeviceType } from 'jslib-common/enums/deviceType';
+import { StorageKey } from 'jslib-common/enums/storageKey';
 
-import { ConstantsService } from 'jslib-common/services/constants.service';
-
+import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StorageService } from 'jslib-common/abstractions/storage.service';
-import { UserService } from 'jslib-common/abstractions/user.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
 
@@ -62,11 +60,11 @@ export class SettingsComponent implements OnInit {
     vaultTimeout: FormControl = new FormControl(null);
 
     constructor(private platformUtilsService: PlatformUtilsService, private i18nService: I18nService,
-        private vaultTimeoutService: VaultTimeoutService, private storageService: StorageService,
-        public messagingService: MessagingService, private router: Router,
-        private environmentService: EnvironmentService, private cryptoService: CryptoService,
-        private userService: UserService, private popupUtilsService: PopupUtilsService,
-        private modalService: ModalService, private toasterService: ToasterService) {
+        private vaultTimeoutService: VaultTimeoutService, public messagingService: MessagingService,
+        private router: Router, private environmentService: EnvironmentService,
+        private cryptoService: CryptoService, private activeAccount: ActiveAccountService,
+        private popupUtilsService: PopupUtilsService, private modalService: ModalService,
+        private toasterService: ToasterService) {
     }
 
     async ngOnInit() {
@@ -108,7 +106,7 @@ export class SettingsComponent implements OnInit {
             this.saveVaultTimeout(value);
         });
 
-        const action = await this.storageService.get<string>(ConstantsService.vaultTimeoutActionKey);
+        const action = await this.activeAccount.getInformation<string>(StorageKey.VaultTimeoutAction);
         this.vaultTimeoutAction = action == null ? 'lock' : action;
 
         const pinSet = await this.vaultTimeoutService.isPinLockSet();
@@ -116,8 +114,8 @@ export class SettingsComponent implements OnInit {
 
         this.supportsBiometric = await this.platformUtilsService.supportsBiometric();
         this.biometric = await this.vaultTimeoutService.isBiometricLockSet();
-        this.disableAutoBiometricsPrompt = await this.storageService.get<boolean>(
-            ConstantsService.disableAutoBiometricsPromptKey) ?? true;
+        this.disableAutoBiometricsPrompt = await this.activeAccount.getInformation<boolean>(
+            StorageKey.DisableAutoBiometricsPrompt) ?? true;
     }
 
     async saveVaultTimeout(newValue: number) {
@@ -225,14 +223,14 @@ export class SettingsComponent implements OnInit {
                 allowOutsideClick: false,
             });
 
-            await this.storageService.save(ConstantsService.biometricAwaitingAcceptance, true);
+            await this.activeAccount.saveInformation(StorageKey.BiometricAwaitingAcceptance, true);
             await this.cryptoService.toggleKey();
 
             await Promise.race([
                 submitted.then(result => {
                     if (result.dismiss === Swal.DismissReason.cancel) {
                         this.biometric = false;
-                        this.storageService.remove(ConstantsService.biometricAwaitingAcceptance);
+                        this.activeAccount.removeInformation(StorageKey.BiometricAwaitingAcceptance);
                     }
                 }),
                 this.platformUtilsService.authenticateBiometric().then(result => {
@@ -248,13 +246,13 @@ export class SettingsComponent implements OnInit {
                 }),
             ]);
         } else {
-            await this.storageService.remove(ConstantsService.biometricUnlockKey);
+            await this.activeAccount.removeInformation(StorageKey.BiometricUnlock);
             this.vaultTimeoutService.biometricLocked = false;
         }
     }
 
     async updateAutoBiometricsPrompt() {
-        await this.storageService.save(ConstantsService.disableAutoBiometricsPromptKey, this.disableAutoBiometricsPrompt);
+        await this.activeAccount.saveInformation(StorageKey.DisableAutoBiometricsPrompt, this.disableAutoBiometricsPrompt);
     }
 
     async lock() {
@@ -334,7 +332,7 @@ export class SettingsComponent implements OnInit {
     }
 
     async fingerprint() {
-        const fingerprint = await this.cryptoService.getFingerprint(await this.userService.getUserId());
+        const fingerprint = await this.cryptoService.getFingerprint(this.activeAccount.userId);
         const p = document.createElement('p');
         p.innerText = this.i18nService.t('yourAccountsFingerprint') + ':';
         const p2 = document.createElement('p');
@@ -363,3 +361,4 @@ export class SettingsComponent implements OnInit {
         BrowserApi.createNewTab((RateUrls as any)[deviceType]);
     }
 }
+

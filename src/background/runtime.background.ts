@@ -13,9 +13,7 @@ import { NotificationsService } from 'jslib-common/abstractions/notifications.se
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { SystemService } from 'jslib-common/abstractions/system.service';
-import { UserService } from 'jslib-common/abstractions/user.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
-import { ConstantsService } from 'jslib-common/services/constants.service';
 import { AutofillService } from '../services/abstractions/autofill.service';
 import BrowserPlatformUtilsService from '../services/browserPlatformUtils.service';
 
@@ -26,6 +24,7 @@ import MainBackground from './main.background';
 import { Utils } from 'jslib-common/misc/utils';
 
 import { PolicyType } from 'jslib-common/enums/policyType';
+import { StorageKey } from 'jslib-common/enums/storageKey';
 
 export default class RuntimeBackground {
     private runtime: any;
@@ -36,10 +35,9 @@ export default class RuntimeBackground {
     constructor(private main: MainBackground, private autofillService: AutofillService,
         private cipherService: CipherService, private platformUtilsService: BrowserPlatformUtilsService,
         private storageService: StorageService, private i18nService: I18nService,
-        private notificationsService: NotificationsService,
-        private systemService: SystemService, private vaultTimeoutService: VaultTimeoutService,
-        private environmentService: EnvironmentService, private policyService: PolicyService,
-        private userService: UserService, private messagingService: MessagingService,
+        private notificationsService: NotificationsService, private systemService: SystemService,
+        private vaultTimeoutService: VaultTimeoutService, private environmentService: EnvironmentService,
+        private policyService: PolicyService, private messagingService: MessagingService,
         private folderService: FolderService) {
 
         // onInstalled listener must be wired up before anything else, so we do it in the ctor
@@ -331,7 +329,7 @@ export default class RuntimeBackground {
             c.login.username != null && c.login.username.toLowerCase() === normalizedUsername);
         if (usernameMatches.length === 0) {
             const disabledAddLogin = await this.storageService.get<boolean>(
-                ConstantsService.disableAddLoginNotificationKey);
+                StorageKey.DisableAddLoginNotification);
             if (disabledAddLogin) {
                 return;
             }
@@ -354,7 +352,7 @@ export default class RuntimeBackground {
             await this.main.checkNotificationQueue(tab);
         } else if (usernameMatches.length === 1 && usernameMatches[0].login.password !== loginInfo.password) {
             const disabledChangePassword = await this.storageService.get<boolean>(
-                ConstantsService.disableChangedPasswordNotificationKey);
+                StorageKey.DisableChangedPasswordNotification);
             if (disabledChangePassword) {
                 return;
             }
@@ -424,30 +422,30 @@ export default class RuntimeBackground {
 
     private async setDefaultSettings() {
         // Default timeout option to "on restart".
-        const currentVaultTimeout = await this.storageService.get<number>(ConstantsService.vaultTimeoutKey);
+        const currentVaultTimeout = await this.storageService.get<number>(StorageKey.VaultTimeout);
         if (currentVaultTimeout == null) {
-            await this.storageService.save(ConstantsService.vaultTimeoutKey, -1);
+            await this.storageService.save(StorageKey.VaultTimeout, -1);
         }
 
         // Default action to "lock".
-        const currentVaultTimeoutAction = await this.storageService.get<string>(ConstantsService.vaultTimeoutActionKey);
+        const currentVaultTimeoutAction = await this.storageService.get<string>(StorageKey.VaultTimeoutAction);
         if (currentVaultTimeoutAction == null) {
-            await this.storageService.save(ConstantsService.vaultTimeoutActionKey, 'lock');
+            await this.storageService.save(StorageKey.VaultTimeoutAction, 'lock');
         }
     }
 
     private async getDataForTab(tab: any, responseCommand: string) {
         const responseData: any = {};
         if (responseCommand === 'notificationBarDataResponse') {
-            responseData.neverDomains = await this.storageService.get<any>(ConstantsService.neverDomainsKey);
+            responseData.neverDomains = await this.storageService.get<any>(StorageKey.NeverDomains);
             const disableAddLoginFromOptions = await this.storageService.get<boolean>(
-                ConstantsService.disableAddLoginNotificationKey);
+                StorageKey.DisableAddLoginNotification);
             responseData.disabledAddLoginNotification = disableAddLoginFromOptions || !(await this.allowPersonalOwnership());
             responseData.disabledChangedPasswordNotification = await this.storageService.get<boolean>(
-                ConstantsService.disableChangedPasswordNotificationKey);
+                StorageKey.DisableChangedPasswordNotification);
         } else if (responseCommand === 'autofillerAutofillOnPageLoadEnabledResponse') {
             responseData.autofillEnabled = await this.storageService.get<boolean>(
-                ConstantsService.enableAutoFillOnPageLoadKey);
+                StorageKey.EnableAutoFillOnPageLoad);
         } else if (responseCommand === 'notificationBarFrameDataResponse') {
             responseData.i18n = {
                 appName: this.i18nService.t('appName'),
