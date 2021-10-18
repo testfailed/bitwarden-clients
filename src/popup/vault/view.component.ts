@@ -9,6 +9,8 @@ import {
     Router,
 } from '@angular/router';
 
+import { first } from 'rxjs/operators';
+
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { AuditService } from 'jslib-common/abstractions/audit.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
@@ -21,17 +23,18 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 import { TokenService } from 'jslib-common/abstractions/token.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
 import { UserService } from 'jslib-common/abstractions/user.service';
-import { Cipher } from 'jslib-common/models/domain';
-import { LoginUriView } from 'jslib-common/models/view';
 
 import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
+
+import { Cipher } from 'jslib-common/models/domain/cipher';
+import { LoginUriView } from 'jslib-common/models/view/loginUriView';
+
+import { CipherType } from 'jslib-common/enums/cipherType';
 
 import { ViewComponent as BaseViewComponent } from 'jslib-angular/components/view.component';
 import { BrowserApi } from '../../browser/browserApi';
 import { AutofillService } from '../../services/abstractions/autofill.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
-
-import { CipherType } from 'jslib-common/enums';
 
 const BroadcasterSubscriptionId = 'ChildViewComponent';
 
@@ -64,7 +67,7 @@ export class ViewComponent extends BaseViewComponent {
 
     ngOnInit() {
         this.inPopout = this.popupUtilsService.inPopout(window);
-        const queryParamsSub = this.route.queryParams.subscribe(async params => {
+        this.route.queryParams.pipe(first()).subscribe(async params => {
             if (params.cipherId) {
                 this.cipherId = params.cipherId;
             } else {
@@ -72,9 +75,6 @@ export class ViewComponent extends BaseViewComponent {
             }
 
             await this.load();
-            if (queryParamsSub != null) {
-                queryParamsSub.unsubscribe();
-            }
         });
 
         super.ngOnInit();

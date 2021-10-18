@@ -3,11 +3,12 @@ require('./bar.scss');
 document.addEventListener('DOMContentLoaded', () => {
     var i18n = {};
     var lang = window.navigator.language;
-    
+
     i18n.appName = chrome.i18n.getMessage('appName');
     i18n.close = chrome.i18n.getMessage('close');
     i18n.yes = chrome.i18n.getMessage('yes');
     i18n.never = chrome.i18n.getMessage('never');
+    i18n.folder = chrome.i18n.getMessage('folder');
     i18n.notificationAddSave = chrome.i18n.getMessage('notificationAddSave');
     i18n.notificationNeverSave = chrome.i18n.getMessage('notificationNeverSave');
     i18n.notificationAddDesc = chrome.i18n.getMessage('notificationAddDesc');
@@ -17,9 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // delay 50ms so that we get proper body dimensions
     setTimeout(load, 50);
-    
 
     function load() {
+        const isVaultLocked = getQueryVariable('isVaultLocked') == 'true';
+        document.getElementById('logo').src = isVaultLocked
+            ? chrome.runtime.getURL('images/icon38_locked.png')
+            : chrome.runtime.getURL('images/icon38.png');
+
+        document.getElementById('close').src = chrome.runtime.getURL('images/close.png');
+        document.getElementById('close').alt = i18n.close;
+
         var closeButton = document.getElementById('close-button'),
             body = document.querySelector('body'),
             bodyRect = body.getBoundingClientRect();
@@ -34,10 +42,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bodyRect.width < 768) {
             document.querySelector('#template-add .add-save').textContent = i18n.yes;
             document.querySelector('#template-add .never-save').textContent = i18n.never;
+            document.querySelector('#template-add .select-folder').style.display = 'none';
             document.querySelector('#template-change .change-save').textContent = i18n.yes;
         } else {
             document.querySelector('#template-add .add-save').textContent = i18n.notificationAddSave;
             document.querySelector('#template-add .never-save').textContent = i18n.notificationNeverSave;
+            document.querySelector('#template-add .select-folder').style.display = isVaultLocked ? 'none' : 'initial';
+            document.querySelector('#template-add .select-folder').setAttribute('aria-label', i18n.folder);
             document.querySelector('#template-change .change-save').textContent = i18n.notificationChangeSave;
         }
 
@@ -52,9 +63,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             addButton.addEventListener('click', (e) => {
                 e.preventDefault();
-                sendPlatformMessage({
-                    command: 'bgAddSave'
-                });
+
+                const folderId = document.querySelector('#template-add-clone .select-folder').value;
+
+                const bgAddSaveMessage = {
+                    command: 'bgAddSave',
+                    folder: folderId,
+                };
+
+                if (isVaultLocked) {
+                    sendPlatformMessage({
+                        command: 'promptForLogin'
+                    });
+
+                    sendPlatformMessage({
+                        command: 'addToLockedVaultPendingNotifications',
+                        retryItem: bgAddSaveMessage
+                    });
+                    return;
+                }
+
+                sendPlatformMessage(bgAddSaveMessage);
             });
 
             neverButton.addEventListener('click', (e) => {
@@ -63,18 +92,42 @@ document.addEventListener('DOMContentLoaded', () => {
                     command: 'bgNeverSave'
                 });
             });
+
+            if (!isVaultLocked) {
+                const responseFoldersCommand = 'notificationBarGetFoldersList';
+                chrome.runtime.onMessage.addListener((msg) => {
+                    if (msg.command === responseFoldersCommand && msg.data) {
+                        fillSelectorWithFolders(msg.data.folders);
+                    }
+                });
+                sendPlatformMessage({
+                    command: 'bgGetDataForTab',
+                    responseCommand: responseFoldersCommand
+                });
+            }
         } else if (getQueryVariable('change')) {
             setContent(document.getElementById('template-change'));
             var changeButton = document.querySelector('#template-change-clone .change-save');
             changeButton.addEventListener('click', (e) => {
                 e.preventDefault();
-                sendPlatformMessage({
+
+                const bgChangeSaveMessage = {
                     command: 'bgChangeSave'
-                });
+                };
+
+                if (isVaultLocked) {
+                    sendPlatformMessage({
+                        command: 'promptForLogin'
+                    });
+
+                    sendPlatformMessage({
+                        command: 'addToLockedVaultPendingNotifications',
+                        retryItem: bgChangeSaveMessage,
+                    });
+                    return;
+                }
+                sendPlatformMessage(bgChangeSaveMessage);
             });
-        } else if (getQueryVariable('info')) {
-            setContent(document.getElementById('template-alert'));
-            document.getElementById('template-alert-clone').textContent = getQueryVariable('info');
         }
 
         closeButton.addEventListener('click', (e) => {
@@ -84,12 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        sendPlatformMessage({
-            command: 'bgAdjustNotificationBar',
-            data: {
-                height: body.scrollHeight
-            }
-        });
+        window.addEventListener("resize", adjustHeight);
+        adjustHeight();
     }
 
     function getQueryVariable(variable) {
@@ -119,5 +168,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function sendPlatformMessage(msg) {
         chrome.runtime.sendMessage(msg);
+    }
+
+    function fillSelectorWithFolders(folders) {
+        const select = document.querySelector('#template-add-clone .select-folder');
+        select.appendChild(new Option(chrome.i18n.getMessage('selectFolder'), null, true));
+        folders.forEach((folder) => {
+            //Select "No Folder" (id=null) folder by default
+            select.appendChild(new Option(folder.name, folder.id || '', false));
+        });
+    }
+
+    function adjustHeight() {
+        sendPlatformMessage({
+            command: 'bgAdjustNotificationBar',
+            data: {
+                height: document.querySelector('body').scrollHeight
+            }
+        });
     }
 });

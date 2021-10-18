@@ -1,3 +1,4 @@
+---
 name: Build
 
 on:
@@ -5,12 +6,13 @@ on:
     branches-ignore:
       - 'l10n_master'
   workflow_dispatch:
-    inputs:
+    inputs: {}
 
 
 jobs:
   cloc:
-    runs-on: ubuntu-latest
+    name: CLOC
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout repo
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -24,7 +26,8 @@ jobs:
 
 
   setup:
-    runs-on: ubuntu-latest
+    name: Setup
+    runs-on: ubuntu-20.04
     outputs:
       repo_url: ${{ steps.gen_vars.outputs.repo_url }}
       adj_build_number: ${{ steps.gen_vars.outputs.adj_build_number }}
@@ -38,11 +41,12 @@ jobs:
           repo_url=https://github.com/$GITHUB_REPOSITORY.git
           adj_build_num=${GITHUB_SHA:0:7}
 
-          echo "::set-output name=repo_url::$repo_url" 
-          echo "::set-output name=adj_build_number::$adj_build_num" 
+          echo "::set-output name=repo_url::$repo_url"
+          echo "::set-output name=adj_build_number::$adj_build_num"
 
   locales-test:
-    runs-on: ubuntu-latest
+    name: Locales Test
+    runs-on: ubuntu-20.04
     needs: setup
     steps:
       - name: Checkout repo
@@ -63,21 +67,23 @@ jobs:
              found_error=true
            fi
          done
-         
+
          if $found_error; then
            echo
            echo "Please fix 'extName' for the locales listed above."
            exit 1
          else
            echo "Test passed!"
-         fi 
+         fi
 
   build:
-    runs-on: windows-latest
-    needs: [ setup, locales-test ]
+    name: Build
+    runs-on: windows-2019
+    needs:
+      - setup
+      - locales-test
     env:
-      REPO_URL: ${{ needs.setup.outputs.repo_url }}
-      BUILD_NUMBER: ${{ needs.setup.outputs.adj_build_number }}
+      _BUILD_NUMBER: ${{ needs.setup.outputs.adj_build_number }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
@@ -96,41 +102,116 @@ jobs:
           node --version
           npm --version
 
-      - name: npm setup & test
+      - name: NPM setup & test
         run: |
           npm install
           npm run dist
           npm run test
 
-      - name: gulp
+      - name: Gulp
         run: gulp ci
 
-      - name: Upload opera artifact
-        uses: actions/upload-artifact@ee69f02b3dfdecd58bb31b4d133da38ba6fe3700
-        with:
-          name: dist-opera-${{ env.BUILD_NUMBER }}.zip
-          path: dist/dist-opera-${{ env.BUILD_NUMBER }}.zip
+      - name: Build sources for reviewers
+        shell: cmd
+        run: |
+          mkdir dist\Source
+          call git clone %_REPO_URL% dist\Source
+          cd dist\Source
+          call git checkout %GITHUB_SHA%
+          call git submodule update --init --recursive
+          cd ../
+          del /S/Q "Source\.git\objects\pack\*"
+          call 7z a browser-source-%_BUILD_NUMBER%.zip "Source\*"
 
-      - name: Upload chrome artifact
+      - name: Upload Opera artifact
         uses: actions/upload-artifact@ee69f02b3dfdecd58bb31b4d133da38ba6fe3700
         with:
-          name: dist-chrome-${{ env.BUILD_NUMBER }}.zip
-          path: dist/dist-chrome-${{ env.BUILD_NUMBER }}.zip
+          name: dist-opera-${{ env._BUILD_NUMBER }}.zip
+          path: dist/dist-opera.zip
+          if-no-files-found: error
 
-      - name: Upload firefox artifact
+      - name: Upload Chrome artifact
         uses: actions/upload-artifact@ee69f02b3dfdecd58bb31b4d133da38ba6fe3700
         with:
-          name: dist-firefox-${{ env.BUILD_NUMBER }}.zip
-          path: dist/dist-firefox-${{ env.BUILD_NUMBER }}.zip
+          name: dist-chrome-${{ env._BUILD_NUMBER }}.zip
+          path: dist/dist-chrome.zip
+          if-no-files-found: error
 
-      - name: Upload edge artifact
+      - name: Upload Firefox artifact
         uses: actions/upload-artifact@ee69f02b3dfdecd58bb31b4d133da38ba6fe3700
         with:
-          name: dist-edge-${{ env.BUILD_NUMBER }}.zip
-          path: dist/dist-edge-${{ env.BUILD_NUMBER }}.zip
+          name: dist-firefox-${{ env._BUILD_NUMBER }}.zip
+          path: dist/dist-firefox.zip
+          if-no-files-found: error
+
+      - name: Upload Edge artifact
+        uses: actions/upload-artifact@ee69f02b3dfdecd58bb31b4d133da38ba6fe3700
+        with:
+          name: dist-edge-${{ env._BUILD_NUMBER }}.zip
+          path: dist/dist-edge.zip
+          if-no-files-found: error
+
+      - name: Upload browser source
+        uses: actions/upload-artifact@ee69f02b3dfdecd58bb31b4d133da38ba6fe3700
+        with:
+          name: browser-source-${{ env._BUILD_NUMBER }}.zip
+          path: dist/browser-source-${{ env._BUILD_NUMBER }}.zip
+          if-no-files-found: error
 
       - name: Upload coverage artifact
+        if: false
         uses: actions/upload-artifact@ee69f02b3dfdecd58bb31b4d133da38ba6fe3700
         with:
-          name: coverage-${{ env.BUILD_NUMBER }}.zip
-          path: coverage/coverage-${{ env.BUILD_NUMBER }}.zip
+          name: coverage-${{ env._BUILD_NUMBER }}.zip
+          path: coverage/coverage-${{ env._BUILD_NUMBER }}.zip
+          if-no-files-found: error
+
+
+  check-failures:
+    name: Check for failures
+    if: always()
+    runs-on: ubuntu-20.04
+    needs:
+      - cloc
+      - setup
+      - locales-test
+      - build
+    steps:
+      - name: Check if any job failed
+        if: ${{ (github.ref == 'refs/heads/master') || (github.ref == 'refs/heads/rc') }}
+        env:
+          CLOC_STATUS: ${{ needs.cloc.result }}
+          SETUP_STATUS: ${{ needs.setup.result }}
+          LOCALES_TEST_STATUS: ${{ needs.locales-test.result }}
+          BUILD_STATUS: ${{ needs.build.result }}
+        run: |
+          if [ "$CLOC_STATUS" = "failure" ]; then
+              exit 1
+          elif [ "$SETUP_STATUS" = "failure" ]; then
+              exit 1
+          elif [ "$LOCALES_TEST_STATUS" = "failure" ]; then
+              exit 1
+          elif [ "$BUILD_STATUS" = "failure" ]; then
+              exit 1
+          fi
+      - name: Login to Azure - Prod Subscription
+        uses: Azure/login@77f1b2e3fb80c0e8645114159d17008b8a2e475a
+        if: failure()
+        with:
+          creds: ${{ secrets.AZURE_PROD_KV_CREDENTIALS }}
+
+      - name: Retrieve secrets
+        id: retrieve-secrets
+        uses: Azure/get-keyvault-secrets@80ccd3fafe5662407cc2e55f202ee34bfff8c403
+        if: failure()
+        with:
+          keyvault: "bitwarden-prod-kv"
+          secrets: "devops-alerts-slack-webhook-url"
+
+      - name: Notify Slack on failure
+        uses: act10ns/slack@e4e71685b9b239384b0f676a63c32367f59c2522  # v1.2.2
+        if: failure()
+        env:
+          SLACK_WEBHOOK_URL: ${{ steps.retrieve-secrets.outputs.devops-alerts-slack-webhook-url }}
+        with:
+          status: ${{ job.status }}

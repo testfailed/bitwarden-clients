@@ -29,6 +29,8 @@ export default class ContextMenusBackground {
         this.contextMenus.onClicked.addListener(async (info: any, tab: any) => {
             if (info.menuItemId === 'generate-password') {
                 await this.generatePasswordToClipboard();
+            } else if (info.menuItemId === 'copy-identifier') {
+                await this.getClickedElement(info.frameId);
             } else if (info.parentMenuItemId === 'autofill' ||
                 info.parentMenuItemId === 'copy-username' ||
                 info.parentMenuItemId === 'copy-password' ||
@@ -43,6 +45,15 @@ export default class ContextMenusBackground {
         const password = await this.passwordGenerationService.generatePassword(options);
         this.platformUtilsService.copyToClipboard(password, { window: window });
         this.passwordGenerationService.addHistory(password);
+    }
+
+    private async getClickedElement(frameId: number) {
+        const tab = await BrowserApi.getTabFromCurrentWindow();
+        if (tab == null) {
+            return;
+        }
+
+        BrowserApi.tabSendMessage(tab, { command: 'getClickedElement' }, { frameId: frameId });
     }
 
     private async cipherAction(info: any) {
