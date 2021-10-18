@@ -28,6 +28,7 @@ import { TokenService } from 'jslib-common/services/token.service';
 import { TotpService } from 'jslib-common/services/totp.service';
 import { UserService } from 'jslib-common/services/user.service';
 import { WebCryptoFunctionService } from 'jslib-common/services/webCryptoFunction.service';
+import { WebWorkerService } from 'jslib-common/services/webWorker.service';
 
 import { ApiService as ApiServiceAbstraction } from 'jslib-common/abstractions/api.service';
 import { AppIdService as AppIdServiceAbstraction } from 'jslib-common/abstractions/appId.service';
@@ -195,7 +196,7 @@ export default class MainBackground {
         this.sendService = new SendService(this.cryptoService, this.userService, this.apiService, this.fileUploadService,
             this.storageService, this.i18nService, this.cryptoFunctionService);
         this.stateService = new StateService();
-        this.policyService = new PolicyService(this.userService, this.storageService);
+        this.policyService = new PolicyService(this.userService, this.storageService, this.apiService);
         this.vaultTimeoutService = new VaultTimeoutService(this.cipherService, this.folderService,
             this.collectionService, this.cryptoService, this.platformUtilsService, this.storageService,
             this.messagingService, this.searchService, this.userService, this.tokenService, this.policyService,
