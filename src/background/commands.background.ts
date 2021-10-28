@@ -22,13 +22,9 @@ export default class CommandsBackground {
             if (msg.command === 'unlockCompleted' && msg.data.target === 'commands.background') {
                 await this.processCommand(msg.data.commandToRetry.msg.command, msg.data.commandToRetry.sender);
             }
-
-            if (this.isVivaldi && msg.command === 'keyboardShortcutTriggered' && msg.shortcut) {
-                await this.processCommand(msg.shortcut, sender);
-            }
         });
 
-        if (!this.isVivaldi && chrome && chrome.commands) {
+        if (chrome && chrome.commands) {
             chrome.commands.onCommand.addListener(async (command: string) => {
                 await this.processCommand(command);
             });
