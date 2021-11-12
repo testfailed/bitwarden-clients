@@ -1,4 +1,4 @@
-import { KeySuffixOptions } from 'jslib-common/models/domain/settingStorageOptions';
+import { KeySuffixOptions } from 'jslib-common/enums/keySuffixOptions';
 
 import { CryptoService } from 'jslib-common/services/crypto.service';
 

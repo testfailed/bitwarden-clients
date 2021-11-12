@@ -34,6 +34,7 @@ import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 import { CiphersComponent as BaseCiphersComponent } from 'jslib-angular/components/ciphers.component';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
+import { BrowserComponentState } from 'jslib-common/models/domain/browserComponentState';
 
 const ComponentId = 'CiphersComponent';
 
@@ -43,7 +44,7 @@ const ComponentId = 'CiphersComponent';
 })
 export class CiphersComponent extends BaseCiphersComponent implements OnInit, OnDestroy {
     groupingTitle: string;
-    state: any;
+    state: BrowserComponentState;
     folderId: string = null;
     collectionId: string = null;
     type: CipherType = null;
@@ -72,7 +73,7 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
         this.searchTypeSearch = !this.platformUtilsService.isSafari();
         const queryParamsSub = this.route.queryParams.subscribe(async params => {
             if (this.applySavedState) {
-                this.state = (await this.stateService.get<any>(ComponentId)) || {};
+                this.state = await this.stateService.getBrowserCipherComponentState();
                 if (this.state.searchText) {
                     this.searchText = this.state.searchText;
                 }
@@ -135,7 +136,7 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
                 window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state.scrollY,
                     this.scrollingContainer), 0);
             }
-            this.stateService.remove(ComponentId);
+            this.stateService.setBrowserCipherComponentState(null);
             if (queryParamsSub != null) {
                 queryParamsSub.unsubscribe();
             }
@@ -231,6 +232,6 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
             scrollY: this.popupUtils.getContentScrollY(window, this.scrollingContainer),
             searchText: this.searchText,
         };
-        await this.stateService.save(ComponentId, this.state);
+        await this.stateService.setBrowserCipherComponentState(this.state);
     }
 }

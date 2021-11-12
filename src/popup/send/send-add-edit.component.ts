@@ -10,7 +10,6 @@ import {
     Router,
 } from '@angular/router';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
@@ -22,6 +21,8 @@ import { TokenService } from 'jslib-common/abstractions/token.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { AddEditComponent as BaseAddEditComponent } from 'jslib-angular/components/send/add-edit.component';
+import { StateService } from 'jslib-common/abstractions/state.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 
 @Component({
     selector: 'app-send-add-edit',
@@ -38,12 +39,12 @@ export class SendAddEditComponent extends BaseAddEditComponent {
     isUnsupportedMac = false;
 
     constructor(i18nService: I18nService, platformUtilsService: PlatformUtilsService,
-        activeAccount: ActiveAccountService, messagingService: MessagingService, policyService: PolicyService,
+        stateService: StateService, messagingService: MessagingService, policyService: PolicyService,
         environmentService: EnvironmentService, datePipe: DatePipe, sendService: SendService,
         private route: ActivatedRoute, private router: Router, private location: Location,
-        private popupUtilsService: PopupUtilsService) {
+        private popupUtilsService: PopupUtilsService, logService: LogService) {
         super(i18nService, platformUtilsService, environmentService, datePipe,
-            sendService, messagingService, policyService, activeAccount);
+            sendService, messagingService, policyService, logService, stateService);
     }
 
     get showFileSelector(): boolean {

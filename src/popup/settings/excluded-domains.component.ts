@@ -7,9 +7,6 @@ import {
 
 import { Router } from '@angular/router';
 
-import { StorageKey } from 'jslib-common/enums/storageKey';
-
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 
@@ -18,6 +15,7 @@ import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 import { BrowserApi } from '../../browser/browserApi';
 
 import { Utils } from 'jslib-common/misc/utils';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 interface ExcludedDomain {
     uri: string;
@@ -35,14 +33,14 @@ export class ExcludedDomainsComponent implements OnInit, OnDestroy {
     currentUris: string[];
     loadCurrentUrisTimeout: number;
 
-    constructor(private activeAccount: ActiveAccountService,
+    constructor(private stateService: StateService,
         private i18nService: I18nService, private router: Router,
         private broadcasterService: BroadcasterService, private ngZone: NgZone,
         private platformUtilsService: PlatformUtilsService) {
     }
 
     async ngOnInit() {
-        const savedDomains = await this.activeAccount.getInformation<any>(StorageKey.NeverDomains);
+        const savedDomains = await this.stateService.getNeverDomains();
         if (savedDomains) {
             for (const uri of Object.keys(savedDomains)) {
                 this.excludedDomains.push({ uri: uri, showCurrentUris: false });
@@ -93,7 +91,7 @@ export class ExcludedDomainsComponent implements OnInit, OnDestroy {
                 savedDomains[validDomain] = null;
             }
         }
-        await this.activeAccount.saveInformation(StorageKey.NeverDomains, savedDomains);
+        await this.stateService.setNeverDomains(savedDomains);
         this.router.navigate(['/tabs/settings']);
     }
 

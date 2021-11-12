@@ -9,7 +9,6 @@ import {
     Router,
 } from '@angular/router';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { AuditService } from 'jslib-common/abstractions/audit.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
@@ -33,6 +32,8 @@ import { ViewComponent as BaseViewComponent } from 'jslib-angular/components/vie
 import { BrowserApi } from '../../browser/browserApi';
 import { AutofillService } from '../../services/abstractions/autofill.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
+import { StateService } from 'jslib-common/abstractions/state.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 
 const BroadcasterSubscriptionId = 'ChildViewComponent';
 
@@ -54,14 +55,15 @@ export class ViewComponent extends BaseViewComponent {
         auditService: AuditService, private route: ActivatedRoute,
         private router: Router, private location: Location,
         broadcasterService: BroadcasterService, ngZone: NgZone,
-        changeDetectorRef: ChangeDetectorRef, activeAccount: ActiveAccountService,
+        changeDetectorRef: ChangeDetectorRef, stateService: StateService,
         eventService: EventService, private autofillService: AutofillService,
         private messagingService: MessagingService, private popupUtilsService: PopupUtilsService,
-        apiService: ApiService, passwordRepromptService: PasswordRepromptService) {
+        apiService: ApiService, passwordRepromptService: PasswordRepromptService,
+        logService: LogService) {
         super(cipherService, totpService, tokenService, i18nService,
             cryptoService, platformUtilsService, auditService, window,
             broadcasterService, ngZone, changeDetectorRef, eventService,
-            apiService, passwordRepromptService, activeAccount);
+            apiService, passwordRepromptService, logService, stateService);
     }
 
     ngOnInit() {

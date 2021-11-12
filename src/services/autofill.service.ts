@@ -1,4 +1,3 @@
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { EventService } from 'jslib-common/abstractions/event.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
@@ -17,6 +16,7 @@ import AutofillPageDetails from '../models/autofillPageDetails';
 import AutofillScript from '../models/autofillScript';
 
 import { BrowserApi } from '../browser/browserApi';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 const CardAttributes: string[] = ['autoCompleteType', 'data-stripe', 'htmlName', 'htmlID', 'label-tag',
     'placeholder', 'label-left', 'label-top', 'data-recurly'];
@@ -130,7 +130,7 @@ var IsoProvinces: { [id: string]: string; } = {
 
 export default class AutofillService implements AutofillServiceInterface {
 
-    constructor(private cipherService: CipherService, private activeAccount: ActiveAccountService,
+    constructor(private cipherService: CipherService, private stateService: StateService,
         private totpService: TotpService, private eventService: EventService) { }
 
     getFormsWithPasswordFields(pageDetails: AutofillPageDetails): any[] {
@@ -172,7 +172,7 @@ export default class AutofillService implements AutofillServiceInterface {
             throw new Error('Nothing to auto-fill.');
         }
 
-        const canAccessPremium = this.activeAccount.canAccessPremium;
+        const canAccessPremium = await this.stateService.getCanAccessPremium();
         let didAutofill = false;
         options.pageDetails.forEach((pd: any) => {
             // make sure we're still on correct tab

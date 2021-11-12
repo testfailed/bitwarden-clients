@@ -3,14 +3,13 @@ import {
     OnInit,
 } from '@angular/core';
 
-import { StorageKey } from 'jslib-common/enums/storageKey';
 import { ThemeType } from 'jslib-common/enums/themeType';
 import { UriMatchType } from 'jslib-common/enums/uriMatchType';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 @Component({
     selector: 'app-options',
@@ -39,7 +38,7 @@ export class OptionsComponent implements OnInit {
     showAutofill: boolean = true;
     showDisplay: boolean = true;
 
-    constructor(private messagingService: MessagingService, private activeAccount: ActiveAccountService,
+    constructor(private messagingService: MessagingService, private stateService: StateService,
         private totpService: TotpService, i18nService: I18nService) {
         this.themeOptions = [
             { name: i18nService.t('default'), value: null },
@@ -72,93 +71,85 @@ export class OptionsComponent implements OnInit {
     }
 
     async ngOnInit() {
-        this.enableAutoFillOnPageLoad = await this.activeAccount.getInformation<boolean>(
-            StorageKey.EnableAutoFillOnPageLoad);
+        this.enableAutoFillOnPageLoad = await this.stateService.getEnableAutoFillOnPageLoad();
 
-        this.autoFillOnPageLoadDefault = await this.activeAccount.getInformation<boolean>(
-            StorageKey.AutoFillOnPageLoadDefault) ?? true;
+        this.autoFillOnPageLoadDefault = await this.stateService.getAutoFillOnPageLoadDefault() ?? true;
 
-        this.disableAddLoginNotification = await this.activeAccount.getInformation<boolean>(
-            StorageKey.DisableAddLoginNotification);
+        this.disableAddLoginNotification = await this.stateService.getDisableAddLoginNotification();
 
-        this.disableChangedPasswordNotification = await this.activeAccount.getInformation<boolean>(
-            StorageKey.DisableChangedPasswordNotification);
+        this.disableChangedPasswordNotification = await this.stateService.getDisableChangedPasswordNotification();
 
-        this.disableContextMenuItem = await this.activeAccount.getInformation<boolean>(
-            StorageKey.DisableContextMenuItem);
+        this.disableContextMenuItem = await this.stateService.getDisableContextMenuItem();
 
-        this.dontShowCards = await this.activeAccount.getInformation<boolean>(StorageKey.DontShowCardsCurrentTab);
-        this.dontShowIdentities = await this.activeAccount.getInformation<boolean>(StorageKey.DontShowIdentitiesCurrentTab);
+        this.dontShowCards = await this.stateService.getDontShowCardsCurrentTab();
+        this.dontShowIdentities = await this.stateService.getDontShowIdentitiesCurrentTab();
 
         this.disableAutoTotpCopy = !(await this.totpService.isAutoCopyEnabled());
 
-        this.disableFavicon = await this.activeAccount.getInformation<boolean>(StorageKey.DisableFavicon);
+        this.disableFavicon = await this.stateService.getDisableFavicon();
 
-        this.disableBadgeCounter = await this.activeAccount.getInformation<boolean>(StorageKey.DisableBadgeCounter);
+        this.disableBadgeCounter = await this.stateService.getDisableBadgeCounter();
 
-        this.theme = await this.activeAccount.getInformation<string>(StorageKey.Theme);
+        this.theme = await this.stateService.getTheme();
 
-        const defaultUriMatch = await this.activeAccount.getInformation<UriMatchType>(StorageKey.DefaultUriMatch);
+        const defaultUriMatch = await this.stateService.getDefaultUriMatch();
         this.defaultUriMatch = defaultUriMatch == null ? UriMatchType.Domain : defaultUriMatch;
 
-        this.clearClipboard = await this.activeAccount.getInformation<number>(StorageKey.ClearClipboard);
+        this.clearClipboard = await this.stateService.getClearClipboard();
     }
 
     async updateAddLoginNotification() {
-        await this.activeAccount.saveInformation(StorageKey.DisableAddLoginNotification,
-            this.disableAddLoginNotification);
+        await this.stateService.setDisableAddLoginNotification(this.disableAddLoginNotification);
     }
 
     async updateChangedPasswordNotification() {
-        await this.activeAccount.saveInformation(StorageKey.DisableChangedPasswordNotification,
-            this.disableChangedPasswordNotification);
+        await this.stateService.setDisableChangedPasswordNotification(this.disableChangedPasswordNotification);
     }
 
     async updateDisableContextMenuItem() {
-        await this.activeAccount.saveInformation(StorageKey.DisableContextMenuItem,
-            this.disableContextMenuItem);
+        await this.stateService.setDisableContextMenuItem(this.disableContextMenuItem);
         this.messagingService.send('bgUpdateContextMenu');
     }
 
     async updateAutoTotpCopy() {
-        await this.activeAccount.saveInformation(StorageKey.DisableAutoTotpCopy, this.disableAutoTotpCopy);
+        await this.stateService.setDisableAutoTotpCopy(this.disableAutoTotpCopy);
     }
 
     async updateAutoFillOnPageLoad() {
-        await this.activeAccount.saveInformation(StorageKey.EnableAutoFillOnPageLoad, this.enableAutoFillOnPageLoad);
+        await this.stateService.setEnableAutoFillOnPageLoad(this.enableAutoFillOnPageLoad);
     }
 
     async updateAutoFillOnPageLoadDefault() {
-        await this.activeAccount.saveInformation(StorageKey.AutoFillOnPageLoadDefault, this.autoFillOnPageLoadDefault);
+        await this.stateService.setAutoFillOnPageLoadDefault(this.autoFillOnPageLoadDefault);
     }
 
     async updateDisableFavicon() {
-        await this.activeAccount.saveInformation(StorageKey.DisableFavicon, this.disableFavicon);
+        await this.stateService.setDisableFavicon(this.disableFavicon);
     }
 
     async updateDisableBadgeCounter() {
-        await this.activeAccount.saveInformation(StorageKey.DisableBadgeCounter, this.disableBadgeCounter);
+        await this.stateService.setDisableBadgeCounter(this.disableBadgeCounter);
         this.messagingService.send('bgUpdateContextMenu');
     }
 
     async updateShowCards() {
-        await this.activeAccount.saveInformation(StorageKey.DontShowCardsCurrentTab, this.dontShowCards);
+        await this.stateService.setDontShowCardsCurrentTab(this.dontShowCards);
     }
 
     async updateShowIdentities() {
-        await this.activeAccount.saveInformation(StorageKey.DontShowIdentitiesCurrentTab, this.dontShowIdentities);
+        await this.stateService.setDontShowIdentitiesCurrentTab(this.dontShowIdentities);
     }
 
     async saveTheme() {
-        await this.activeAccount.saveInformation(StorageKey.Theme, this.theme);
+        await this.stateService.setTheme(this.theme);
         window.setTimeout(() => window.location.reload(), 200);
     }
 
     async saveDefaultUriMatch() {
-        await this.activeAccount.saveInformation(StorageKey.DefaultUriMatch, this.defaultUriMatch);
+        await this.stateService.setDefaultUriMatch(this.defaultUriMatch);
     }
 
     async saveClearClipboard() {
-        await this.activeAccount.saveInformation(StorageKey.ClearClipboard, this.clearClipboard);
+        await this.stateService.setClearClipboard(this.clearClipboard);
     }
 }

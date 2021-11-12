@@ -8,6 +8,7 @@ import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 
 import { CollectionsComponent as BaseCollectionsComponent } from 'jslib-angular/components/collections.component';
+import { LogService } from 'jslib-common/abstractions/log.service';
 
 @Component({
     selector: 'app-vault-collections',
@@ -16,8 +17,8 @@ import { CollectionsComponent as BaseCollectionsComponent } from 'jslib-angular/
 export class CollectionsComponent extends BaseCollectionsComponent {
     constructor(collectionService: CollectionService, platformUtilsService: PlatformUtilsService,
         i18nService: I18nService, cipherService: CipherService,
-        private route: ActivatedRoute, private location: Location) {
-        super(collectionService, platformUtilsService, i18nService, cipherService);
+        private route: ActivatedRoute, private location: Location, logService: LogService) {
+        super(collectionService, platformUtilsService, i18nService, cipherService, logService);
     }
 
     async ngOnInit() {

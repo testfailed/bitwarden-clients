@@ -28,6 +28,7 @@ import { TwoFactorComponent as BaseTwoFactorComponent } from 'jslib-angular/comp
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { BrowserApi } from '../../browser/browserApi';
+import { LogService } from 'jslib-common/abstractions/log.service';
 
 const BroadcasterSubscriptionId = 'TwoFactorComponent';
 
@@ -43,10 +44,10 @@ export class TwoFactorComponent extends BaseTwoFactorComponent {
         platformUtilsService: PlatformUtilsService, private syncService: SyncService,
         environmentService: EnvironmentService, private ngZone: NgZone,
         private broadcasterService: BroadcasterService, private changeDetectorRef: ChangeDetectorRef,
-        private popupUtilsService: PopupUtilsService, stateService: StateService,
-        storageService: StorageService, route: ActivatedRoute, private messagingService: MessagingService) {
+        private popupUtilsService: PopupUtilsService, stateService: StateService, route: ActivatedRoute,
+        private messagingService: MessagingService, logService: LogService) {
         super(authService, router, i18nService, apiService, platformUtilsService, window, environmentService,
-            stateService, storageService, route);
+            stateService, route, logService);
         super.onSuccessfulLogin = () => {
             return syncService.fullSync(true);
         };

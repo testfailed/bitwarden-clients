@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
@@ -11,6 +10,8 @@ import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 
 import { UpdateTempPasswordComponent as BaseUpdateTempPasswordComponent } from 'jslib-angular/components/update-temp-password.component';
+import { StateService } from 'jslib-common/abstractions/state.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 
 interface MasterPasswordScore {
     Color: string;
@@ -55,11 +56,11 @@ export class UpdateTempPasswordComponent extends BaseUpdateTempPasswordComponent
 
     constructor(i18nService: I18nService, platformUtilsService: PlatformUtilsService,
         passwordGenerationService: PasswordGenerationService, policyService: PolicyService,
-        cryptoService: CryptoService, activeAccount: ActiveAccountService,
+        cryptoService: CryptoService, stateService: StateService,
         messagingService: MessagingService, apiService: ApiService,
-        syncService: SyncService) {
+        syncService: SyncService, logService: LogService) {
         super(i18nService, platformUtilsService, passwordGenerationService, policyService,
-            cryptoService, messagingService, apiService, activeAccount,
-            syncService);
+            cryptoService, messagingService, apiService, stateService,
+            syncService, logService);
     }
 }

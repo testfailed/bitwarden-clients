@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
@@ -14,7 +13,8 @@ import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.serv
 import { LockComponent as BaseLockComponent } from 'jslib-angular/components/lock.component';
 import Swal from 'sweetalert2';
 
-import { StorageKey } from 'jslib-common/enums/storageKey';
+import { LogService } from 'jslib-common/abstractions/log.service';
+import { KeyConnectorService } from 'jslib-common/abstractions/keyConnector.service';
 
 @Component({
     selector: 'app-lock',
@@ -24,21 +24,19 @@ export class LockComponent extends BaseLockComponent {
     private isInitialLockScreen: boolean;
 
     constructor(router: Router, i18nService: I18nService,
-        platformUtilsService: PlatformUtilsService, messagingService: MessagingService,
-        activeAccount: ActiveAccountService, cryptoService: CryptoService,
+        platformUtilsService: PlatformUtilsService, messagingService: MessagingService, cryptoService: CryptoService,
         vaultTimeoutService: VaultTimeoutService, environmentService: EnvironmentService,
-        stateService: StateService, apiService: ApiService) {
+        stateService: StateService, apiService: ApiService, logService: LogService, keyConnectorService: KeyConnectorService) {
         super(router, i18nService, platformUtilsService,
             messagingService, cryptoService, vaultTimeoutService,
-            environmentService, stateService, apiService, activeAccount);
+            environmentService, stateService, apiService, logService, keyConnectorService);
         this.successRoute = '/tabs/current';
         this.isInitialLockScreen = (window as any).previousPopupUrl == null;
     }
 
     async ngOnInit() {
         await super.ngOnInit();
-        const disableAutoBiometricsPrompt = await this.activeAccount.getInformation<boolean>(
-            StorageKey.DisableAutoBiometricsPrompt) ?? true;
+        const disableAutoBiometricsPrompt = await this.stateService.getDisableAutoBiometricsPrompt() ?? true;
 
         window.setTimeout(async () => {
             document.getElementById(this.pinLock ? 'pin' : 'masterPassword').focus();

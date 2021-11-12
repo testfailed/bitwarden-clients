@@ -4,10 +4,9 @@ import { SafariApp } from '../browser/safariApp';
 import { DeviceType } from 'jslib-common/enums/deviceType';
 import { ThemeType } from 'jslib-common/enums/themeType';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StorageKey } from 'jslib-common/enums/storageKey';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 const DialogPromiseExpiration = 600000; // 10 minutes
 
@@ -19,7 +18,7 @@ export default class BrowserPlatformUtilsService implements PlatformUtilsService
     private deviceCache: DeviceType = null;
     private prefersColorSchemeDark = window.matchMedia('(prefers-color-scheme: dark)');
 
-    constructor(private messagingService: MessagingService, private activeAccount: ActiveAccountService,
+    constructor(private messagingService: MessagingService, private stateService: StateService,
         private clipboardWriteCallback: (clipboardValue: string, clearMs: number) => void,
         private biometricCallback: () => Promise<boolean>) { }
 
@@ -119,7 +118,7 @@ export default class BrowserPlatformUtilsService implements PlatformUtilsService
     }
 
     supportsWebAuthn(win: Window): boolean {
-        return (typeof(PublicKeyCredential) !== 'undefined');
+        return (typeof (PublicKeyCredential) !== 'undefined');
     }
 
     supportsDuo(): boolean {
@@ -331,7 +330,7 @@ export default class BrowserPlatformUtilsService implements PlatformUtilsService
     }
 
     async getEffectiveTheme() {
-        const theme = await this.activeAccount.getInformation<ThemeType>(StorageKey.Theme);
+        const theme = await this.stateService.getTheme() as ThemeType;
         if (theme == null || theme === ThemeType.System) {
             return this.getDefaultSystemTheme();
         } else {

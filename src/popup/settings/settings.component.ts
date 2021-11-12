@@ -12,9 +12,7 @@ import Swal from 'sweetalert2/src/sweetalert2.js';
 import { BrowserApi } from '../../browser/browserApi';
 
 import { DeviceType } from 'jslib-common/enums/deviceType';
-import { StorageKey } from 'jslib-common/enums/storageKey';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
@@ -26,6 +24,7 @@ import { PopupUtilsService } from '../services/popup-utils.service';
 import { ModalService } from 'jslib-angular/services/modal.service';
 
 import { SetPinComponent } from '../components/set-pin.component';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 const RateUrls = {
     [DeviceType.ChromeExtension]:
@@ -62,7 +61,7 @@ export class SettingsComponent implements OnInit {
     constructor(private platformUtilsService: PlatformUtilsService, private i18nService: I18nService,
         private vaultTimeoutService: VaultTimeoutService, public messagingService: MessagingService,
         private router: Router, private environmentService: EnvironmentService,
-        private cryptoService: CryptoService, private activeAccount: ActiveAccountService,
+        private cryptoService: CryptoService, private stateService: StateService,
         private popupUtilsService: PopupUtilsService, private modalService: ModalService,
         private toasterService: ToasterService) {
     }
@@ -106,7 +105,7 @@ export class SettingsComponent implements OnInit {
             this.saveVaultTimeout(value);
         });
 
-        const action = await this.activeAccount.getInformation<string>(StorageKey.VaultTimeoutAction);
+        const action = await this.stateService.getVaultTimeoutAction();
         this.vaultTimeoutAction = action == null ? 'lock' : action;
 
         const pinSet = await this.vaultTimeoutService.isPinLockSet();
@@ -114,8 +113,7 @@ export class SettingsComponent implements OnInit {
 
         this.supportsBiometric = await this.platformUtilsService.supportsBiometric();
         this.biometric = await this.vaultTimeoutService.isBiometricLockSet();
-        this.disableAutoBiometricsPrompt = await this.activeAccount.getInformation<boolean>(
-            StorageKey.DisableAutoBiometricsPrompt) ?? true;
+        this.disableAutoBiometricsPrompt = await this.stateService.getDisableAutoBiometricsPrompt() ?? true;
     }
 
     async saveVaultTimeout(newValue: number) {
@@ -223,14 +221,14 @@ export class SettingsComponent implements OnInit {
                 allowOutsideClick: false,
             });
 
-            await this.activeAccount.saveInformation(StorageKey.BiometricAwaitingAcceptance, true);
+            await this.stateService.setBiometricAwaitingAcceptance(true);
             await this.cryptoService.toggleKey();
 
             await Promise.race([
-                submitted.then(result => {
+                submitted.then(async result => {
                     if (result.dismiss === Swal.DismissReason.cancel) {
                         this.biometric = false;
-                        this.activeAccount.removeInformation(StorageKey.BiometricAwaitingAcceptance);
+                        await this.stateService.setBiometricAwaitingAcceptance(null);
                     }
                 }),
                 this.platformUtilsService.authenticateBiometric().then(result => {
@@ -246,13 +244,13 @@ export class SettingsComponent implements OnInit {
                 }),
             ]);
         } else {
-            await this.activeAccount.removeInformation(StorageKey.BiometricUnlock);
-            this.vaultTimeoutService.biometricLocked = false;
+            await this.stateService.setBiometricUnlock(null);
+            await this.stateService.setBiometricLocked(false);
         }
     }
 
     async updateAutoBiometricsPrompt() {
-        await this.activeAccount.saveInformation(StorageKey.DisableAutoBiometricsPrompt, this.disableAutoBiometricsPrompt);
+        await this.stateService.setDisableAutoBiometricsPrompt(this.disableAutoBiometricsPrompt);
     }
 
     async lock() {
@@ -332,7 +330,7 @@ export class SettingsComponent implements OnInit {
     }
 
     async fingerprint() {
-        const fingerprint = await this.cryptoService.getFingerprint(this.activeAccount.userId);
+        const fingerprint = await this.cryptoService.getFingerprint(await this.stateService.getUserId());
         const p = document.createElement('p');
         p.innerText = this.i18nService.t('yourAccountsFingerprint') + ':';
         const p2 = document.createElement('p');

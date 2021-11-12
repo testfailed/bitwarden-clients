@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { EventService } from 'jslib-common/abstractions/event.service';
@@ -9,6 +10,8 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 
 import { ExportComponent as BaseExportComponent } from 'jslib-angular/components/export.component';
+import { LogService } from 'jslib-common/abstractions/log.service';
+import { UserVerificationService } from 'jslib-common/abstractions/userVerification.service';
 
 @Component({
     selector: 'app-export',
@@ -17,8 +20,10 @@ import { ExportComponent as BaseExportComponent } from 'jslib-angular/components
 export class ExportComponent extends BaseExportComponent {
     constructor(cryptoService: CryptoService, i18nService: I18nService,
         platformUtilsService: PlatformUtilsService, exportService: ExportService,
-        eventService: EventService, policyService: PolicyService, private router: Router) {
-        super(cryptoService, i18nService, platformUtilsService, exportService, eventService, policyService, window);
+        eventService: EventService, policyService: PolicyService, private router: Router,
+        logService: LogService, userVerificationService: UserVerificationService, formBuilder: FormBuilder) {
+        super(cryptoService, i18nService, platformUtilsService, exportService, eventService,
+            policyService, window, logService, userVerificationService, formBuilder);
     }
 
     protected saved() {

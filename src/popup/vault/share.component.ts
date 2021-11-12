@@ -4,7 +4,6 @@ import {
     Router,
 } from '@angular/router';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { CollectionService } from 'jslib-common/abstractions/collection.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
@@ -12,6 +11,7 @@ import { OrganizationService } from 'jslib-common/abstractions/organization.serv
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 
 import { ShareComponent as BaseShareComponent } from 'jslib-angular/components/share.component';
+import { LogService } from 'jslib-common/abstractions/log.service';
 
 @Component({
     selector: 'app-vault-share',
@@ -19,11 +19,11 @@ import { ShareComponent as BaseShareComponent } from 'jslib-angular/components/s
 })
 export class ShareComponent extends BaseShareComponent {
     constructor(collectionService: CollectionService, platformUtilsService: PlatformUtilsService,
-        i18nService: I18nService, activeAccount: ActiveAccountService,
+        i18nService: I18nService, logService: LogService,
         cipherService: CipherService, private route: ActivatedRoute,
         private router: Router, organizationService: OrganizationService) {
         super(collectionService, platformUtilsService, i18nService, cipherService,
-            activeAccount, organizationService);
+            logService, organizationService);
     }
 
     async ngOnInit() {

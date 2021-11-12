@@ -18,6 +18,7 @@ import { SyncService } from 'jslib-common/abstractions/sync.service';
 
 import { SsoComponent as BaseSsoComponent } from 'jslib-angular/components/sso.component';
 import { BrowserApi } from '../../browser/browserApi';
+import { LogService } from 'jslib-common/abstractions/log.service';
 
 @Component({
     selector: 'app-sso',
@@ -29,9 +30,9 @@ export class SsoComponent extends BaseSsoComponent {
         storageService: StorageService, stateService: StateService,
         platformUtilsService: PlatformUtilsService, apiService: ApiService,
         cryptoFunctionService: CryptoFunctionService, passwordGenerationService: PasswordGenerationService,
-        syncService: SyncService, environmentService: EnvironmentService) {
-        super(authService, router, i18nService, route, storageService, stateService, platformUtilsService,
-            apiService, cryptoFunctionService, environmentService, passwordGenerationService);
+        syncService: SyncService, environmentService: EnvironmentService, logService: LogService) {
+        super(authService, router, i18nService, route, stateService, platformUtilsService,
+            apiService, cryptoFunctionService, environmentService, passwordGenerationService, logService);
 
         const url = this.environmentService.getWebVaultUrl();
 

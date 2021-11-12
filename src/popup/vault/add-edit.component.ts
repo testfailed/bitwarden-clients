@@ -7,7 +7,6 @@ import {
 
 import { BrowserApi } from '../../browser/browserApi';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { AuditService } from 'jslib-common/abstractions/audit.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { CollectionService } from 'jslib-common/abstractions/collection.service';
@@ -27,7 +26,8 @@ import { LoginUriView } from 'jslib-common/models/view/loginUriView';
 import { AddEditComponent as BaseAddEditComponent } from 'jslib-angular/components/add-edit.component';
 
 import { CipherType } from 'jslib-common/enums/cipherType';
-import { StorageKey } from 'jslib-common/enums/storageKey';
+import { PasswordRepromptService } from 'jslib-common/abstractions/passwordReprompt.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 
 @Component({
     selector: 'app-vault-add-edit',
@@ -41,15 +41,15 @@ export class AddEditComponent extends BaseAddEditComponent {
 
     constructor(cipherService: CipherService, folderService: FolderService,
         i18nService: I18nService, platformUtilsService: PlatformUtilsService,
-        auditService: AuditService, stateService: StateService,
-        activeAccount: ActiveAccountService, collectionService: CollectionService,
+        auditService: AuditService, stateService: StateService, collectionService: CollectionService,
         messagingService: MessagingService, private route: ActivatedRoute,
         private router: Router, private location: Location,
         eventService: EventService, policyService: PolicyService,
-        private popupUtilsService: PopupUtilsService, organizationService: OrganizationService) {
+        private popupUtilsService: PopupUtilsService, organizationService: OrganizationService,
+        passwordRepromptService: PasswordRepromptService, logService: LogService) {
         super(cipherService, folderService, i18nService, platformUtilsService,
             auditService, stateService, collectionService, messagingService,
-            eventService, policyService, activeAccount, organizationService);
+            eventService, policyService, logService, passwordRepromptService, organizationService);
     }
 
     async ngOnInit() {
@@ -117,7 +117,7 @@ export class AddEditComponent extends BaseAddEditComponent {
     async load() {
         await super.load();
         this.showAutoFillOnPageLoadOptions = this.cipher.type === CipherType.Login &&
-            await this.activeAccount.getInformation<boolean>(StorageKey.EnableAutoFillOnPageLoad);
+            await this.stateService.getEnableAutoFillOnPageLoad();
     }
 
     async submit(): Promise<boolean> {
@@ -161,7 +161,7 @@ export class AddEditComponent extends BaseAddEditComponent {
     async generatePassword(): Promise<boolean> {
         const confirmed = await super.generatePassword();
         if (confirmed) {
-            this.stateService.save('addEditCipherInfo', {
+            this.stateService.setAddEditCipherInfo({
                 cipher: this.cipher,
                 collectionIds: this.collections == null ? [] :
                     this.collections.filter(c => (c as any).checked).map(c => c.id),

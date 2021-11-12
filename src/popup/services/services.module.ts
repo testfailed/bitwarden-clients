@@ -19,8 +19,6 @@ import { ValidationService } from 'jslib-angular/services/validation.service';
 
 import { BrowserApi } from '../../browser/browserApi';
 
-import { AccountsManagementService } from 'jslib-common/abstractions/accountsManagement.service';
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { AppIdService } from 'jslib-common/abstractions/appId.service';
 import { AuditService } from 'jslib-common/abstractions/audit.service';
@@ -65,7 +63,6 @@ import { StateService } from 'jslib-common/services/state.service';
 import { PopupSearchService } from './popup-search.service';
 import { PopupUtilsService } from './popup-utils.service';
 
-import { StorageKey } from 'jslib-common/enums/storageKey';
 import { ThemeType } from 'jslib-common/enums/themeType';
 
 function getBgService<T>(service: string) {
@@ -77,14 +74,13 @@ function getBgService<T>(service: string) {
 
 const isPrivateMode = BrowserApi.getBackgroundPage() == null;
 
-const stateService = new StateService();
 const messagingService = new BrowserMessagingService();
 const searchService = isPrivateMode ? null : new PopupSearchService(getBgService<SearchService>('searchService')(),
     getBgService<CipherService>('cipherService')(), getBgService<ConsoleLogService>('consoleLogService')(),
     getBgService<I18nService>('i18nService')());
 
 export function initFactory(platformUtilsService: PlatformUtilsService, i18nService: I18nService, storageService: StorageService,
-    popupUtilsService: PopupUtilsService): Function {
+    popupUtilsService: PopupUtilsService, stateService: StateService): Function {
     return async () => {
         if (!popupUtilsService.inPopup(window)) {
             window.document.body.classList.add('body-full');
@@ -95,17 +91,18 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         }
 
         if (!isPrivateMode) {
-            await stateService.save(StorageKey.DisableFavicon,
-                await storageService.get<boolean>(StorageKey.DisableFavicon));
+            // TODO: Fix these guys
+            // await stateService.save(StorageKey.DisableFavicon,
+            //     await storageService.get<boolean>(StorageKey.DisableFavicon));
 
-            await stateService.save(StorageKey.DisableBadgeCounter,
-                await storageService.get<boolean>(StorageKey.DisableBadgeCounter));
+            // await stateService.save(StorageKey.DisableBadgeCounter,
+            //     await storageService.get<boolean>(StorageKey.DisableBadgeCounter));
 
             const htmlEl = window.document.documentElement;
             const theme = await platformUtilsService.getEffectiveTheme();
             htmlEl.classList.add('theme_' + theme);
             platformUtilsService.onDefaultSystemThemeChange(async sysTheme => {
-                const bwTheme = await storageService.get<ThemeType>(StorageKey.Theme);
+                const bwTheme = await stateService.getTheme();
                 if (bwTheme == null || bwTheme === ThemeType.System) {
                     htmlEl.classList.remove('theme_' + ThemeType.Light, 'theme_' + ThemeType.Dark);
                     htmlEl.classList.add('theme_' + sysTheme);
@@ -133,7 +130,7 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         ModalService,
         { provide: MessagingService, useValue: messagingService },
         { provide: AuthServiceAbstraction, useFactory: getBgService<AuthService>('authService'), deps: [] },
-        { provide: StateServiceAbstraction, useValue: stateService },
+        { provide: StateServiceAbstraction, useFactory: getBgService<StateService>('stateService') },
         { provide: SearchServiceAbstraction, useValue: searchService },
         { provide: AuditService, useFactory: getBgService<AuditService>('auditService'), deps: [] },
         { provide: FileUploadService, useFactory: getBgService<FileUploadService>('fileUploadService'), deps: [] },
@@ -194,8 +191,6 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         },
         { provide: PasswordRepromptServiceAbstraction, useClass: PasswordRepromptService },
         { provide: PasswordRepromptServiceAbstraction, useClass: PasswordRepromptService },
-        { provide: ActiveAccountService, useFactory: getBgService<ActiveAccountService>('activeAccount'), deps: [] },
-        { provide: AccountsManagementService, useFactory: getBgService<AccountsManagementService>('accountsManagementService'), deps: [] },
         { provide: OrganizationService, useFactory: getBgService<OrganizationService>('organizationService'), deps: [] },
         { provide: ProviderService, useFactory: getBgService<ProviderService>('providerService'), deps: [] },
     ],

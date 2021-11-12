@@ -26,6 +26,8 @@ import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { SendType } from 'jslib-common/enums/sendType';
+import { LogService } from 'jslib-common/abstractions/log.service';
+import { BrowserSendComponentState } from 'jslib-common/models/domain/browserSendComponentState';
 
 const ComponentId = 'SendComponent';
 const ScopeStateId = ComponentId + 'Scope';
@@ -40,8 +42,7 @@ export class SendGroupingsComponent extends BaseSendComponent {
     // Send Type Calculations
     typeCounts = new Map<SendType, number>();
     // State Handling
-    state: any;
-    scopeState: any;
+    state: BrowserSendComponentState;
     private loadedTimeout: number;
 
     constructor(sendService: SendService, i18nService: I18nService,
@@ -49,9 +50,10 @@ export class SendGroupingsComponent extends BaseSendComponent {
         policyService: PolicyService, searchService: SearchService,
         private popupUtils: PopupUtilsService, private stateService: StateService,
         private router: Router, private syncService: SyncService,
-        private changeDetectorRef: ChangeDetectorRef, private broadcasterService: BroadcasterService) {
+        private changeDetectorRef: ChangeDetectorRef, private broadcasterService: BroadcasterService,
+        logService: LogService) {
         super(sendService, i18nService, platformUtilsService, environmentService, ngZone, searchService,
-            policyService);
+            policyService, logService);
         super.onSuccessfulLoad = async () => {
             this.calculateTypeCounts();
             this.selectAll();
@@ -62,12 +64,11 @@ export class SendGroupingsComponent extends BaseSendComponent {
         // Determine Header details
         this.showLeftHeader = !(this.popupUtils.inSidebar(window) && this.platformUtilsService.isFirefox());
         // Clear state of Send Type Component
-        this.stateService.remove('SendTypeComponent');
+        this.stateService.setBrowserSendComponentState(null);
         // Let super class finish
         await super.ngOnInit();
         // Handle State Restore if necessary
         const restoredScopeState = await this.restoreState();
-        this.state = (await this.stateService.get<any>(ComponentId)) || {};
         if (this.state.searchText != null) {
             this.searchText = this.state.searchText;
         }
@@ -158,27 +159,25 @@ export class SendGroupingsComponent extends BaseSendComponent {
         this.state = {
             scrollY: this.popupUtils.getContentScrollY(window),
             searchText: this.searchText,
-        };
-        await this.stateService.save(ComponentId, this.state);
-
-        this.scopeState = {
             sends: this.sends,
             typeCounts: this.typeCounts,
         };
-        await this.stateService.save(ScopeStateId, this.scopeState);
+        await this.stateService.setBrowserSendComponentState(this.state);
     }
 
     private async restoreState(): Promise<boolean> {
-        this.scopeState = await this.stateService.get<any>(ScopeStateId);
-        if (this.scopeState == null) {
+        this.state = await this.stateService.getBrowserSendComponentState();
+        if (this.state == null) {
             return false;
         }
-
-        if (this.scopeState.sends != null) {
-            this.sends = this.scopeState.sends;
+        if (this.state.sends != null) {
+            this.sends = this.state.sends;
         }
-        if (this.scopeState.typeCounts != null) {
-            this.typeCounts = this.scopeState.typeCounts;
+        if (this.state.typeCounts != null) {
+            this.typeCounts = this.state.typeCounts;
+        }
+        if (this.state.searchText != null) {
+            this.searchText = this.state.searchText;
         }
 
         return true;

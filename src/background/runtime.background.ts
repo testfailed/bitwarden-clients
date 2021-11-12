@@ -24,7 +24,7 @@ import MainBackground from './main.background';
 import { Utils } from 'jslib-common/misc/utils';
 
 import { PolicyType } from 'jslib-common/enums/policyType';
-import { StorageKey } from 'jslib-common/enums/storageKey';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 export default class RuntimeBackground {
     private runtime: any;
@@ -34,11 +34,11 @@ export default class RuntimeBackground {
 
     constructor(private main: MainBackground, private autofillService: AutofillService,
         private cipherService: CipherService, private platformUtilsService: BrowserPlatformUtilsService,
-        private storageService: StorageService, private i18nService: I18nService,
+        private i18nService: I18nService,
         private notificationsService: NotificationsService, private systemService: SystemService,
         private vaultTimeoutService: VaultTimeoutService, private environmentService: EnvironmentService,
         private policyService: PolicyService, private messagingService: MessagingService,
-        private folderService: FolderService) {
+        private folderService: FolderService, private stateService: StateService) {
 
         // onInstalled listener must be wired up before anything else, so we do it in the ctor
         chrome.runtime.onInstalled.addListener((details: any) => {
@@ -328,8 +328,7 @@ export default class RuntimeBackground {
         const usernameMatches = ciphers.filter(c =>
             c.login.username != null && c.login.username.toLowerCase() === normalizedUsername);
         if (usernameMatches.length === 0) {
-            const disabledAddLogin = await this.storageService.get<boolean>(
-                StorageKey.DisableAddLoginNotification);
+            const disabledAddLogin = await this.stateService.getDisableAddLoginNotification();
             if (disabledAddLogin) {
                 return;
             }
@@ -351,8 +350,7 @@ export default class RuntimeBackground {
             });
             await this.main.checkNotificationQueue(tab);
         } else if (usernameMatches.length === 1 && usernameMatches[0].login.password !== loginInfo.password) {
-            const disabledChangePassword = await this.storageService.get<boolean>(
-                StorageKey.DisableChangedPasswordNotification);
+            const disabledChangePassword = await this.stateService.getDisableChangedPasswordNotification();
             if (disabledChangePassword) {
                 return;
             }
@@ -422,30 +420,27 @@ export default class RuntimeBackground {
 
     private async setDefaultSettings() {
         // Default timeout option to "on restart".
-        const currentVaultTimeout = await this.storageService.get<number>(StorageKey.VaultTimeout);
+        const currentVaultTimeout = await this.stateService.getVaultTimeout();
         if (currentVaultTimeout == null) {
-            await this.storageService.save(StorageKey.VaultTimeout, -1);
+            await this.stateService.setVaultTimeout(-1);
         }
 
         // Default action to "lock".
-        const currentVaultTimeoutAction = await this.storageService.get<string>(StorageKey.VaultTimeoutAction);
+        const currentVaultTimeoutAction = await this.stateService.getVaultTimeoutAction();
         if (currentVaultTimeoutAction == null) {
-            await this.storageService.save(StorageKey.VaultTimeoutAction, 'lock');
+            await this.stateService.setVaultTimeoutAction('lock');
         }
     }
 
     private async getDataForTab(tab: any, responseCommand: string) {
         const responseData: any = {};
         if (responseCommand === 'notificationBarDataResponse') {
-            responseData.neverDomains = await this.storageService.get<any>(StorageKey.NeverDomains);
-            const disableAddLoginFromOptions = await this.storageService.get<boolean>(
-                StorageKey.DisableAddLoginNotification);
+            responseData.neverDomains = await this.stateService.getNeverDomains();
+            const disableAddLoginFromOptions = await this.stateService.getDisableAddLoginNotification();
             responseData.disabledAddLoginNotification = disableAddLoginFromOptions || !(await this.allowPersonalOwnership());
-            responseData.disabledChangedPasswordNotification = await this.storageService.get<boolean>(
-                StorageKey.DisableChangedPasswordNotification);
+            responseData.disabledChangedPasswordNotification = await this.stateService.getDisableChangedPasswordNotification();
         } else if (responseCommand === 'autofillerAutofillOnPageLoadEnabledResponse') {
-            responseData.autofillEnabled = await this.storageService.get<boolean>(
-                StorageKey.EnableAutoFillOnPageLoad);
+            responseData.autofillEnabled = await this.stateService.getEnableAutoFillOnPageLoad();
         } else if (responseCommand === 'notificationBarFrameDataResponse') {
             responseData.i18n = {
                 appName: this.i18nService.t('appName'),

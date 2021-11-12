@@ -31,8 +31,6 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 import { StateService } from 'jslib-common/abstractions/state.service';
 import { StorageService } from 'jslib-common/abstractions/storage.service';
 
-import { StorageKey } from 'jslib-common/enums/storageKey';
-
 import { routerTransition } from './app-routing.animations';
 
 @Component({
@@ -81,7 +79,7 @@ export class AppComponent implements OnInit {
         (window as any).bitwardenPopupMainMessageListener = async (msg: any, sender: any, sendResponse: any) => {
             if (msg.command === 'doneLoggingOut') {
                 this.ngZone.run(async () => {
-                    this.authService.logOut(() => {
+                    this.authService.logOut(async () => {
                         if (msg.expired) {
                             this.showToast({
                                 type: 'warning',
@@ -90,7 +88,7 @@ export class AppComponent implements OnInit {
                             });
                         }
                         this.router.navigate(['home']);
-                        this.stateService.purge();
+                        await this.stateService.clean();
                     });
                     this.changeDetectorRef.detectChanges();
                 });
@@ -99,7 +97,7 @@ export class AppComponent implements OnInit {
                     this.router.navigate(['home']);
                 });
             } else if (msg.command === 'locked') {
-                this.stateService.purge();
+                this.stateService.clean();
                 this.ngZone.run(() => {
                     this.router.navigate(['lock']);
                 });
@@ -133,15 +131,13 @@ export class AppComponent implements OnInit {
                 const url = event.urlAfterRedirects || event.url || '';
                 if (url.startsWith('/tabs/') && (window as any).previousPopupUrl != null &&
                     (window as any).previousPopupUrl.startsWith('/tabs/')) {
-                    this.stateService.remove('GroupingsComponent');
-                    this.stateService.remove('GroupingsComponentScope');
-                    this.stateService.remove('CiphersComponent');
-                    this.stateService.remove('SendGroupingsComponent');
-                    this.stateService.remove('SendGroupingsComponentScope');
-                    this.stateService.remove('SendTypeComponent');
+                    this.stateService.setBrowserGroupingComponentState(null);
+                    this.stateService.setBrowserCipherComponentState(null);
+                    this.stateService.setBrowserSendComponentState(null);
+                    this.stateService.setBrowserSendTypeComponentState(null);
                 }
                 if (url.startsWith('/tabs/')) {
-                    this.stateService.remove('addEditCipherInfo');
+                    this.stateService.setAddEditCipherInfo(null);
                 }
                 (window as any).previousPopupUrl = url;
 
@@ -173,7 +169,7 @@ export class AppComponent implements OnInit {
         }
 
         this.lastActivity = now;
-        this.storageService.save(StorageKey.LastActive, now);
+        await this.stateService.setLastActive(now);
     }
 
     private showToast(msg: any) {

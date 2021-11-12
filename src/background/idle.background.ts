@@ -1,8 +1,6 @@
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
+import { StateService } from 'jslib-common/abstractions/state.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
-
-import { StorageKey } from 'jslib-common/enums/storageKey';
 
 const IdleInterval = 60 * 5; // 5 minutes
 
@@ -11,7 +9,7 @@ export default class IdleBackground {
     private idleTimer: number = null;
     private idleState = 'active';
 
-    constructor(private vaultTimeoutService: VaultTimeoutService, private activeAccount: ActiveAccountService,
+    constructor(private vaultTimeoutService: VaultTimeoutService, private stateService: StateService,
         private notificationsService: NotificationsService) {
         this.idle = chrome.idle || (browser != null ? browser.idle : null);
     }
@@ -38,9 +36,9 @@ export default class IdleBackground {
         if (this.idle.onStateChanged) {
             this.idle.onStateChanged.addListener(async (newState: string) => {
                 if (newState === 'locked') { // If the screen is locked or the screensaver activates
-                    const timeout = await this.activeAccount.getInformation<number>(StorageKey.VaultTimeout);
+                    const timeout = await this.stateService.getVaultTimeout();
                     if (timeout === -2) { // On System Lock vault timeout option
-                        const action = await this.activeAccount.getInformation<string>(StorageKey.VaultTimeoutAction);
+                        const action = await this.stateService.getVaultTimeoutAction();
                         if (action === 'logOut') {
                             await this.vaultTimeoutService.logOut();
                         } else {

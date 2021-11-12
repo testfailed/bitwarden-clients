@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CryptoFunctionService } from 'jslib-common/abstractions/cryptoFunction.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { PasswordGenerationService } from 'jslib-common/abstractions/passwordGeneration.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 import { Utils } from 'jslib-common/misc/utils';
-
-import { StorageKey } from 'jslib-common/enums/storageKey';
 
 @Component({
     selector: 'app-home',
@@ -16,7 +14,7 @@ import { StorageKey } from 'jslib-common/enums/storageKey';
 })
 export class HomeComponent {
     constructor(protected platformUtilsService: PlatformUtilsService,
-        private passwordGenerationService: PasswordGenerationService, private activeAccount: ActiveAccountService,
+        private passwordGenerationService: PasswordGenerationService, private stateService: StateService,
         private cryptoFunctionService: CryptoFunctionService, private environmentService: EnvironmentService) { }
 
     async launchSsoBrowser() {
@@ -35,8 +33,8 @@ export class HomeComponent {
         const codeVerifierHash = await this.cryptoFunctionService.hash(codeVerifier, 'sha256');
         const codeChallenge = Utils.fromBufferToUrlB64(codeVerifierHash);
 
-        await this.activeAccount.saveInformation(StorageKey.SsoCodeVerifier, codeVerifier);
-        await this.activeAccount.saveInformation(StorageKey.SsoState, state);
+        await this.stateService.setSsoCodeVerifier(codeVerifier);
+        await this.stateService.setSsoState(state);
 
         let url = this.environmentService.getWebVaultUrl();
         if (url == null) {

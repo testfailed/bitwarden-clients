@@ -19,7 +19,6 @@ import { CipherView } from 'jslib-common/models/view/cipherView';
 import { CollectionView } from 'jslib-common/models/view/collectionView';
 import { FolderView } from 'jslib-common/models/view/folderView';
 
-import { ActiveAccountService } from 'jslib-common/abstractions/activeAccount.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { CollectionService } from 'jslib-common/abstractions/collection.service';
 import { FolderService } from 'jslib-common/abstractions/folder.service';
@@ -78,18 +77,17 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
         private cipherService: CipherService, private router: Router,
         private ngZone: NgZone, private broadcasterService: BroadcasterService,
         private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute,
-        private stateService: StateService, private popupUtils: PopupUtilsService,
+        stateService: StateService, private popupUtils: PopupUtilsService,
         private syncService: SyncService, private platformUtilsService: PlatformUtilsService,
-        private searchService: SearchService, private location: Location,
-        activeAccount: ActiveAccountService) {
-        super(collectionService, folderService, activeAccount);
+        private searchService: SearchService, private location: Location) {
+        super(collectionService, folderService, stateService);
         this.noFolderListSize = 100;
     }
 
     async ngOnInit() {
         this.searchTypeSearch = !this.platformUtilsService.isSafari();
         this.showLeftHeader = !(this.popupUtils.inSidebar(window) && this.platformUtilsService.isFirefox());
-        this.stateService.remove('CiphersComponent');
+        this.stateService.setBrowserCipherComponentState(null);
 
         this.broadcasterService.subscribe(ComponentId, (message: any) => {
             this.ngZone.run(async () => {
@@ -109,7 +107,7 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
 
         const restoredScopeState = await this.restoreState();
         const queryParamsSub = this.route.queryParams.subscribe(async params => {
-            this.state = (await this.stateService.get<any>(ComponentId)) || {};
+            this.state = (await this.stateService.getBrowserGroupingComponentState()) || {};
             if (this.state.searchText) {
                 this.searchText = this.state.searchText;
             } else if (params.searchText) {
@@ -297,7 +295,7 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
 
     closeOnEsc(e: KeyboardEvent) {
         // If input not empty, use browser default behavior of clearing input instead
-		if (e.key === 'Escape' && (this.searchText == null || this.searchText === '')) {
+        if (e.key === 'Escape' && (this.searchText == null || this.searchText === '')) {
             BrowserApi.closePopup(window);
         }
     }
@@ -306,10 +304,6 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
         this.state = {
             scrollY: this.popupUtils.getContentScrollY(window),
             searchText: this.searchText,
-        };
-        await this.stateService.save(ComponentId, this.state);
-
-        this.scopeState = {
             favoriteCiphers: this.favoriteCiphers,
             noFolderCiphers: this.noFolderCiphers,
             ciphers: this.ciphers,
@@ -320,11 +314,11 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
             collections: this.collections,
             deletedCount: this.deletedCount,
         };
-        await this.stateService.save(ScopeStateId, this.scopeState);
+        await this.stateService.setBrowserGroupingComponentState(this.scopeState);
     }
 
     private async restoreState(): Promise<boolean> {
-        this.scopeState = await this.stateService.get<any>(ScopeStateId);
+        this.scopeState = await this.stateService.getBrowserGroupingComponentState();
         if (this.scopeState == null) {
             return false;
         }
