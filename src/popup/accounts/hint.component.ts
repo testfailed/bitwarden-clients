@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 
 import { HintComponent as BaseHintComponent } from 'jslib-angular/components/hint.component';

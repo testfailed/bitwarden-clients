@@ -33,6 +33,7 @@ import { ExportService } from 'jslib-common/abstractions/export.service';
 import { FileUploadService } from 'jslib-common/abstractions/fileUpload.service';
 import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { KeyConnectorService } from 'jslib-common/abstractions/keyConnector.service';
 import { LogService as LogServiceAbstraction } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
@@ -75,9 +76,9 @@ function getBgService<T>(service: string) {
 const isPrivateMode = BrowserApi.getBackgroundPage() == null;
 
 const messagingService = new BrowserMessagingService();
+const logService = getBgService<ConsoleLogService>('logService')();
 const searchService = isPrivateMode ? null : new PopupSearchService(getBgService<SearchService>('searchService')(),
-    getBgService<CipherService>('cipherService')(), getBgService<ConsoleLogService>('consoleLogService')(),
-    getBgService<I18nService>('i18nService')());
+    getBgService<CipherService>('cipherService')(), logService, getBgService<I18nService>('i18nService')());
 
 export function initFactory(platformUtilsService: PlatformUtilsService, i18nService: I18nService, storageService: StorageService,
     popupUtilsService: PopupUtilsService, stateService: StateService): Function {
@@ -109,6 +110,19 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
                 }
             });
             htmlEl.classList.add('locale_' + i18nService.translationLocale);
+
+            // Workaround for slow performance on external monitors on Chrome + MacOS
+            // See: https://bugs.chromium.org/p/chromium/issues/detail?id=971701#c64
+            if (platformUtilsService.isChrome() &&
+                navigator.platform.indexOf('Mac') > -1 &&
+                popupUtilsService.inPopup(window) &&
+                (window.screenLeft < 0 ||
+                    window.screenTop < 0 ||
+                    window.screenLeft > window.screen.width ||
+                    window.screenTop > window.screen.height)) {
+                htmlEl.classList.add('force_redraw');
+                logService.info('Force redraw is on');
+            }
         }
     };
 }
@@ -168,6 +182,7 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         { provide: AutofillService, useFactory: getBgService<AutofillService>('autofillService'), deps: [] },
         { provide: ExportService, useFactory: getBgService<ExportService>('exportService'), deps: [] },
         { provide: SendService, useFactory: getBgService<SendService>('sendService'), deps: [] },
+        { provide: KeyConnectorService, useFactory: getBgService<KeyConnectorService>('keyConnectorService'), deps: [] },
         {
             provide: VaultTimeoutService,
             useFactory: getBgService<VaultTimeoutService>('vaultTimeoutService'),

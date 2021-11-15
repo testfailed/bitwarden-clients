@@ -11,6 +11,8 @@ import {
     Router,
 } from '@angular/router';
 
+import { first } from 'rxjs/operators';
+
 import { BrowserApi } from '../../browser/browserApi';
 
 import { CipherType } from 'jslib-common/enums/cipherType';
@@ -106,7 +108,7 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
         });
 
         const restoredScopeState = await this.restoreState();
-        const queryParamsSub = this.route.queryParams.subscribe(async params => {
+        this.route.queryParams.pipe(first()).subscribe(async params => {
             this.state = (await this.stateService.getBrowserGroupingComponentState()) || {};
             if (this.state.searchText) {
                 this.searchText = this.state.searchText;
@@ -127,9 +129,6 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
 
             if (!this.syncService.syncInProgress || restoredScopeState) {
                 window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state.scrollY), 0);
-            }
-            if (queryParamsSub != null) {
-                queryParamsSub.unsubscribe();
             }
         });
     }

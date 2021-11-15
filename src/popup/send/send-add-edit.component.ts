@@ -10,8 +10,11 @@ import {
     Router,
 } from '@angular/router';
 
+import { first } from 'rxjs/operators';
+
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
@@ -22,7 +25,6 @@ import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { AddEditComponent as BaseAddEditComponent } from 'jslib-angular/components/send/add-edit.component';
 import { StateService } from 'jslib-common/abstractions/state.service';
-import { LogService } from 'jslib-common/abstractions/log.service';
 
 @Component({
     selector: 'app-send-add-edit',
@@ -80,7 +82,7 @@ export class SendAddEditComponent extends BaseAddEditComponent {
         this.isLinux = window?.navigator?.userAgent.indexOf('Linux') !== -1;
         this.isUnsupportedMac = this.platformUtilsService.isChrome() && window?.navigator?.appVersion.includes('Mac OS X 11');
 
-        const queryParamsSub = this.route.queryParams.subscribe(async params => {
+        this.route.queryParams.pipe(first()).subscribe(async params => {
             if (params.sendId) {
                 this.sendId = params.sendId;
             }
@@ -89,10 +91,6 @@ export class SendAddEditComponent extends BaseAddEditComponent {
                 this.type = type;
             }
             await this.load();
-
-            if (queryParamsSub != null) {
-                queryParamsSub.unsubscribe();
-            }
         });
 
         window.setTimeout(() => {

@@ -16,6 +16,7 @@ import { DeviceType } from 'jslib-common/enums/deviceType';
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { KeyConnectorService } from 'jslib-common/abstractions/keyConnector.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
@@ -55,15 +56,17 @@ export class SettingsComponent implements OnInit {
     biometric: boolean = false;
     disableAutoBiometricsPrompt = true;
     previousVaultTimeout: number = null;
+    showChangeMasterPass = true;
 
     vaultTimeout: FormControl = new FormControl(null);
 
     constructor(private platformUtilsService: PlatformUtilsService, private i18nService: I18nService,
-        private vaultTimeoutService: VaultTimeoutService, public messagingService: MessagingService,
-        private router: Router, private environmentService: EnvironmentService,
-        private cryptoService: CryptoService, private stateService: StateService,
-        private popupUtilsService: PopupUtilsService, private modalService: ModalService,
-        private toasterService: ToasterService) {
+        private vaultTimeoutService: VaultTimeoutService,
+        public messagingService: MessagingService, private router: Router,
+        private environmentService: EnvironmentService, private cryptoService: CryptoService,
+        private stateService: StateService, private popupUtilsService: PopupUtilsService,
+        private modalService: ModalService, private toasterService: ToasterService,
+        private keyConnectorService: KeyConnectorService) {
     }
 
     async ngOnInit() {
@@ -114,6 +117,7 @@ export class SettingsComponent implements OnInit {
         this.supportsBiometric = await this.platformUtilsService.supportsBiometric();
         this.biometric = await this.vaultTimeoutService.isBiometricLockSet();
         this.disableAutoBiometricsPrompt = await this.stateService.getDisableAutoBiometricsPrompt() ?? true;
+        this.showChangeMasterPass = !await this.keyConnectorService.getUsesKeyConnector();
     }
 
     async saveVaultTimeout(newValue: number) {

@@ -21,7 +21,8 @@ export class RegisterComponent extends BaseRegisterComponent {
     constructor(authService: AuthService, router: Router,
         i18nService: I18nService, cryptoService: CryptoService,
         apiService: ApiService, stateService: StateService, platformUtilsService: PlatformUtilsService,
-        passwordGenerationService: PasswordGenerationService, environmentService: EnvironmentService, logService: LogService) {
+        passwordGenerationService: PasswordGenerationService, environmentService: EnvironmentService,
+        logService: LogService) {
         super(authService, router, i18nService, cryptoService, apiService, stateService, platformUtilsService,
             passwordGenerationService, environmentService, logService);
     }

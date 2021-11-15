@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Генериране на парола (копирана)"
   },
+  "copyElementIdentifier": {
+    "message": "Копиране на името на допълнителното поле"
+  },
   "noMatchingLogins": {
     "message": "Няма съвпадащи записи."
   },
@@ -773,6 +776,9 @@
   "disableAutoTotpCopyDesc": {
     "message": "Ако регистрацията използва и удостоверителен ключ, временният, еднократен код се копира в буфера при всяко автоматично попълване на формуляра."
   },
+  "disableAutoBiometricsPrompt": {
+    "message": "Да не се изискват биометрични данни при стартиране"
+  },
   "premiumRequired": {
     "message": "Изисква се платен абонамент"
   },
@@ -1247,7 +1253,7 @@
     "message": "Стандартно"
   },
   "dateUpdated": {
-    "message": "Осъвременено",
+    "message": "Обновено",
     "description": "ex. Date this item was updated"
   },
   "datePasswordUpdated": {
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Трябва да потвърдите е-пощата си, за да използвате тази функционалност. Можете да го направите в уеб-трезора."
+  },
+  "updatedMasterPassword": {
+    "message": "Главната парола е променена"
+  },
+  "updateMasterPassword": {
+    "message": "Промяна на главната парола"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Вашата главна парола наскоро е била сменена от администратор в организацията Ви. За да получите достъп до трезора, трябва първо да я промените. Това означава, че ще бъдете отписан(а) от текущата си сесия и ще трябва да се впишете отново. Активните сесии на други устройства може да продължат да бъдат активни още един час."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Автоматично включване"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Тази организация включва автоматично новите си потребители в смяната на пароли. Това означава, че администраторите на организацията ще могат да променят главната Ви парола."
+  },
+  "selectFolder": {
+    "message": "Избиране на папка..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "За да завършите настройките за еднократна идентификация, трябва да зададете главна парола за трезора."
+  },
+  "hours": {
+    "message": "Hours"
+  },
+  "minutes": {
+    "message": "Minutes"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Настройките на организацията Ви влияят върху времето за достъп до трезора Ви. Максималното разрешено време за достъп е $HOURS$ час(а) и $MINUTES$ минути",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Времето за достъп до трезора Ви превишава ограничението, определено от организацията Ви."
+  },
+  "vaultExportDisabled": {
+    "message": "Изнасянето на трезора е изключено"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Една или повече от настройките на организацията Ви не позволяват да изнасяте личния си трезор."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Не може да бъде открит подходящ елемент от формуляр. Опитайте да инспектирате кода на HTML."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Няма намерен уникален идентификатор."
   }
 }

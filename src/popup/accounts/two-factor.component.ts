@@ -1,13 +1,9 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    NgZone,
-} from '@angular/core';
-
+import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
 import {
     ActivatedRoute,
     Router,
 } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 import { TwoFactorProviderType } from 'jslib-common/enums/twoFactorProviderType';
 
@@ -15,10 +11,9 @@ import { ApiService } from 'jslib-common/abstractions/api.service';
 import { AuthService } from 'jslib-common/abstractions/auth.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
-import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 
 import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
@@ -28,7 +23,7 @@ import { TwoFactorComponent as BaseTwoFactorComponent } from 'jslib-angular/comp
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { BrowserApi } from '../../browser/browserApi';
-import { LogService } from 'jslib-common/abstractions/log.service';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 const BroadcasterSubscriptionId = 'TwoFactorComponent';
 
@@ -90,7 +85,7 @@ export class TwoFactorComponent extends BaseTwoFactorComponent {
             }
         }
 
-        const queryParamsSub = this.route.queryParams.subscribe(async qParams => {
+        this.route.queryParams.pipe(first()).subscribe(async qParams => {
             if (qParams.sso === 'true') {
                 super.onSuccessfulLogin = () => {
                     BrowserApi.reloadOpenWindows();
@@ -98,9 +93,6 @@ export class TwoFactorComponent extends BaseTwoFactorComponent {
                     thisWindow.close();
                     return this.syncService.fullSync(true);
                 };
-                if (queryParamsSub != null) {
-                    queryParamsSub.unsubscribe();
-                }
             }
         });
     }

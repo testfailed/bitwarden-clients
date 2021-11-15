@@ -1,3 +1,6 @@
+import AddLoginRuntimeMessage from 'src/background/models/addLoginRuntimeMessage';
+import ChangePasswordRuntimeMessage from 'src/background/models/changePasswordRuntimeMessage';
+
 document.addEventListener('DOMContentLoaded', event => {
     if (window.location.hostname.indexOf('vault.bitwarden.com') > -1) {
         return;
@@ -256,7 +259,9 @@ document.addEventListener('DOMContentLoaded', event => {
         if (fieldData.htmlID != null && fieldData.htmlID !== '') {
             try {
                 el = form.querySelector('#' + fieldData.htmlID);
-            } catch { }
+            } catch {
+                // Ignore error, we perform fallbacks below.
+            }
         }
         if (el == null && fieldData.htmlName != null && fieldData.htmlName !== '') {
             el = form.querySelector('input[name="' + fieldData.htmlName + '"]');
@@ -294,7 +299,7 @@ document.addEventListener('DOMContentLoaded', event => {
             }
             const disabledBoth = disabledChangedPasswordNotification && disabledAddLoginNotification;
             if (!disabledBoth && formData[i].usernameEl != null && formData[i].passwordEl != null) {
-                const login = {
+                const login: AddLoginRuntimeMessage = {
                     username: formData[i].usernameEl.value,
                     password: formData[i].passwordEl.value,
                     url: document.URL,
@@ -343,13 +348,15 @@ document.addEventListener('DOMContentLoaded', event => {
 
                 if (newPass != null && curPass != null || (newPassOnly && newPass != null)) {
                     processedForm(form);
+
+                    const changePasswordRuntimeMessage: ChangePasswordRuntimeMessage = {
+                        newPassword: newPass,
+                        currentPassword: curPass,
+                        url: document.URL,
+                    };
                     sendPlatformMessage({
                         command: 'bgChangedPassword',
-                        data: {
-                            newPassword: newPass,
-                            currentPassword: curPass,
-                            url: document.URL,
-                        },
+                        data: changePasswordRuntimeMessage,
                     });
                     break;
                 }
@@ -431,23 +438,11 @@ document.addEventListener('DOMContentLoaded', event => {
     function closeExistingAndOpenBar(type: string, typeData: any) {
         let barPage = 'notification/bar.html';
         switch (type) {
-            case 'info':
-                barPage = barPage + '?info=' + typeData.text;
-                break;
-            case 'warning':
-                barPage = barPage + '?warning=' + typeData.text;
-                break;
-            case 'error':
-                barPage = barPage + '?error=' + typeData.text;
-                break;
-            case 'success':
-                barPage = barPage + '?success=' + typeData.text;
-                break;
             case 'add':
-                barPage = barPage + '?add=1';
+                barPage = barPage + '?add=1&isVaultLocked=' + typeData.isVaultLocked;
                 break;
             case 'change':
-                barPage = barPage + '?change=1';
+                barPage = barPage + '?change=1&isVaultLocked=' + typeData.isVaultLocked;
                 break;
             default:
                 break;
@@ -474,6 +469,7 @@ document.addEventListener('DOMContentLoaded', event => {
         const iframe = document.createElement('iframe');
         iframe.style.cssText = 'height: 42px; width: 100%; border: 0; min-height: initial;';
         iframe.id = 'bit-notification-bar-iframe';
+        iframe.src = barPageUrl;
 
         const frameDiv = document.createElement('div');
         frameDiv.setAttribute('aria-live', 'polite');

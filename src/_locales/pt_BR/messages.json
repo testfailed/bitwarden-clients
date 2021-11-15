@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Gerar Senha (copiada)"
   },
+  "copyElementIdentifier": {
+    "message": "Copiar Nome do Campo Personalizado"
+  },
   "noMatchingLogins": {
     "message": "Sem credenciais correspondentes."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Se a sua credencial tiver uma chave de autenticação anexada, o código de verificação TOTP será copiado automaticamente para a área de transferência quando preencher automaticamente a credencial."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Não solicitar por biometria na inicialização."
   },
   "premiumRequired": {
     "message": "Requer Assinatura Premium"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Você precisa verificar o seu e-mail para usar este recurso. Você pode verificar seu e-mail no cofre web."
+  },
+  "updatedMasterPassword": {
+    "message": "Senha Mestra Atualizada"
+  },
+  "updateMasterPassword": {
+    "message": "Atualizar Senha Mestra"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Sua Senha Mestra foi alterada recentemente por um administrador de sua organização. Para acessar o cofre, você precisa atualizá-la agora. O processo desconectará você da sessão atual, exigindo que você inicie a sessão novamente. Sessões ativas em outros dispositivos podem continuar ativas por até uma hora."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Inscrição Automática"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Esta organização possui uma política empresarial que irá inscrevê-lo automaticamente na redefinição de senha. A inscrição permitirá que os administradores da organização alterem sua senha mestra."
+  },
+  "selectFolder": {
+    "message": "Selecionar pasta..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Para concluir o login com o SSO, defina uma senha mestra para acessar e proteger o seu cofre."
+  },
+  "hours": {
+    "message": "Horas"
+  },
+  "minutes": {
+    "message": "Minutos"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "As políticas da sua organização estão afetando o tempo limite do seu cofre. O Tempo Limite Máximo permitido do Cofre é $HOURS$ hora(s) e $MINUTES$ minuto(s)",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "O tempo limite do seu cofre excede as restrições definidas por sua organização."
+  },
+  "vaultExportDisabled": {
+    "message": "Exportação de Cofre Desabilitada"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Uma ou mais políticas da organização impdem que você exporte seu cofre pessoal."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Não foi possível identificar um elemento de formulário válido. Em vez disso, tente inspecionar o HTML."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Nenhum identificador exclusivo encontrado."
   }
 }

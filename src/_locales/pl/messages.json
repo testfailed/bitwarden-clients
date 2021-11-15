@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Generuj hasło (do schowka)"
   },
+  "copyElementIdentifier": {
+    "message": "Kopiuj nazwę pola niestandardowego"
+  },
   "noMatchingLogins": {
     "message": "Brak pasujących danych logowania."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Jeśli dane logowania posiadają dołączony klucz uwierzytelniający TOTP, kod weryfikacyjny jest automatycznie kopiowany do schowka przy każdym autouzupełnianiu danych logowania."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Nie pytaj o autoryzację biometryczną podczas uruchamiania."
   },
   "premiumRequired": {
     "message": "Konto Premium jest wymagane"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Musisz zweryfikować adres e-mail, aby korzystać z tej funkcji. Adres możesz zweryfikować w sejfie internetowym."
+  },
+  "updatedMasterPassword": {
+    "message": "Hasło główne zostało zaktualizowane"
+  },
+  "updateMasterPassword": {
+    "message": "Zaktualizuj hasło główne"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Hasło główne zostało zmienione przez administratora Twojej organizacji. Musisz je zaktualizować, aby uzyskać dostęp do sejfu. Ta czynność spowoduje wylogowanie z bieżącej sesji, przez co konieczne będzie ponowne zalogowanie się. Aktywne sesje na innych urządzeniach mogą pozostać aktywne przez maksymalnie godzinę."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Automatyczne rejestrowanie użytkowników do resetowania hasła"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Ta organizacja posługuje się zasadą, która automatycznie rejestruje użytkowników do resetowania hasła. Rejestracja umożliwia administratorom organizacji zmianę Twojego hasła głównego."
+  },
+  "selectFolder": {
+    "message": "Wybierz folder..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "W celu zakończenia jednokrotnego logowania SSO, ustaw hasło główne, aby uzyskać dostęp do sejfu."
+  },
+  "hours": {
+    "message": "Godziny"
+  },
+  "minutes": {
+    "message": "Minuty"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Zasady organizacji mają wpływ czas blokowania sejfu. Maksymalny dozwolony czas wynosi $HOURS$ godz. i $MINUTES$ min.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Czas blokowania sejfu przekracza limit określony przez organizację."
+  },
+  "vaultExportDisabled": {
+    "message": "Eksportowanie sejfu zostało wyłączone"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Co najmniej jedna zasada organizacji uniemożliwia wyeksportowanie Twojego sejfu."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Nie można zidentyfikować poprawnego elementu formularza. Spróbuj sprawdzić kod HTML."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Nie znaleziono unikatowego identyfikatora."
   }
 }

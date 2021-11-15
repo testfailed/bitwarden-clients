@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "產生及複製密碼"
   },
+  "copyElementIdentifier": {
+    "message": "複製自訂欄位名稱"
+  },
   "noMatchingLogins": {
     "message": "無符合的登入資料。"
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "如果您的登入資料已包含驗證器金鑰，TOTP 驗證碼會在您自動填入時自動複製到您的剪貼簿。"
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "不要在啟動時提示生物特徵辨識驗證。"
   },
   "premiumRequired": {
     "message": "需要進階會員資格"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "您必須驗證您的電子郵件才能使用此功能。 您可以在網頁密碼庫裡驗證您的電子郵件。"
+  },
+  "updatedMasterPassword": {
+    "message": "已更新主密碼"
+  },
+  "updateMasterPassword": {
+    "message": "更新主密碼"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "您的主密碼最近被您的組織管理者更改過。要存取密碼庫，您必須現在更新主密碼。繼續操作會登出目前的登入階段，要求您重新登入。其他裝置上使用中的登入階段可能持續最長一個小時。"
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "自動註冊"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "此組織擁有一個可以爲你自動注冊密碼重置的企業策略。注冊后將允許組織管理員變更您的主密碼。"
+  },
+  "selectFolder": {
+    "message": "選擇資料夾⋯"
+  },
+  "ssoCompleteRegistration": {
+    "message": "要完成 SSO 登入，請設定主密碼以存取和保護您的密碼庫。"
+  },
+  "hours": {
+    "message": "小時"
+  },
+  "minutes": {
+    "message": "分鐘"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "您的組織策略正在影響您的密碼庫逾時時長。密碼庫逾時時長最多可以設定到 $HOURS$ 小時，$MINUTES$ 分鐘。",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "您的密碼庫逾時時長超過組織限制。"
+  },
+  "vaultExportDisabled": {
+    "message": "密碼庫匯出已停用"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "一或多個組織策略不允許您輸出個人密碼庫。"
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "未能找出有效的表單元件。請試試看改用 HTML 檢查功能。"
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "找不到唯一識別元。"
   }
 }

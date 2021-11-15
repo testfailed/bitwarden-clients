@@ -32,6 +32,7 @@ import { StateService } from 'jslib-common/abstractions/state.service';
 import { StorageService } from 'jslib-common/abstractions/storage.service';
 
 import { routerTransition } from './app-routing.animations';
+import { KeyConnectorService } from 'jslib-common/abstractions/keyConnector.service';
 
 @Component({
     selector: 'app-root',
@@ -60,7 +61,8 @@ export class AppComponent implements OnInit {
         private i18nService: I18nService, private router: Router,
         private stateService: StateService, private messagingService: MessagingService,
         private changeDetectorRef: ChangeDetectorRef, private ngZone: NgZone,
-        private sanitizer: DomSanitizer, private platformUtilsService: PlatformUtilsService) { }
+        private sanitizer: DomSanitizer, private platformUtilsService: PlatformUtilsService,
+        private keyConnectoService: KeyConnectorService) { }
 
     ngOnInit() {
         if (BrowserApi.getBackgroundPage() == null) {
@@ -117,6 +119,11 @@ export class AppComponent implements OnInit {
             } else if (msg.command === 'reloadPopup') {
                 this.ngZone.run(() => {
                     this.router.navigate(['/']);
+                });
+            } else if (msg.command === 'convertAccountToKeyConnector') {
+                this.ngZone.run(async () => {
+                    await this.keyConnectoService.setConvertAccountRequired(true);
+                    this.router.navigate(['/remove-password']);
                 });
             } else {
                 msg.webExtSender = sender;

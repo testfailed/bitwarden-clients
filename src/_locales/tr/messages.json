@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Parola oluştur (ve kopyala)"
   },
+  "copyElementIdentifier": {
+    "message": "Özel alan adını kopyala"
+  },
   "noMatchingLogins": {
     "message": "Eşleşen hesap yok."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Hesabınıza bağlı bir kimlik doğrulama anahtarı varsa giriş bilgilerini otomatik olarak doldurduğunuzda TOTP doğrulama kodu da otomatik olarak panonuza kopyalanır."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Açılışta biyometri doğrulaması isteme"
   },
   "premiumRequired": {
     "message": "Premium gerekli"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Bu özelliği kullanmak için e-postanızı doğrulamanız gerekir. E-postanızı web kasasında doğrulayabilirsiniz."
+  },
+  "updatedMasterPassword": {
+    "message": "Ana parola güncellendi"
+  },
+  "updateMasterPassword": {
+    "message": "Ana parolayı güncelle"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Ana parolanız organizasyonunuzdaki bir yönetici tarafından yakın zaman önce değiştirildi. Kasanıza erişmek için bunu güncellemeniz gereklidir. Devam ettiğinizde oturumunuz kapatılacak ve tekrardan oturum açmanız gerekecektir. Diğer cihazlardaki aktif oturumlar bir saate kadar aktif kalabilirler. "
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Otomatik Kaydolma"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Bu kuruluş, sizi otomatik olarak parola sıfırlama işlemine kaydedecek bir kurumsal ilkeye sahiptir.  Kayıt işlemi kuruluş yöneticilerinin ana parolanızı değiştirmesine olanak tanır."
+  },
+  "selectFolder": {
+    "message": "Klasör seç..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "SSO ile girişinizi tamamlamak için lütfen kasanıza erişirken kullanacağınız ana parolayı belirleyin."
+  },
+  "hours": {
+    "message": "Saat"
+  },
+  "minutes": {
+    "message": "Dakika"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Kuruluş ilkeleriniz kasa zaman aşımınızı etkiliyor.  İzin verilen maksimum Kasa Zaman Aşımı {0} saat ve {1} dakikadır",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Kasa zaman aşımınız, kuruluşunuz tarafından belirlenen kısıtlamaları aşıyor."
+  },
+  "vaultExportDisabled": {
+    "message": "Kasayı dışa aktarma devre dışı"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Bir veya daha fazla kuruluş ilkesi, kişisel kasanızı dışa aktarmanızı engelliyor."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Unable to identify a valid form element. Try inspecting the HTML instead."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Benzersiz tanımlayıcı bulunamadı."
   }
 }

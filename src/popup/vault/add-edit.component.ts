@@ -5,6 +5,8 @@ import {
     Router,
 } from '@angular/router';
 
+import { first } from 'rxjs/operators';
+
 import { BrowserApi } from '../../browser/browserApi';
 
 import { AuditService } from 'jslib-common/abstractions/audit.service';
@@ -13,8 +15,10 @@ import { CollectionService } from 'jslib-common/abstractions/collection.service'
 import { EventService } from 'jslib-common/abstractions/event.service';
 import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { OrganizationService } from 'jslib-common/abstractions/organization.service';
+import { PasswordRepromptService } from 'jslib-common/abstractions/passwordReprompt.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { StateService } from 'jslib-common/abstractions/state.service';
@@ -26,8 +30,6 @@ import { LoginUriView } from 'jslib-common/models/view/loginUriView';
 import { AddEditComponent as BaseAddEditComponent } from 'jslib-angular/components/add-edit.component';
 
 import { CipherType } from 'jslib-common/enums/cipherType';
-import { PasswordRepromptService } from 'jslib-common/abstractions/passwordReprompt.service';
-import { LogService } from 'jslib-common/abstractions/log.service';
 
 @Component({
     selector: 'app-vault-add-edit',
@@ -55,7 +57,7 @@ export class AddEditComponent extends BaseAddEditComponent {
     async ngOnInit() {
         await super.ngOnInit();
 
-        const queryParamsSub = this.route.queryParams.subscribe(async params => {
+        this.route.queryParams.pipe(first()).subscribe(async params => {
             if (params.cipherId) {
                 this.cipherId = params.cipherId;
             }
@@ -89,9 +91,6 @@ export class AddEditComponent extends BaseAddEditComponent {
                     (this.cipher.login.uris[0].uri == null || this.cipher.login.uris[0].uri === '')) {
                     this.cipher.login.uris[0].uri = params.uri;
                 }
-            }
-            if (queryParamsSub != null) {
-                queryParamsSub.unsubscribe();
             }
 
             this.openAttachmentsInPopup = this.popupUtilsService.inPopup(window);

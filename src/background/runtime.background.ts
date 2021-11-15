@@ -1,19 +1,12 @@
-import { CipherType } from 'jslib-common/enums/cipherType';
-
-import { CipherView } from 'jslib-common/models/view/cipherView';
-import { LoginUriView } from 'jslib-common/models/view/loginUriView';
-import { LoginView } from 'jslib-common/models/view/loginView';
-
-import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
-import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
-import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { SystemService } from 'jslib-common/abstractions/system.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
+
 import { AutofillService } from '../services/abstractions/autofill.service';
 import BrowserPlatformUtilsService from '../services/browserPlatformUtils.service';
 
@@ -25,12 +18,20 @@ import { Utils } from 'jslib-common/misc/utils';
 
 import { PolicyType } from 'jslib-common/enums/policyType';
 import { StateService } from 'jslib-common/abstractions/state.service';
+import LockedVaultPendingNotificationsItem from './models/lockedVaultPendingNotificationsItem';
+import { CipherService } from 'jslib-common/abstractions/cipher.service';
+import { PolicyService } from 'jslib-common/abstractions/policy.service';
+import { FolderService } from 'jslib-common/abstractions/folder.service';
+import { LoginView } from 'jslib-common/models/view/loginView';
+import { LoginUriView } from 'jslib-common/models/view/loginUriView';
+import { CipherView } from 'jslib-common/models/view/cipherView';
+import { CipherType } from 'jslib-common/enums/cipherType';
 
 export default class RuntimeBackground {
-    private runtime: any;
     private autofillTimeout: any;
     private pageDetailsToAutoFill: any[] = [];
     private onInstalledReason: string = null;
+    private lockedVaultPendingNotifications: LockedVaultPendingNotificationsItem[] = [];
 
     constructor(private main: MainBackground, private autofillService: AutofillService,
         private cipherService: CipherService, private platformUtilsService: BrowserPlatformUtilsService,
@@ -38,7 +39,7 @@ export default class RuntimeBackground {
         private notificationsService: NotificationsService, private systemService: SystemService,
         private vaultTimeoutService: VaultTimeoutService, private environmentService: EnvironmentService,
         private policyService: PolicyService, private messagingService: MessagingService,
-        private folderService: FolderService, private stateService: StateService) {
+        private folderService: FolderService, private stateService: StateService, private logService: LogService) {
 
         // onInstalled listener must be wired up before anything else, so we do it in the ctor
         chrome.runtime.onInstalled.addListener((details: any) => {
@@ -52,7 +53,7 @@ export default class RuntimeBackground {
         }
 
         await this.checkOnInstalled();
-        BrowserApi.messageListener('runtime.background', async (msg: any, sender: any, sendResponse: any) => {
+        BrowserApi.messageListener('runtime.background', async (msg: any, sender: chrome.runtime.MessageSender, sendResponse: any) => {
             await this.processMessage(msg, sender, sendResponse);
         });
     }
@@ -61,10 +62,28 @@ export default class RuntimeBackground {
         switch (msg.command) {
             case 'loggedIn':
             case 'unlocked':
+                let item: LockedVaultPendingNotificationsItem;
+
+                if (this.lockedVaultPendingNotifications.length > 0) {
+                    await BrowserApi.closeLoginTab();
+
+                    item = this.lockedVaultPendingNotifications.pop();
+                    if (item.commandToRetry.sender?.tab?.id) {
+                        await BrowserApi.focusSpecifiedTab(item.commandToRetry.sender.tab.id);
+                    }
+                }
+
                 await this.main.setIcon();
                 await this.main.refreshBadgeAndMenu(false);
                 this.notificationsService.updateConnection(msg.command === 'unlocked');
                 this.systemService.cancelProcessReload();
+
+                if (item) {
+                    await BrowserApi.tabSendMessageData(item.commandToRetry.sender.tab, 'unlockCompleted', item);
+                }
+                break;
+            case 'addToLockedVaultPendingNotifications':
+                this.lockedVaultPendingNotifications.push(msg.data);
                 break;
             case 'logout':
                 await this.main.logout(msg.expired);
@@ -77,42 +96,14 @@ export default class RuntimeBackground {
             case 'openPopup':
                 await this.main.openPopup();
                 break;
+            case 'promptForLogin':
+                await BrowserApi.createNewTab('popup/index.html?uilocation=popout', true, true);
+                break;
             case 'showDialogResolve':
                 this.platformUtilsService.resolveDialogPromise(msg.dialogId, msg.confirmed);
                 break;
-            case 'bgGetDataForTab':
-                await this.getDataForTab(sender.tab, msg.responseCommand);
-                break;
-            case 'bgOpenNotificationBar':
-                await BrowserApi.tabSendMessageData(sender.tab, 'openNotificationBar', msg.data);
-                break;
-            case 'bgCloseNotificationBar':
-                await BrowserApi.tabSendMessageData(sender.tab, 'closeNotificationBar');
-                break;
-            case 'bgAdjustNotificationBar':
-                await BrowserApi.tabSendMessageData(sender.tab, 'adjustNotificationBar', msg.data);
-                break;
             case 'bgCollectPageDetails':
                 await this.main.collectPageDetailsForContentScript(sender.tab, msg.sender, sender.frameId);
-                break;
-            case 'bgAddLogin':
-                await this.addLogin(msg.login, sender.tab);
-                break;
-            case 'bgChangedPassword':
-                await this.changedPassword(msg.data, sender.tab);
-                break;
-            case 'bgAddClose':
-            case 'bgChangeClose':
-                this.removeTabFromNotificationQueue(sender.tab);
-                break;
-            case 'bgAddSave':
-                await this.saveAddLogin(sender.tab, msg.folder);
-                break;
-            case 'bgChangeSave':
-                await this.saveChangePassword(sender.tab);
-                break;
-            case 'bgNeverSave':
-                await this.saveNever(sender.tab);
                 break;
             case 'bgUpdateContextMenu':
             case 'editedCipher':
@@ -124,17 +115,7 @@ export default class RuntimeBackground {
                 await this.main.reseedStorage();
                 break;
             case 'collectPageDetailsResponse':
-                if (await this.vaultTimeoutService.isLocked()) {
-                    return;
-                }
                 switch (msg.sender) {
-                    case 'notificationBar':
-                        const forms = this.autofillService.getFormsWithPasswordFields(msg.details);
-                        await BrowserApi.tabSendMessageData(msg.tab, 'notificationBarPageDetails', {
-                            details: msg.details,
-                            forms: forms,
-                        });
-                        break;
                     case 'autofiller':
                     case 'autofill_cmd':
                         const totpCode = await this.autofillService.doAutoFillActiveTab([{
@@ -168,9 +149,11 @@ export default class RuntimeBackground {
 
                 try {
                     BrowserApi.createNewTab('popup/index.html?uilocation=popout#/sso?code=' +
-                        msg.code + '&state=' + msg.state);
+                        encodeURIComponent(msg.code) + '&state=' + encodeURIComponent(msg.state));
                 }
-                catch { }
+                catch {
+                    this.logService.error('Unable to open sso popout tab');
+                }
                 break;
             case 'webAuthnResult':
                 const vaultUrl2 = this.environmentService.getWebVaultUrl();
@@ -179,7 +162,8 @@ export default class RuntimeBackground {
                     return;
                 }
 
-                const params = `webAuthnResponse=${encodeURIComponent(msg.data)};remember=${msg.remember}`;
+                const params = `webAuthnResponse=${encodeURIComponent(msg.data)};` +
+                    `remember=${encodeURIComponent(msg.remember)}`;
                 BrowserApi.createNewTab(`popup/index.html?uilocation=popout#/2fa;${params}`, undefined, false);
                 break;
             case 'reloadPopup':
@@ -422,13 +406,13 @@ export default class RuntimeBackground {
         // Default timeout option to "on restart".
         const currentVaultTimeout = await this.stateService.getVaultTimeout();
         if (currentVaultTimeout == null) {
-            await this.stateService.setVaultTimeout(-1);
+            //      await this.stateService.setVaultTimeout(-1);
         }
 
         // Default action to "lock".
         const currentVaultTimeoutAction = await this.stateService.getVaultTimeoutAction();
         if (currentVaultTimeoutAction == null) {
-            await this.stateService.setVaultTimeoutAction('lock');
+            //      await this.stateService.setVaultTimeoutAction('lock');
         }
     }
 

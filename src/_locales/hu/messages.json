@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Jelszó generálás (másolt)"
   },
+  "copyElementIdentifier": {
+    "message": "Egyedi mezőnév másolása"
+  },
   "noMatchingLogins": {
     "message": "Nincsenek egyező bejelentkezések."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Ha a bejelentkezésedhez csatolva van egy hitelesítő kód, a TOTP ellenőrző kód automatikusan másolva lesz a vágólapodra bejelentkezésed automatikus kitöltése esetén."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Nincs biometrika kérés indításkor"
   },
   "premiumRequired": {
     "message": "Prémium funkció szükséges"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "A funkció használatához igazolni kell email címet. Az email cím a webtárban ellenőrizhető."
+  },
+  "updatedMasterPassword": {
+    "message": "A mesterjelszó frissítésre került."
+  },
+  "updateMasterPassword": {
+    "message": "Mesterjelszó frissítése"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "A szervezet egyik adminisztrátora nemrég megváltoztatta a mesterjelszót. A széf eléréséhez most frissíteni kell a mesterjelszót. Továbblépéskor kijelentkezés történik a jelenlegi munkamenetből és újra be kell jelentkezni. Ha van aktív munkamenet más eszközön, az még legfeljebb egy óráig aktív maradhat."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Automatikus regisztráció"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Ennek a szervezetnek van egy vállalati házirendje, amely automatikusan regisztrál a jelszó alaphelyzetbe állítására. A regisztráció lehetővé teszi a szervezet adminisztrátorainak a mesterjelszó megváltoztatását."
+  },
+  "selectFolder": {
+    "message": "Mappa választása..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Az SSO-val történő bejelentkezés befejezéséhez mesterjelszót kell beállítani a széf eléréséhez és védelméhez."
+  },
+  "hours": {
+    "message": "Óra"
+  },
+  "minutes": {
+    "message": "Perc"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "A szervezeti házirendek hatással vannak a széf időkorlátjára. A széf időkorlátja legfeljebb $HOURS$ óra és $MINUTES$ perc lehet.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "A széf időkorlátja túllépi a szervezet által beállított korlátozást."
+  },
+  "vaultExportDisabled": {
+    "message": "A széf exportálás nem engedélyezett."
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Egy vagy több szervezeti házirend tiltja a személyes széf exportálását."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Nem lehet azonosítani egy érvényes űrlapelemet. Ehelyett próbáljuk meg ellenőrizni a HTML -t."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Nincs egyedi azonosító."
   }
 }

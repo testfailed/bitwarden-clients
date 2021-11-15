@@ -1,5 +1,6 @@
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { EventService } from 'jslib-common/abstractions/event.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
 
 import { AutofillService as AutofillServiceInterface } from './abstractions/autofill.service';
@@ -10,6 +11,7 @@ import { EventType } from 'jslib-common/enums/eventType';
 import { FieldType } from 'jslib-common/enums/fieldType';
 
 import { CipherView } from 'jslib-common/models/view/cipherView';
+import { FieldView } from 'jslib-common/models/view/fieldView';
 
 import AutofillField from '../models/autofillField';
 import AutofillPageDetails from '../models/autofillPageDetails';
@@ -131,7 +133,8 @@ var IsoProvinces: { [id: string]: string; } = {
 export default class AutofillService implements AutofillServiceInterface {
 
     constructor(private cipherService: CipherService, private stateService: StateService,
-        private totpService: TotpService, private eventService: EventService) { }
+        private totpService: TotpService, private eventService: EventService,
+        private logService: LogService) { }
 
     getFormsWithPasswordFields(pageDetails: AutofillPageDetails): any[] {
         const formData: any[] = [];
@@ -316,9 +319,16 @@ export default class AutofillService implements AutofillServiceInterface {
 
                 const matchingIndex = this.findMatchingFieldIndex(field, fieldNames);
                 if (matchingIndex > -1) {
-                    let val = fields[matchingIndex].value;
-                    if (val == null && fields[matchingIndex].type === FieldType.Boolean) {
-                        val = 'false';
+                    const matchingField: FieldView = fields[matchingIndex];
+                    let val;
+                    if (matchingField.type === FieldType.Linked) {
+                        // Assumption: Linked Field is not being used to autofill a boolean value
+                        val = options.cipher.linkedFieldValue(matchingField.linkedId);
+                    } else {
+                        val = matchingField.value;
+                        if (val == null && matchingField.type === FieldType.Boolean) {
+                            val = 'false';
+                        }
                     }
 
                     filledFields[field.opid] = field;
@@ -956,7 +966,7 @@ export default class AutofillService implements AutofillServiceInterface {
                     return false;
                 }
 
-                const ignoreList = ['onetimepassword', 'captcha', 'findanything'];
+                const ignoreList = ['onetimepassword', 'captcha', 'findanything', 'forgot'];
                 if (ignoreList.some(i => cleanedValue.indexOf(i) > -1)) {
                     return false;
                 }
@@ -1079,7 +1089,9 @@ export default class AutofillService implements AutofillServiceInterface {
                     const regex = new RegExp(regexParts[1], 'i');
                     return regex.test(fieldVal);
                 }
-            } catch (e) { }
+            } catch (e) {
+                this.logService.error(e);
+            }
         } else if (name.startsWith('csv=')) {
             const csvParts = name.split('=', 2);
             if (csvParts.length === 2) {

@@ -1,6 +1,8 @@
 import { CipherRepromptType } from 'jslib-common/enums/cipherRepromptType';
 import { CipherType } from 'jslib-common/enums/cipherType';
 
+import { CipherView } from 'jslib-common/models/view/cipherView';
+
 import { ApiService } from 'jslib-common/services/api.service';
 import { AppIdService } from 'jslib-common/services/appId.service';
 import { AuditService } from 'jslib-common/services/audit.service';
@@ -65,8 +67,6 @@ import { TotpService as TotpServiceAbstraction } from 'jslib-common/abstractions
 import { VaultTimeoutService as VaultTimeoutServiceAbstraction } from 'jslib-common/abstractions/vaultTimeout.service';
 import { AutofillService as AutofillServiceAbstraction } from '../services/abstractions/autofill.service';
 
-import { Utils } from 'jslib-common/misc/utils';
-
 import { BrowserApi } from '../browser/browserApi';
 import { SafariApp } from '../browser/safariApp';
 
@@ -74,6 +74,7 @@ import CommandsBackground from './commands.background';
 import ContextMenusBackground from './contextMenus.background';
 import IdleBackground from './idle.background';
 import { NativeMessagingBackground } from './nativeMessaging.background';
+import NotificationBackground from './notification.background';
 import RuntimeBackground from './runtime.background';
 import TabsBackground from './tabs.background';
 import WebRequestBackground from './webRequest.background';
@@ -87,6 +88,7 @@ import BrowserPlatformUtilsService from '../services/browserPlatformUtils.servic
 import BrowserStorageService from '../services/browserStorage.service';
 import I18nService from '../services/i18n.service';
 import VaultTimeoutService from '../services/vaultTimeout.service';
+import { Utils } from 'jslib-common/misc/utils';
 
 export default class MainBackground {
     messagingService: MessagingServiceAbstraction;
@@ -135,6 +137,7 @@ export default class MainBackground {
     private commandsBackground: CommandsBackground;
     private contextMenusBackground: ContextMenusBackground;
     private idleBackground: IdleBackground;
+    private notificationBackground: NotificationBackground;
     private runtimeBackground: RuntimeBackground;
     private tabsBackground: TabsBackground;
     private webRequestBackground: WebRequestBackground;
@@ -217,12 +220,17 @@ export default class MainBackground {
             },
             logout: async () => await this.logout(false),
         };
-        this.vaultTimeoutService = new VaultTimeoutService(this.cipherService, this.folderService,
-            this.collectionService, this.cryptoService,
-            this.platformUtilsService, this.messagingService,
-            this.searchService, this.tokenService,
-            this.policyService, this.keyConnectorSerivce, this.stateService,
-            vaultTimeoutServiceCallbacks.locked, vaultTimeoutServiceCallbacks.logout);
+        this.vaultTimeoutService = new VaultTimeoutService(this.cipherService,
+            this.folderService,
+            this.collectionService,
+            this.cryptoService,
+            this.platformUtilsService,
+            this.messagingService,
+            this.searchService,
+            this.tokenService,
+            this.policyService,
+            this.keyConnectorSerivce,
+            this.stateService, vaultTimeoutServiceCallbacks.logout);
 
         this.providerService = new ProviderService(this.stateService);
         this.syncService = new SyncService(this.apiService, this.settingsService,
@@ -238,7 +246,7 @@ export default class MainBackground {
             this.stateService);
         this.totpService = new TotpService(this.cryptoFunctionService, this.logService, this.stateService);
         this.autofillService = new AutofillService(this.cipherService, this.stateService,
-            this.totpService, this.eventService);
+            this.totpService, this.eventService, this.logService);
         this.containerService = new ContainerService(this.cryptoService);
         this.auditService = new AuditService(this.cryptoFunctionService, this.apiService);
         this.exportService = new ExportService(this.folderService, this.cipherService, this.apiService,
@@ -269,15 +277,17 @@ export default class MainBackground {
             this.i18nService, this.notificationsService,
             this.systemService, this.vaultTimeoutService,
             this.environmentService, this.policyService,
-            this.messagingService, this.folderService, this.stateService);
+            this.messagingService, this.folderService, this.stateService, this.logService);
         this.nativeMessagingBackground = new NativeMessagingBackground(this.cryptoService,
             this.cryptoFunctionService, this.runtimeBackground,
             this.i18nService, this.messagingService, this.appIdService,
             this.platformUtilsService, this.stateService);
         this.commandsBackground = new CommandsBackground(this, this.passwordGenerationService,
             this.platformUtilsService, this.vaultTimeoutService);
+        this.notificationBackground = new NotificationBackground(this, this.autofillService, this.cipherService,
+            this.storageService, this.vaultTimeoutService, this.policyService, this.folderService, this.stateService);
 
-        this.tabsBackground = new TabsBackground(this);
+        this.tabsBackground = new TabsBackground(this, this.notificationBackground);
         this.contextMenusBackground = new ContextMenusBackground(this, this.cipherService, this.passwordGenerationService,
             this.platformUtilsService, this.vaultTimeoutService, this.eventService, this.totpService);
         this.idleBackground = new IdleBackground(this.vaultTimeoutService, this.stateService,
@@ -310,6 +320,7 @@ export default class MainBackground {
         await (this.i18nService as I18nService).init();
         await (this.eventService as EventService).init(true);
         await this.runtimeBackground.init();
+        await this.notificationBackground.init();
         await this.commandsBackground.init();
 
         await this.tabsBackground.init();
@@ -322,7 +333,6 @@ export default class MainBackground {
             setTimeout(async () => {
                 await this.environmentService.setUrlsFromStorage();
                 await this.setIcon();
-                this.cleanupNotificationQueue();
                 this.fullSync(true);
                 setTimeout(() => this.notificationsService.init(), 2500);
                 resolve();
@@ -389,6 +399,7 @@ export default class MainBackground {
             this.policyService.clear(userId),
             this.passwordGenerationService.clear(),
             this.vaultTimeoutService.clear(),
+            this.keyConnectorSerivce.clear(),
         ]);
 
         this.searchService.clearIndex();
@@ -404,10 +415,6 @@ export default class MainBackground {
 
     async collectPageDetailsForContentScript(tab: any, sender: string, frameId: number = null) {
         if (tab == null || !tab.id) {
-            return;
-        }
-
-        if (await this.vaultTimeoutService.isLocked()) {
             return;
         }
 
@@ -438,7 +445,6 @@ export default class MainBackground {
             this.doNotificationQueueCheck(currentTab);
         }
     }
-
     async openPopup() {
         // Chrome APIs cannot open popup
 
@@ -570,10 +576,10 @@ export default class MainBackground {
         if (!locked) {
             try {
                 const ciphers = await this.cipherService.getAllDecryptedForUrl(url);
-                ciphers.sort((a, b) => this.cipherService.sortCiphersByLastUsedThenName(a, b));
+                ciphers.sort((a: any, b: any) => this.cipherService.sortCiphersByLastUsedThenName(a, b));
 
                 if (contextMenuEnabled) {
-                    ciphers.forEach(cipher => {
+                    ciphers.forEach((cipher: any) => {
                         this.loadLoginContextMenuOptions(cipher);
                     });
                 }
@@ -597,7 +603,9 @@ export default class MainBackground {
                 this.browserActionSetBadgeText(theText, tabId);
 
                 return;
-            } catch { }
+            } catch (e) {
+                this.logService.error(e);
+            }
         }
 
         await this.loadMenuAndUpdateBadgeForNoAccessState(contextMenuEnabled);
@@ -690,6 +698,31 @@ export default class MainBackground {
         return title.replace(/&/g, '&&');
     }
 
+    private async fullSync(override: boolean = false) {
+        const syncInternal = 6 * 60 * 60 * 1000; // 6 hours
+        const lastSync = await this.syncService.getLastSync();
+
+        let lastSyncAgo = syncInternal + 1;
+        if (lastSync != null) {
+            lastSyncAgo = new Date().getTime() - lastSync.getTime();
+        }
+
+        if (override || lastSyncAgo >= syncInternal) {
+            await this.syncService.fullSync(override);
+            this.scheduleNextSync();
+        } else {
+            this.scheduleNextSync();
+        }
+    }
+
+    private scheduleNextSync() {
+        if (this.syncTimeout) {
+            clearTimeout(this.syncTimeout);
+        }
+
+        this.syncTimeout = setTimeout(async () => await this.fullSync(), 5 * 60 * 1000); // check every 5 minutes
+    }
+
     private cleanupNotificationQueue() {
         for (let i = this.notificationQueue.length - 1; i >= 0; i--) {
             if (this.notificationQueue[i].expires < new Date()) {
@@ -724,31 +757,6 @@ export default class MainBackground {
             }
             break;
         }
-    }
-
-    private async fullSync(override: boolean = false) {
-        const syncInternal = 6 * 60 * 60 * 1000; // 6 hours
-        const lastSync = await this.syncService.getLastSync();
-
-        let lastSyncAgo = syncInternal + 1;
-        if (lastSync != null) {
-            lastSyncAgo = new Date().getTime() - lastSync.getTime();
-        }
-
-        if (override || lastSyncAgo >= syncInternal) {
-            await this.syncService.fullSync(override);
-            this.scheduleNextSync();
-        } else {
-            this.scheduleNextSync();
-        }
-    }
-
-    private scheduleNextSync() {
-        if (this.syncTimeout) {
-            clearTimeout(this.syncTimeout);
-        }
-
-        this.syncTimeout = setTimeout(async () => await this.fullSync(), 5 * 60 * 1000); // check every 5 minutes
     }
 
     // Browser API Helpers

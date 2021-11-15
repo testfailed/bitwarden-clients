@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Generar contraseña (copiada)"
   },
+  "copyElementIdentifier": {
+    "message": "Copiar Nombre del campo personalizado"
+  },
   "noMatchingLogins": {
     "message": "Sin entradas coincidentes."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Si tu entrada tiene una clave de autenticación adjunta, el código de verificación TOTP es copiado automáticamente al portapapeles cuando autorellenas una entrada."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "No solicitar biométricos al iniciar"
   },
   "premiumRequired": {
     "message": "Premium requerido"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Debes verificar tu correo electrónico para usar esta función. Puedes verificar tu correo electrónico en la bóveda web."
+  },
+  "updatedMasterPassword": {
+    "message": "Contraseña maestra actualizada"
+  },
+  "updateMasterPassword": {
+    "message": "Actualizar contraseña maestra"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Su contraseña maestra ha sido cambiada recientemente por un administrador de su organización. Para acceder a la caja fuerte, debe actualizarla ahora. Proceder le desconectará de su sesión actual, requiriendo que vuelva a iniciar sesión. Las sesiones activas en otros dispositivos pueden seguir estando activas durante una hora."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Inscripción automática"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Esta organización tiene una política empresarial que lo inscribirá automáticamente en el restablecimiento de contraseña. La inscripción permitirá a los administradores de la organización cambiar su contraseña maestra."
+  },
+  "selectFolder": {
+    "message": "Seleccione carpeta..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Para completar el inicio de sesión con SSO, por favor establezca una contraseña maestra para acceder y proteger su caja fuerte."
+  },
+  "hours": {
+    "message": "Horas"
+  },
+  "minutes": {
+    "message": "Minutos"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Las políticas de tu organización están afectando el tiempo de espera de tu caja fuerte. El máximo permitido de espera es de $HOURS$ hora(s) y de $MINUTES$ minuto(s)",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "El tiempo de espera de tu caja fuerte excede las restricciones establecidas por tu organización."
+  },
+  "vaultExportDisabled": {
+    "message": "Exportación de caja fuerte desactivada"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Una o más políticas de organización le impiden exportar su caja fuerte personal."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "No se puede identificar un elemento de formulario válido. Intenta inspeccionar el HTML en su lugar."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Identificador único no encontrado."
   }
 }

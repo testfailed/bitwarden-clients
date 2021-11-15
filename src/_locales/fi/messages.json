@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Luo salasana (leikepöydälle)"
   },
+  "copyElementIdentifier": {
+    "message": "Kopioi lisäkentän nimi"
+  },
   "noMatchingLogins": {
     "message": "Ei tunnistettuja kirjautumistietoja."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Jos kirjautumistietoosi on liitetty kaksivaiheisen todennusmenetelmän avain, kopioidaan kaksivaiheisen kirjautumisen TOTP-todennuskoodi automaattisesti leikepöydälle kun suoritat kohteen automaattisen täytön."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Älä pyydä biometristä kirjautumista käynnistettäessä."
   },
   "premiumRequired": {
     "message": "Premium vaaditaan"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Sinun on vahvistettava sähköpostiosoitteesi käyttääksesi ominaisuutta. Voit vahvistaa osoitteesi verkkoholvissa."
+  },
+  "updatedMasterPassword": {
+    "message": "Pääsalasana on päivitetty"
+  },
+  "updateMasterPassword": {
+    "message": "Päivitä pääsalasana"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Organisaatiosi ylläpito on hiljattain vaihtanut pääsalasanasi. Käyttääksesi holvia, on sinun päivitettävä se nyt. Tämä uloskirjaa kaikki nykyiset istunnot pakottaen uudelleenkirjautumisen. Muiden laitteiden aktiiviset istunnot saattavat toimia vielä tunnin ajan."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Automaattinen liitos"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Organisaatiolla on käytäntö, joka liittää tilisi automaattisesti salasanan palautusapuun. Liitos sallii organisaation ylläpitäjien vaihtaa pääsalasanasi."
+  },
+  "selectFolder": {
+    "message": "Valitse kansio..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Kirjautuaksesi sisään käyttäen kertakirjautumista (SSO), suojaa holvisi pääsalasanalla."
+  },
+  "hours": {
+    "message": "Tuntia"
+  },
+  "minutes": {
+    "message": "Minuuttia"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Organisaatiosi käytännöt vaikuttavat holvisi aikakatkaisuun. Suurin sallittu viive on $HOURS$ tunti(a) ja $MINUTES$ minuutti(a)",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Holvisi aikakatkaisuviive ylittää organisaatiosi asettamat rajoitukset."
+  },
+  "vaultExportDisabled": {
+    "message": "Holvin vienti on poistettu käytöstä"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Yksi tai useampi organisaation käytäntö estää henkilökohtaisen holvisi viennin."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Oikeaa lomakkeen elementtiä ei tunnistettu. Yritä sen sijaan tarkistaa HTML."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Yksilöllistä tunnistetta ei löytynyt."
   }
 }

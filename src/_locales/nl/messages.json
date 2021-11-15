@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Wachtwoord genereren (op klembord)"
   },
+  "copyElementIdentifier": {
+    "message": "Aangepaste veldnaam kopiëren"
+  },
   "noMatchingLogins": {
     "message": "Geen overeenkomstige logins."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Als je login gekoppeld is met een authenticatiecode, wordt de TOTP-verificatiecode automatisch naar het klembord gekopieerd bij het automatisch invullen van de login."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Bij opstarten niet om biometrisch ontgrendelen vragen"
   },
   "premiumRequired": {
     "message": "Premium is vereist"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Je moet je e-mailadres verifiëren om deze functie te gebruiken. Je kunt je e-mailadres verifiëren in de kluis."
+  },
+  "updatedMasterPassword": {
+    "message": "Hoofdwachtwoord bijgewerkt"
+  },
+  "updateMasterPassword": {
+    "message": "Hoofdwachtwoord bijgewerken"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Je hoofdwachtwoord is onlangs veranderd door een beheerder in jouw organisatie. Om toegang te krijgen tot de kluis, moet je deze nu bijwerken. Doorgaan zal je huidige sessie uitloggen, waarna je opnieuw moet inloggen. Actieve sessies op andere apparaten blijven mogelijk nog een uur actief."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Automatische inschrijving"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Deze organisatie heeft een ondernemingsbeleid dat je automatisch inschrijft bij het resetten van je wachtwoord. Inschrijving stelt organisatiebeheerders in staat om je hoofdwachtwoord te wijzigen."
+  },
+  "selectFolder": {
+    "message": "Map selecteren..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Voor het inloggen met SSO moet je een hoofdwachtwoord instellen voor toegang tot en bescherming van je kluis."
+  },
+  "hours": {
+    "message": "Uren"
+  },
+  "minutes": {
+    "message": "Minuten"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Het beleid van je organisatie heeft invloed op de time-out van je kluis. De maximaal toegestane Kluis Time-out is $HOURS$ uur en $MINUTES$ minuten",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Je kluis time-out is hoger dan het maximum van jouw organisatie."
+  },
+  "vaultExportDisabled": {
+    "message": "Kluis exporteren uitgeschakeld"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Organisatiebeleid voorkomt dat je je persoonlijke kluis exporteert."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Kan geen geldig formulierelement identificeren. Probeer in plaats daarvan de HTML te inspecteren."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Geen unieke id gevonden."
   }
 }

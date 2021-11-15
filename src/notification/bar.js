@@ -6,11 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     i18n.appName = chrome.i18n.getMessage('appName');
     i18n.close = chrome.i18n.getMessage('close');
-    i18n.yes = chrome.i18n.getMessage('yes');
     i18n.never = chrome.i18n.getMessage('never');
     i18n.folder = chrome.i18n.getMessage('folder');
     i18n.notificationAddSave = chrome.i18n.getMessage('notificationAddSave');
-    i18n.notificationNeverSave = chrome.i18n.getMessage('notificationNeverSave');
     i18n.notificationAddDesc = chrome.i18n.getMessage('notificationAddDesc');
     i18n.notificationChangeSave = chrome.i18n.getMessage('notificationChangeSave');
     i18n.notificationChangeDesc = chrome.i18n.getMessage('notificationChangeDesc');
@@ -20,29 +18,33 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(load, 50);
 
     function load() {
-        var closeButton = document.getElementById('close-button'),
-            body = document.querySelector('body'),
-            bodyRect = body.getBoundingClientRect();
-
-        // i18n
-        body.classList.add('lang-' + lang.slice(0, 2));
+        const isVaultLocked = getQueryVariable('isVaultLocked') == 'true';
+        document.getElementById('logo').src = isVaultLocked
+            ? chrome.runtime.getURL('images/icon38_locked.png')
+            : chrome.runtime.getURL('images/icon38.png');
 
         document.getElementById('logo-link').title = i18n.appName;
+
+        var neverButton = document.querySelector('#template-add .never-save');
+        neverButton.textContent = i18n.never;
+
+        var selectFolder = document.querySelector('#template-add .select-folder');
+        selectFolder.setAttribute('aria-label', i18n.folder);
+        selectFolder.setAttribute('isVaultLocked', isVaultLocked.toString());
+
+        var addButton = document.querySelector('#template-add .add-save');
+        addButton.textContent = i18n.notificationAddSave;
+
+        var changeButton = document.querySelector('#template-change .change-save');
+        changeButton.textContent = i18n.notificationChangeSave;
+
+        var closeIcon = document.getElementById('close');
+        closeIcon.src = chrome.runtime.getURL('images/close.png');
+        closeIcon.alt = i18n.close;
+
+        var closeButton = document.getElementById('close-button')
         closeButton.title = i18n.close;
         closeButton.setAttribute('aria-label', i18n.close);
-
-        if (bodyRect.width < 768) {
-            document.querySelector('#template-add .add-save').textContent = i18n.yes;
-            document.querySelector('#template-add .never-save').textContent = i18n.never;
-            document.querySelector('#template-add .select-folder').style.display = 'none';
-            document.querySelector('#template-change .change-save').textContent = i18n.yes;
-        } else {
-            document.querySelector('#template-add .add-save').textContent = i18n.notificationAddSave;
-            document.querySelector('#template-add .never-save').textContent = i18n.notificationNeverSave;
-            document.querySelector('#template-add .select-folder').style.display = 'initial';
-            document.querySelector('#template-add .select-folder').setAttribute('aria-label', i18n.folder);
-            document.querySelector('#template-change .change-save').textContent = i18n.notificationChangeSave;
-        }
 
         document.querySelector('#template-add .add-text').textContent = i18n.notificationAddDesc;
         document.querySelector('#template-change .change-text').textContent = i18n.notificationChangeDesc;
@@ -55,11 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             addButton.addEventListener('click', (e) => {
                 e.preventDefault();
+
                 const folderId = document.querySelector('#template-add-clone .select-folder').value;
-                sendPlatformMessage({
+
+                const bgAddSaveMessage = {
                     command: 'bgAddSave',
                     folder: folderId,
-                });
+                };
+                sendPlatformMessage(bgAddSaveMessage);
             });
 
             neverButton.addEventListener('click', (e) => {
@@ -69,28 +74,29 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
-            const responseFoldersCommand = 'notificationBarGetFoldersList';
-            chrome.runtime.onMessage.addListener((msg) => {
-                if (msg.command === responseFoldersCommand && msg.data) {
-                    fillSelectorWithFolders(msg.data.folders);
-                }
-            });
-            sendPlatformMessage({
-                command: 'bgGetDataForTab',
-                responseCommand: responseFoldersCommand
-            });
+            if (!isVaultLocked) {
+                const responseFoldersCommand = 'notificationBarGetFoldersList';
+                chrome.runtime.onMessage.addListener((msg) => {
+                    if (msg.command === responseFoldersCommand && msg.data) {
+                        fillSelectorWithFolders(msg.data.folders);
+                    }
+                });
+                sendPlatformMessage({
+                    command: 'bgGetDataForTab',
+                    responseCommand: responseFoldersCommand
+                });
+            }
         } else if (getQueryVariable('change')) {
             setContent(document.getElementById('template-change'));
             var changeButton = document.querySelector('#template-change-clone .change-save');
             changeButton.addEventListener('click', (e) => {
                 e.preventDefault();
-                sendPlatformMessage({
+
+                const bgChangeSaveMessage = {
                     command: 'bgChangeSave'
-                });
+                };
+                sendPlatformMessage(bgChangeSaveMessage);
             });
-        } else if (getQueryVariable('info')) {
-            setContent(document.getElementById('template-alert'));
-            document.getElementById('template-alert-clone').textContent = getQueryVariable('info');
         }
 
         closeButton.addEventListener('click', (e) => {

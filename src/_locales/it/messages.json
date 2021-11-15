@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Genera password (copiata)"
   },
+  "copyElementIdentifier": {
+    "message": "Copia nome campo personalizzato"
+  },
   "noMatchingLogins": {
     "message": "Nessun login corrispondente."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Se il tuo login ha un autenticatore collegato, il codice ti verifica TOTP è automaticamente copiato negli appunti ogni volta che auto-completi il login."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Non richiedere dati biometrici all'avvio"
   },
   "premiumRequired": {
     "message": "Premium richiesto"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Devi verificare la tua email per utilizzare questa funzionalità. Puoi verificare la tua email nella cassaforte web."
+  },
+  "updatedMasterPassword": {
+    "message": "Password principale aggiornata"
+  },
+  "updateMasterPassword": {
+    "message": "Aggiorna password principale"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "La tua password principale è stata recentemente modificata da un amministratore nella tua organizzazione. Per accedere alla cassaforte, aggiorna ora la password. Procedendo sarai disconnesso dalla sessione attuale e ti sarà richiesto di effettuare nuovamente l'accesso. Le sessioni attive su altri dispositivi potrebbero continuare a rimanere attive per un massimo di un'ora."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Iscrizione automatica"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Questa organizzazione ha una policy aziendale che ti iscriverà automaticamente al ripristino della password. Ciò permetterà agli amministratori dell'organizzazione di cambiare la tua password principale."
+  },
+  "selectFolder": {
+    "message": "Seleziona cartella..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Per completare l'accesso con SSO, imposta una password principale per accedere e proteggere la cassaforte."
+  },
+  "hours": {
+    "message": "Ore"
+  },
+  "minutes": {
+    "message": "Minuti"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Le policy dell'organizzazione stanno influenzando il timeout della tua cassaforte. Il tempo massimo consentito è di $HOURS$ ore e $MINUTES$ minuti",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Il timeout della tua cassaforte supera i limiti impostati dalla tua organizzazione."
+  },
+  "vaultExportDisabled": {
+    "message": "Esportazione cassaforte disabilitata"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Una o più policy dell'organizzazione ti impediscono di esportare la tua cassaforte personale."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Impossibile identificare un elemento del form valido. Prova a ispezionare l'HTML."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Nessun identificatore univoco trovato."
   }
 }

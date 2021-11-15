@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { KeyConnectorService } from 'jslib-common/abstractions/keyConnector.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
-import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { StateService } from 'jslib-common/abstractions/state.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 
 import { LockComponent as BaseLockComponent } from 'jslib-angular/components/lock.component';
-import Swal from 'sweetalert2';
-
-import { LogService } from 'jslib-common/abstractions/log.service';
-import { KeyConnectorService } from 'jslib-common/abstractions/keyConnector.service';
+import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 
 @Component({
     selector: 'app-lock',

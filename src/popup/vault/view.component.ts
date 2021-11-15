@@ -9,15 +9,19 @@ import {
     Router,
 } from '@angular/router';
 
+import { first } from 'rxjs/operators';
+
 import { ApiService } from 'jslib-common/abstractions/api.service';
 import { AuditService } from 'jslib-common/abstractions/audit.service';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { CryptoService } from 'jslib-common/abstractions/crypto.service';
 import { EventService } from 'jslib-common/abstractions/event.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PasswordRepromptService } from 'jslib-common/abstractions/passwordReprompt.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
+import { StateService } from 'jslib-common/abstractions/state.service';
 import { TokenService } from 'jslib-common/abstractions/token.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
 
@@ -32,8 +36,6 @@ import { ViewComponent as BaseViewComponent } from 'jslib-angular/components/vie
 import { BrowserApi } from '../../browser/browserApi';
 import { AutofillService } from '../../services/abstractions/autofill.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
-import { LogService } from 'jslib-common/abstractions/log.service';
 
 const BroadcasterSubscriptionId = 'ChildViewComponent';
 
@@ -68,7 +70,7 @@ export class ViewComponent extends BaseViewComponent {
 
     ngOnInit() {
         this.inPopout = this.popupUtilsService.inPopout(window);
-        const queryParamsSub = this.route.queryParams.subscribe(async params => {
+        this.route.queryParams.pipe(first()).subscribe(async params => {
             if (params.cipherId) {
                 this.cipherId = params.cipherId;
             } else {
@@ -76,9 +78,6 @@ export class ViewComponent extends BaseViewComponent {
             }
 
             await this.load();
-            if (queryParamsSub != null) {
-                queryParamsSub.unsubscribe();
-            }
         });
 
         super.ngOnInit();

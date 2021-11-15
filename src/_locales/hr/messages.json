@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Generiraj lozinku (i kopiraj)"
   },
+  "copyElementIdentifier": {
+    "message": "Kopiranje prilagođenog naziva polja"
+  },
   "noMatchingLogins": {
     "message": "Nema podudarajućih prijava."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Ako se za prijavu koristi dvostruka autentifikacija, TOTP kontrolni kôd se automatski kopira u međuspremnik nakon auto-ispune korisničkog imena i lozinke."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Ne traži biometriju pri pokretanju"
   },
   "premiumRequired": {
     "message": "Potrebno premium članstvo"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Moraš ovjeriti svoju e-poštu u mrežnom trezoru za koritšenje ove značajke."
+  },
+  "updatedMasterPassword": {
+    "message": "Glavna lozinka ažurirana"
+  },
+  "updateMasterPassword": {
+    "message": "Ažuriraj glavnu lozinku"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Tvoju glavnu lozinku je nedavno promijenio administrator tvoje organizacije. Za pristup trezoru, potrebno je ažurirati glavnu lozinku, što će te odjaviti iz trenutne sesije, te ćeš se morati ponovno prijaviti. Aktivne sesije na drugim uređajima mogu ostati aktivne još sat vremena."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Automatsko učlanjenje"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Pravilo ove organizacija automatski će te učlaniti u ponovno postavljanje lozinke. Učlanjenje će omogućiti administratorima organizacije promjenu tvoje glavne lozinke."
+  },
+  "selectFolder": {
+    "message": "Odaberi mapu..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Za dovršetak jedinstvene prijave na razini tvrtke (SSO), postavi glavnu lozinku za pristup i zaštitu tvog trezora."
+  },
+  "hours": {
+    "message": "sat(i)"
+  },
+  "minutes": {
+    "message": "minuta"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Pravilo tvoje organizacije utječe na istek trezora. Najveće dozvoljeno vrijeme isteka je $HOURS$:$MINUTES$ h.",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Vrijeme isteka premašuje ograničenje koju je postavila tvoja organizacija."
+  },
+  "vaultExportDisabled": {
+    "message": "Izvoz trezora onemogućen"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Jedno ili više pravila organizacija onemogućuje izvoz osobnog trezora. "
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Nije moguće identificirati valjani element formulara. Pokušaj provjeriti HTML."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Nije nađen jedinstveni identifikator."
   }
 }

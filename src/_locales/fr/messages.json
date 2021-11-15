@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Générer un mot de passe (copié)"
   },
+  "copyElementIdentifier": {
+    "message": "Copier le nom du champ personnalisé"
+  },
   "noMatchingLogins": {
     "message": "Aucun site correspondant."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Si une clé d'authentification est rattachée à votre identifiant, alors le code de vérification TOTP est automatiquement copié dans le presse-papiers lorsque vous renseignez l'identifiant."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Ne pas demander de biométrie au démarrage"
   },
   "premiumRequired": {
     "message": "Adhésion Premium requise"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Vous devez vérifier votre adresse e-mail pour utiliser cette fonctionnalité. Vous pouvez vérifier votre adresse e-mail dans le coffre web."
+  },
+  "updatedMasterPassword": {
+    "message": "Mot de passe maître mis à jour"
+  },
+  "updateMasterPassword": {
+    "message": "Mettre à jour le mot de passe maître"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Votre mot de passe maître a récemment été modifié par un administrateur de votre organisation. Pour pouvoir accéder au coffre-fort, vous devez mettre à jour votre mot de passe maître maintenant. Poursuivre vous déconnectera de votre session actuelle, vous obligeant à vous reconnecter. Les sessions actives sur d'autres appareils peuvent rester actives jusqu'à une heure."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Inscription automatique"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Cette organisation a une politique d'entreprise qui vous inscrira automatiquement à la réinitialisation du mot de passe. L'inscription permettra aux administrateurs de l'organisation de changer votre mot de passe maître."
+  },
+  "selectFolder": {
+    "message": "Sélectionnez un dossier..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Afin de terminer la connexion avec SSO, veuillez définir un mot de passe maître pour accéder à votre coffre-fort et le protéger."
+  },
+  "hours": {
+    "message": "heures"
+  },
+  "minutes": {
+    "message": "minutes"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Les politiques de votre organisation affectent le délai d'expiration de votre coffre-fort. Le délai d'expiration maximal autorisé est de $HOURS$ heure(s) et $MINUTES$ minute(s).",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Le délai d'expiration de votre coffre-fort dépasse la restriction définie par votre organisation."
+  },
+  "vaultExportDisabled": {
+    "message": "Exportation du coffre-fort désactivée"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Une ou plusieurs politiques d'entreprise vous empêchent d'exporter votre coffre-fort personnel."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Un élément de formulaire valide n'a pu être identifié. Essayez plutôt d'inspecter le HTML."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Aucun identifiant unique trouvé."
   }
 }

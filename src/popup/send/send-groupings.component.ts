@@ -14,6 +14,7 @@ import { SendComponent as BaseSendComponent } from 'jslib-angular/components/sen
 
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
@@ -26,7 +27,6 @@ import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { SendType } from 'jslib-common/enums/sendType';
-import { LogService } from 'jslib-common/abstractions/log.service';
 import { BrowserSendComponentState } from 'jslib-common/models/domain/browserSendComponentState';
 
 const ComponentId = 'SendComponent';

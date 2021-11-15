@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "ساخت کلمه عبور (کپی شد)"
   },
+  "copyElementIdentifier": {
+    "message": "رونوشت نام فیلد سفارشی"
+  },
   "noMatchingLogins": {
     "message": "ورودیها منتطبق نیست."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "اگر ورود شما دارای یک کلید تأیید کننده است که به آن متصل شده است، هر زمان که بصورت خودکار وارد سایت شوید کد تأیید TOTP به صورت خودکار به کلیپ بورد شما کپی می شود."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "در هنگام راه اندازی، درخواست biometrics نکنید."
   },
   "premiumRequired": {
     "message": "در نسخه پرمیوم کار میکند"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "برای استفاده از این ویژگی باید ایمیل خود را تأیید کنید. می توانید ایمیل خود را در گاوصندوق وب تأیید کنید."
+  },
+  "updatedMasterPassword": {
+    "message": "کلمه عبور اصلی بروز شد"
+  },
+  "updateMasterPassword": {
+    "message": "بروزرسانی کلمه عبور اصلی"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "کلمه عبور اصلی شما اخیراً توسط سرپرست سازمانتان تغییر کرده است. برای دسترسی به گاوصندوق، باید همین حالا کلمه عبور اصلی خود را به روز کنید. در صورت ادامه، شما از نشست فعلی خود خارج می شوید و باید دوباره وارد سیستم شوید. نشست فعال در دستگاه های دیگر ممکن است تا یک ساعت همچنان فعال باقی بمانند."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "ثبت نام خودکار"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "این سازمان دارای خط مشی سازمانی ای است که به طور خودکار شما را در بازنشانی کلمه عبور ثبت نام می کند. این ثبت نام به مدیران سازمان اجازه می دهد تا کلمه عبور اصلی شما را تغییر دهند."
+  },
+  "selectFolder": {
+    "message": "پوشه را انتخاب کنید..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "برای تکمیل ورود به سیستم با SSO ، لطفاً یک کلمه عبور اصلی برای دسترسی و محافظت از گاوصندوق خود تنظیم کنید."
+  },
+  "hours": {
+    "message": "ساعت"
+  },
+  "minutes": {
+    "message": "دقیقه"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "خط مشی های سازمانتان بر مهلت زمانی گاوصندوق شما تأثیر می گذارد. حداکثر زمان مجاز گاوصندوق $HOURS$ ساعت و $MINUTES$ دقیقه است",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "مهلت زمانی شما بیش از محدودیت های تعیین شده توسط سازمانتان است."
+  },
+  "vaultExportDisabled": {
+    "message": "صادرات گاوصندوق غیرفعال شده است"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "یک یا چند خط مشی سازمان از صادرات گاوصندوق شخصی شما جلوگیری می کند."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "شناسایی عنصر فرم معتبر امکان پذیر نیست. به جای آن سعی کنید HTML را بررسی کنید."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "شناسه منحصر به فردی یافت نشد."
   }
 }

@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Vygenerovať heslo (skopírované)"
   },
+  "copyElementIdentifier": {
+    "message": "Kopírovať názov vlastného poľa"
+  },
   "noMatchingLogins": {
     "message": "Žiadne zodpovedajúce prihlasovacie údaje."
   },
@@ -772,6 +775,9 @@
   },
   "disableAutoTotpCopyDesc": {
     "message": "Ak je kľúč overovateľa spojený s vašim prihlásením, TOTP verifikačný kód bude automaticky skopírovaný do schránky vždy, keď použijete automatické vypĺňanie."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Pri spustení nevyžadovať biometrické údaje"
   },
   "premiumRequired": {
     "message": "Vyžaduje prémiový účet"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "Na použitie tejto funkcie musíte overiť svoj e-mail. Svoj e-mail môžete overiť vo webovom trezore."
+  },
+  "updatedMasterPassword": {
+    "message": "Hlavné heslo aktualizované"
+  },
+  "updateMasterPassword": {
+    "message": "Aktualizovať hlavné heslo"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Vaše hlavné heslo nedávno zmenil správca vo vašej organizácii. Ak chcete získať prístup k trezoru, musíte ho teraz aktualizovať. Pokračovaním sa odhlásite z aktuálnej relácie a budete sa musieť znova prihlásiť. Aktívne relácie na iných zariadeniach môžu zostať aktívne až jednu hodinu."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Automatická registrácia"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "Táto organizácia má podnikovú politiku, ktorá vás automaticky zaregistruje na obnovenia hesla. Registrácia umožní správcom organizácie zmeniť vaše hlavné heslo."
+  },
+  "selectFolder": {
+    "message": "Vybrať priečinok..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "Aby ste dokončili nastavenie prihlasovacieho portálu (SSO), prosím nastavte hlavné heslo na prístup a ochranu vášho trezora."
+  },
+  "hours": {
+    "message": "Hodiny"
+  },
+  "minutes": {
+    "message": "Minúty"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Zásady vašej organizácie ovplyvňujú časový limit trezoru. Maximálny povolený časový limit trezoru je $HOURS$ h a $MINUTES$ m",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Časový limit vášho trezora prekračuje obmedzenia nastavené vašou organizáciou."
+  },
+  "vaultExportDisabled": {
+    "message": "Export trezoru je zakázaný"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "Jedna alebo viacero zásad organizácie vám bráni exportovať váš osobný trezor."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Nie je možné identifikovať platný prvok formulára. Skúste namiesto toho preskúmať HTML."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "Nenašiel sa žiadny jedinečný identifikátor."
   }
 }

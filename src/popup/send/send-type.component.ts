@@ -9,6 +9,8 @@ import {
     Router,
 } from '@angular/router';
 
+import { first } from 'rxjs/operators';
+
 import { Location } from '@angular/common';
 
 import { SendView } from 'jslib-common/models/view/sendView';
@@ -17,6 +19,7 @@ import { SendComponent as BaseSendComponent } from 'jslib-angular/components/sen
 
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
+import { LogService } from 'jslib-common/abstractions/log.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
@@ -28,7 +31,6 @@ import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { SendType } from 'jslib-common/enums/sendType';
-import { LogService } from 'jslib-common/abstractions/log.service';
 import { BrowserComponentState } from 'jslib-common/models/domain/browserComponentState';
 
 const ComponentId = 'SendTypeComponent';
@@ -62,7 +64,7 @@ export class SendTypeComponent extends BaseSendComponent {
     async ngOnInit() {
         // Let super class finish
         await super.ngOnInit();
-        const queryParamsSub = this.route.queryParams.subscribe(async params => {
+        this.route.queryParams.pipe(first()).subscribe(async params => {
             if (this.applySavedState) {
                 this.state = (await this.stateService.getBrowserSendTypeComponentState());
                 if (this.state.searchText != null) {
@@ -91,10 +93,6 @@ export class SendTypeComponent extends BaseSendComponent {
             }
             this.stateService.setBrowserSendComponentState(null);
 
-            // Unsubscribe
-            if (queryParamsSub != null) {
-                queryParamsSub.unsubscribe();
-            }
         });
 
         // Refresh Send list if sync completed in background

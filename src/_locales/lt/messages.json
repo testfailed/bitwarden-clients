@@ -88,6 +88,9 @@
   "generatePasswordCopied": {
     "message": "Kurti slaptažodį (paruoštas įterpti)"
   },
+  "copyElementIdentifier": {
+    "message": "Copy Custom Field Name"
+  },
   "noMatchingLogins": {
     "message": "Nėra atitinkančių prisijungimų."
   },
@@ -151,7 +154,7 @@
     "message": "Išsaugoti"
   },
   "move": {
-    "message": "Move"
+    "message": "Perkelti"
   },
   "addFolder": {
     "message": "Pridėti katalogą"
@@ -476,7 +479,7 @@
     "message": "Sinchronizuoti nepavyko"
   },
   "passwordCopied": {
-    "message": "Password copied"
+    "message": "Slaptažodis nukopijuotas"
   },
   "uri": {
     "message": "URI"
@@ -492,44 +495,44 @@
     }
   },
   "newUri": {
-    "message": "New URI"
+    "message": "Naujas URI"
   },
   "addedItem": {
-    "message": "Added item"
+    "message": "Pridėtas elementas"
   },
   "editedItem": {
-    "message": "Edited item"
+    "message": "Redaguotas elementas"
   },
   "deleteItemConfirmation": {
-    "message": "Do you really want to send to the trash?"
+    "message": "Ar tikrai norite perkelti į šiukšlinę?"
   },
   "deletedItem": {
-    "message": "Sent item to trash"
+    "message": "Elementas perkeltas į šiukšlinę"
   },
   "overwritePassword": {
-    "message": "Overwrite Password"
+    "message": "Perrašyti slaptažodį"
   },
   "overwritePasswordConfirmation": {
-    "message": "Are you sure you want to overwrite the current password?"
+    "message": "Ar tikrai norite perrašyti dabartinį slaptažodį?"
   },
   "searchFolder": {
-    "message": "Search folder"
+    "message": "Ieškoti aplanke"
   },
   "searchCollection": {
-    "message": "Search collection"
+    "message": "Ieškoti rinkinio"
   },
   "searchType": {
-    "message": "Search type"
+    "message": "Ieškoti tipo"
   },
   "noneFolder": {
-    "message": "No Folder",
+    "message": "Be aplanko",
     "description": "This is the folder for uncategorized items"
   },
   "disableAddLoginNotification": {
-    "message": "Disable Add Login Notification"
+    "message": "Išjungti Pridėti prisijungimą pranešimą"
   },
   "addLoginNotificationDesc": {
-    "message": "The \"Add Login Notification\" automatically prompts you to save new logins to your vault whenever you log into them for the first time."
+    "message": "Prisijungimo pridėjimo pranešimas automatiškai Jūs paragina išsaugoti naujus prisijungimus Jūsų saugykloje, kuomet prisijungiate pirmą kartą."
   },
   "dontShowCardsCurrentTab": {
     "message": "Don't Show Cards on Tab Page"
@@ -544,7 +547,7 @@
     "message": "Identity items from your vault are listed on the 'Current Tab' page for easy auto-fill access."
   },
   "clearClipboard": {
-    "message": "Clear Clipboard",
+    "message": "Išvalyti iškarpinę",
     "description": "Clipboard is the operating system thing where you copy/paste data to on your device."
   },
   "clearClipboardDesc": {
@@ -555,10 +558,10 @@
     "message": "Should Bitwarden remember this password for you?"
   },
   "notificationAddSave": {
-    "message": "Yes, Save Now"
+    "message": "Taip, išsaugoti dabar"
   },
   "notificationNeverSave": {
-    "message": "Never for this website"
+    "message": "Niekada šiai interneto svetainei"
   },
   "disableChangedPasswordNotification": {
     "message": "Disable Changed Password Notification"
@@ -570,7 +573,7 @@
     "message": "Do you want to update this password in Bitwarden?"
   },
   "notificationChangeSave": {
-    "message": "Yes, Update Now"
+    "message": "Taip, atnaujinti dabar"
   },
   "disableContextMenuItem": {
     "message": "Disable Context Menu Options"
@@ -586,17 +589,17 @@
     "message": "Choose the default way that URI match detection is handled for logins when performing actions such as auto-fill."
   },
   "theme": {
-    "message": "Theme"
+    "message": "Tema"
   },
   "themeDesc": {
-    "message": "Change the application's color theme."
+    "message": "Pakeisti programos spalvos temą"
   },
   "dark": {
-    "message": "Dark",
+    "message": "Tamsi",
     "description": "Dark color"
   },
   "light": {
-    "message": "Light",
+    "message": "Šviesi",
     "description": "Light color"
   },
   "solarizedDark": {
@@ -604,17 +607,17 @@
     "description": "'Solarized' is a noun and the name of a color scheme. It should not be translated."
   },
   "exportVault": {
-    "message": "Export Vault"
+    "message": "Eksportuoti saugyklą"
   },
   "fileFormat": {
-    "message": "File Format"
+    "message": "Failo formatas"
   },
   "warning": {
-    "message": "WARNING",
+    "message": "ĮSPĖJIMAS",
     "description": "WARNING (should stay in capitalized letters if the language permits)"
   },
   "confirmVaultExport": {
-    "message": "Confirm Vault Export"
+    "message": "Patvirtinti saugyklos eksportą"
   },
   "exportWarningDesc": {
     "message": "This export contains your vault data in an unencrypted format. You should not store or send the exported file over unsecure channels (such as email). Delete it immediately after you are done using it."
@@ -629,10 +632,10 @@
     "message": "Enter your master password to export your vault data."
   },
   "shared": {
-    "message": "Shared"
+    "message": "Pasidalinti"
   },
   "learnOrg": {
-    "message": "Learn about Organizations"
+    "message": "Sužinoti apie organizacijas"
   },
   "learnOrgConfirmation": {
     "message": "Bitwarden allows you to share your vault items with others by using an organization. Would you like to visit the bitwarden.com website to learn more?"
@@ -765,13 +768,16 @@
     }
   },
   "refreshComplete": {
-    "message": "Refresh complete"
+    "message": "Atnaujinimas įvykdytas"
   },
   "disableAutoTotpCopy": {
     "message": "Disable Automatic TOTP Copy"
   },
   "disableAutoTotpCopyDesc": {
     "message": "If your login has an authenticator key attached to it, the TOTP verification code is automatically copied to your clipboard whenever you auto-fill the login."
+  },
+  "disableAutoBiometricsPrompt": {
+    "message": "Do not prompt for biometrics on launch"
   },
   "premiumRequired": {
     "message": "Premium Required"
@@ -801,7 +807,7 @@
     }
   },
   "rememberMe": {
-    "message": "Remember me"
+    "message": "Prisiminti mane"
   },
   "sendVerificationCodeEmailAgain": {
     "message": "Send verification code email again"
@@ -819,7 +825,7 @@
     "message": "To start the WebAuthn 2FA verification. Click the button below to open a new tab and follow the instructions provided in the new tab."
   },
   "webAuthnNewTabOpen": {
-    "message": "Open new tab"
+    "message": "Atidaryti naują skirtuką"
   },
   "webAuthnAuthenticate": {
     "message": "Authenticate WebAuthn"
@@ -870,7 +876,7 @@
     "message": "Use any WebAuthn enabled security key to access your account."
   },
   "emailTitle": {
-    "message": "Email"
+    "message": "El. paštas"
   },
   "emailDesc": {
     "message": "Verification codes will be emailed to you."
@@ -888,7 +894,7 @@
     "message": "For advanced users. You can specify the base URL of each service independently."
   },
   "baseUrl": {
-    "message": "Server URL"
+    "message": "Serverio URL"
   },
   "apiUrl": {
     "message": "API Server URL"
@@ -1752,5 +1758,60 @@
   },
   "emailVerificationRequiredDesc": {
     "message": "You must verify your email to use this feature. You can verify your email in the web vault."
+  },
+  "updatedMasterPassword": {
+    "message": "Updated Master Password"
+  },
+  "updateMasterPassword": {
+    "message": "Update Master Password"
+  },
+  "updateMasterPasswordWarning": {
+    "message": "Your Master Password was recently changed by an administrator in your organization. In order to access the vault, you must update it now. Proceeding will log you out of your current session, requiring you to log back in. Active sessions on other devices may continue to remain active for up to one hour."
+  },
+  "resetPasswordPolicyAutoEnroll": {
+    "message": "Automatic Enrollment"
+  },
+  "resetPasswordAutoEnrollInviteWarning": {
+    "message": "This organization has an enterprise policy that will automatically enroll you in password reset. Enrollment will allow organization administrators to change your master password."
+  },
+  "selectFolder": {
+    "message": "Select folder..."
+  },
+  "ssoCompleteRegistration": {
+    "message": "In order to complete logging in with SSO, please set a master password to access and protect your vault."
+  },
+  "hours": {
+    "message": "Hours"
+  },
+  "minutes": {
+    "message": "Minutes"
+  },
+  "vaultTimeoutPolicyInEffect": {
+    "message": "Your organization policies are affecting your vault timeout. Maximum allowed Vault Timeout is $HOURS$ hour(s) and $MINUTES$ minute(s)",
+    "placeholders": {
+      "hours": {
+        "content": "$1",
+        "example": "5"
+      },
+      "minutes": {
+        "content": "$2",
+        "example": "5"
+      }
+    }
+  },
+  "vaultTimeoutToLarge": {
+    "message": "Your vault timeout exceeds the restrictions set by your organization."
+  },
+  "vaultExportDisabled": {
+    "message": "Vault Export Disabled"
+  },
+  "personalVaultExportPolicyInEffect": {
+    "message": "One or more organization policies prevents you from exporting your personal vault."
+  },
+  "copyCustomFieldNameInvalidElement": {
+    "message": "Unable to identify a valid form element. Try inspecting the HTML instead."
+  },
+  "copyCustomFieldNameNotUnique": {
+    "message": "No unique identifier found."
   }
 }
