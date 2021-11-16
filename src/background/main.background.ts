@@ -155,7 +155,9 @@ export default class MainBackground {
         this.messagingService = new BrowserMessagingService();
         this.storageService = new BrowserStorageService();
         this.secureStorageService = new BrowserStorageService();
+        this.logService = new ConsoleLogService(false);
         // const storeService = new StoreService(this.storageService, this.secureStorageService);
+        this.stateService = new StateService(this.storageService, this.secureStorageService, this.logService);
         this.platformUtilsService = new BrowserPlatformUtilsService(this.messagingService, this.stateService,
             (clipboardValue, clearMs) => {
                 if (this.systemService != null) {
@@ -177,7 +179,6 @@ export default class MainBackground {
             });
         this.i18nService = new I18nService(BrowserApi.getUILanguage(window));
         this.cryptoFunctionService = new WebCryptoFunctionService(window, this.platformUtilsService);
-        this.logService = new ConsoleLogService(false);
         this.cryptoService = new BrowserCryptoService(this.cryptoFunctionService, this.platformUtilsService,
             this.logService, this.stateService);
         this.tokenService = new TokenService(this.stateService);
@@ -200,7 +201,6 @@ export default class MainBackground {
         this.sendService = new SendService(this.cryptoService, this.apiService,
             this.fileUploadService, this.i18nService,
             this.cryptoFunctionService, this.stateService);
-        this.stateService = new StateService(this.storageService, this.secureStorageService, this.logService);
         this.organizationService = new OrganizationService(this.stateService);
         this.policyService = new PolicyService(this.stateService, this.organizationService, this.apiService);
         this.keyConnectorSerivce = new KeyConnectorService(this.stateService, this.cryptoService,

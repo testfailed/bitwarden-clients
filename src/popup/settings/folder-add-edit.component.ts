@@ -14,7 +14,6 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 import {
     FolderAddEditComponent as BaseFolderAddEditComponent,
 } from 'jslib-angular/components/folder-add-edit.component';
-import { LogService } from 'jslib-common/abstractions/log.service';
 
 @Component({
     selector: 'app-folder-add-edit',

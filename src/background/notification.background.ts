@@ -9,7 +9,6 @@ import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
-import { ConstantsService } from 'jslib-common/services/constants.service';
 import { AutofillService } from '../services/abstractions/autofill.service';
 
 import { BrowserApi } from '../browser/browserApi';
@@ -26,6 +25,7 @@ import AddLoginRuntimeMessage from './models/addLoginRuntimeMessage';
 import ChangePasswordRuntimeMessage from './models/changePasswordRuntimeMessage';
 import LockedVaultPendingNotificationsItem from './models/lockedVaultPendingNotificationsItem';
 import { NotificationQueueMessageType } from './models/notificationQueueMessageType';
+import { StateService } from 'jslib-common/abstractions/state.service';
 
 export default class NotificationBackground {
 
@@ -34,7 +34,7 @@ export default class NotificationBackground {
     constructor(private main: MainBackground, private autofillService: AutofillService,
         private cipherService: CipherService, private storageService: StorageService,
         private vaultTimeoutService: VaultTimeoutService, private policyService: PolicyService,
-        private folderService: FolderService) {
+        private folderService: FolderService, private stateService: StateService) {
     }
 
     async init() {
@@ -204,8 +204,7 @@ export default class NotificationBackground {
         const usernameMatches = ciphers.filter(c =>
             c.login.username != null && c.login.username.toLowerCase() === normalizedUsername);
         if (usernameMatches.length === 0) {
-            const disabledAddLogin = await this.storageService.get<boolean>(
-                ConstantsService.disableAddLoginNotificationKey);
+            const disabledAddLogin = await this.stateService.getDisableAddLoginNotification();
             if (disabledAddLogin) {
                 return;
             }
@@ -217,8 +216,7 @@ export default class NotificationBackground {
             this.pushAddLoginToQueue(loginDomain, loginInfo, tab);
 
         } else if (usernameMatches.length === 1 && usernameMatches[0].login.password !== loginInfo.password) {
-            const disabledChangePassword = await this.storageService.get<boolean>(
-                ConstantsService.disableChangedPasswordNotificationKey);
+            const disabledChangePassword = await this.stateService.getDisableChangedPasswordNotification();
             if (disabledChangePassword) {
                 return;
             }
