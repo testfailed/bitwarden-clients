@@ -252,7 +252,7 @@
     "message": "View"
   },
   "noItemsInList": {
-    "message": "There are no items to list. :D"
+    "message": "There are no items to list."
   },
   "itemInformation": {
     "message": "Item Information"
