@@ -204,7 +204,7 @@ export default class MainBackground {
         this.organizationService = new OrganizationService(this.stateService);
         this.policyService = new PolicyService(this.stateService, this.organizationService, this.apiService);
         this.keyConnectorSerivce = new KeyConnectorService(this.stateService, this.cryptoService,
-            this.apiService, this.environmentService, this.tokenService, this.logService, this.organizationService);
+            this.apiService, this.tokenService, this.logService, this.organizationService);
 
         const vaultTimeoutServiceCallbacks = {
             locked: async () => {
@@ -322,6 +322,7 @@ export default class MainBackground {
         await this.runtimeBackground.init();
         await this.notificationBackground.init();
         await this.commandsBackground.init();
+        await this.stateService.init();
 
         await this.tabsBackground.init();
         await this.contextMenusBackground.init();
