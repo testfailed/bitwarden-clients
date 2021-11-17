@@ -127,7 +127,7 @@ export default class MainBackground {
     fileUploadService: FileUploadServiceAbstraction;
     organizationService: OrganizationServiceAbstraction;
     providerService: ProviderServiceAbstraction;
-    keyConnectorSerivce: KeyConnectorServiceAbstraction;
+    keyConnectorService: KeyConnectorServiceAbstraction;
 
     onUpdatedRan: boolean;
     onReplacedRan: boolean;
@@ -203,7 +203,7 @@ export default class MainBackground {
             this.cryptoFunctionService, this.stateService);
         this.organizationService = new OrganizationService(this.stateService);
         this.policyService = new PolicyService(this.stateService, this.organizationService, this.apiService);
-        this.keyConnectorSerivce = new KeyConnectorService(this.stateService, this.cryptoService,
+        this.keyConnectorService = new KeyConnectorService(this.stateService, this.cryptoService,
             this.apiService, this.tokenService, this.logService, this.organizationService);
 
         const vaultTimeoutServiceCallbacks = {
@@ -229,7 +229,7 @@ export default class MainBackground {
             this.searchService,
             this.tokenService,
             this.policyService,
-            this.keyConnectorSerivce,
+            this.keyConnectorService,
             this.stateService, vaultTimeoutServiceCallbacks.logout);
 
         this.providerService = new ProviderService(this.stateService);
@@ -237,7 +237,7 @@ export default class MainBackground {
             this.folderService, this.cipherService,
             this.cryptoService, this.collectionService,
             this.messagingService, this.policyService,
-            this.sendService, this.logService, this.keyConnectorSerivce,
+            this.sendService, this.logService, this.keyConnectorService,
             this.stateService, this.organizationService,
             this.providerService, async (expired: boolean) => await this.logout(expired));
         this.eventService = new EventService(this.apiService, this.cipherService,
@@ -309,7 +309,7 @@ export default class MainBackground {
             this.tokenService, this.appIdService,
             this.i18nService, this.platformUtilsService,
             backgroundMessagingService, this.vaultTimeoutService,
-            this.logService, this.cryptoFunctionService, this.keyConnectorSerivce, this.environmentService, this.stateService);
+            this.logService, this.cryptoFunctionService, this.keyConnectorService, this.environmentService, this.stateService);
     }
 
     async bootstrap() {
@@ -400,7 +400,7 @@ export default class MainBackground {
             this.policyService.clear(userId),
             this.passwordGenerationService.clear(),
             this.vaultTimeoutService.clear(),
-            this.keyConnectorSerivce.clear(),
+            this.keyConnectorService.clear(),
         ]);
 
         this.searchService.clearIndex();
