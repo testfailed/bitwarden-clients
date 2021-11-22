@@ -230,7 +230,7 @@ export default class MainBackground {
             this.tokenService,
             this.policyService,
             this.keyConnectorService,
-            this.stateService, vaultTimeoutServiceCallbacks.logout);
+            this.stateService, vaultTimeoutServiceCallbacks.locked, vaultTimeoutServiceCallbacks.logout);
 
         this.providerService = new ProviderService(this.stateService);
         this.syncService = new SyncService(this.apiService, this.settingsService,
