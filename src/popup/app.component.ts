@@ -70,7 +70,6 @@ export class AppComponent implements OnInit {
         }
 
         this.ngZone.runOutsideAngular(() => {
-            window.onmousemove = () => this.recordActivity();
             window.onmousedown = () => this.recordActivity();
             window.ontouchstart = () => this.recordActivity();
             window.onclick = () => this.recordActivity();
