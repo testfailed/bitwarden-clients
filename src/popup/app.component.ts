@@ -98,7 +98,6 @@ export class AppComponent implements OnInit {
                     this.router.navigate(['home']);
                 });
             } else if (msg.command === 'locked') {
-                this.stateService.clean();
                 this.ngZone.run(() => {
                     this.router.navigate(['lock']);
                 });
@@ -132,18 +131,18 @@ export class AppComponent implements OnInit {
 
         BrowserApi.messageListener('app.component', (window as any).bitwardenPopupMainMessageListener);
 
-        this.router.events.subscribe(event => {
+        this.router.events.subscribe(async event => {
             if (event instanceof NavigationEnd) {
                 const url = event.urlAfterRedirects || event.url || '';
                 if (url.startsWith('/tabs/') && (window as any).previousPopupUrl != null &&
                     (window as any).previousPopupUrl.startsWith('/tabs/')) {
-                    this.stateService.setBrowserGroupingComponentState(null);
-                    this.stateService.setBrowserCipherComponentState(null);
-                    this.stateService.setBrowserSendComponentState(null);
-                    this.stateService.setBrowserSendTypeComponentState(null);
+                    await this.stateService.setBrowserGroupingComponentState(null);
+                    await this.stateService.setBrowserCipherComponentState(null);
+                    await this.stateService.setBrowserSendComponentState(null);
+                    await this.stateService.setBrowserSendTypeComponentState(null);
                 }
                 if (url.startsWith('/tabs/')) {
-                    this.stateService.setAddEditCipherInfo(null);
+                    await this.stateService.setAddEditCipherInfo(null);
                 }
                 (window as any).previousPopupUrl = url;
 
