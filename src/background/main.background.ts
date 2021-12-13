@@ -133,7 +133,7 @@ export default class MainBackground {
 
     onUpdatedRan: boolean;
     onReplacedRan: boolean;
-    loginToAutoFill: any = null;
+    loginToAutoFill: CipherView = null;
     notificationQueue: any[] = [];
 
     private commandsBackground: CommandsBackground;
@@ -432,21 +432,6 @@ export default class MainBackground {
         }, options);
     }
 
-    async checkNotificationQueue(tab: any = null): Promise<any> {
-        if (this.notificationQueue.length === 0) {
-            return;
-        }
-
-        if (tab != null) {
-            this.doNotificationQueueCheck(tab);
-            return;
-        }
-
-        const currentTab = await BrowserApi.getTabFromCurrentWindow();
-        if (currentTab != null) {
-            this.doNotificationQueueCheck(currentTab);
-        }
-    }
     async openPopup() {
         // Chrome APIs cannot open popup
 
@@ -725,41 +710,6 @@ export default class MainBackground {
         this.syncTimeout = setTimeout(async () => await this.fullSync(), 5 * 60 * 1000); // check every 5 minutes
     }
 
-    private cleanupNotificationQueue() {
-        for (let i = this.notificationQueue.length - 1; i >= 0; i--) {
-            if (this.notificationQueue[i].expires < new Date()) {
-                this.notificationQueue.splice(i, 1);
-            }
-        }
-        setTimeout(() => this.cleanupNotificationQueue(), 2 * 60 * 1000); // check every 2 minutes
-    }
-
-    private doNotificationQueueCheck(tab: any) {
-        if (tab == null) {
-            return;
-        }
-
-        const tabDomain = Utils.getDomain(tab.url);
-        if (tabDomain == null) {
-            return;
-        }
-
-        for (let i = 0; i < this.notificationQueue.length; i++) {
-            if (this.notificationQueue[i].tabId !== tab.id || this.notificationQueue[i].domain !== tabDomain) {
-                continue;
-            }
-            if (this.notificationQueue[i].type === 'addLogin') {
-                BrowserApi.tabSendMessageData(tab, 'openNotificationBar', {
-                    type: 'add',
-                });
-            } else if (this.notificationQueue[i].type === 'changePassword') {
-                BrowserApi.tabSendMessageData(tab, 'openNotificationBar', {
-                    type: 'change',
-                });
-            }
-            break;
-        }
-    }
 
     // Browser API Helpers
 
