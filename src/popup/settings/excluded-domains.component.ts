@@ -7,10 +7,9 @@ import {
 
 import { Router } from '@angular/router';
 
+import { BroadcasterService } from 'jslib-common/abstractions/broadcaster.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-
-import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 
 import { BrowserApi } from '../../browser/browserApi';
 

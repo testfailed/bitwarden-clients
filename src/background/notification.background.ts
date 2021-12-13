@@ -181,6 +181,10 @@ export default class NotificationBackground {
     }
 
     private async addLogin(loginInfo: AddLoginRuntimeMessage, tab: chrome.tabs.Tab) {
+        if (!await this.stateService.getIsAuthenticated()) {
+            return;
+        }
+
         const loginDomain = Utils.getDomain(loginInfo.url);
         if (loginDomain == null) {
             return;

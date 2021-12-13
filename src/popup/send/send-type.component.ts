@@ -17,6 +17,7 @@ import { SendView } from 'jslib-common/models/view/sendView';
 
 import { SendComponent as BaseSendComponent } from 'jslib-angular/components/send/send.component';
 
+import { BroadcasterService } from 'jslib-common/abstractions/broadcaster.service';
 import { EnvironmentService } from 'jslib-common/abstractions/environment.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { LogService } from 'jslib-common/abstractions/log.service';
@@ -25,8 +26,6 @@ import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
 import { SendService } from 'jslib-common/abstractions/send.service';
 import { StateService } from 'jslib-common/abstractions/state.service';
-
-import { BroadcasterService } from 'jslib-angular/services/broadcaster.service';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 

@@ -1,7 +1,6 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { ToasterModule } from 'angular2-toaster';
 
 import { AppRoutingModule } from './app-routing.module';
 import { ServicesModule } from './services/services.module';
@@ -81,10 +80,11 @@ import { PasswordRepromptComponent } from './components/password-reprompt.compon
 import { PopOutComponent } from './components/pop-out.component';
 import { SendListComponent } from './components/send-list.component';
 import { SetPinComponent } from './components/set-pin.component';
+import { VerifyMasterPasswordComponent } from './components/verify-master-password.component';
 
 import { CalloutComponent } from 'jslib-angular/components/callout.component';
 import { IconComponent } from 'jslib-angular/components/icon.component';
-import { VerifyMasterPasswordComponent } from 'jslib-angular/components/verify-master-password.component';
+import { BitwardenToastModule } from 'jslib-angular/components/toastr.component';
 
 import {
     CurrencyPipe,
@@ -188,7 +188,12 @@ registerLocaleData(localeZhTw, 'zh-TW');
         ReactiveFormsModule,
         ScrollingModule,
         ServicesModule,
-        ToasterModule.forRoot(),
+        BitwardenToastModule.forRoot({
+            maxOpened: 2,
+            autoDismiss: true,
+            closeButton: true,
+            positionClass: 'toast-bottom-full-width',
+        }),
     ],
     declarations: [
         A11yTitleDirective,

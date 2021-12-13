@@ -26,6 +26,7 @@ import { SearchService } from 'jslib-common/services/search.service';
 import { SendService } from 'jslib-common/services/send.service';
 import { SettingsService } from 'jslib-common/services/settings.service';
 import { StateService } from 'jslib-common/services/state.service';
+import { StateMigrationService } from 'jslib-common/services/stateMigration.service';
 import { SyncService } from 'jslib-common/services/sync.service';
 import { SystemService } from 'jslib-common/services/system.service';
 import { TokenService } from 'jslib-common/services/token.service';
@@ -119,6 +120,7 @@ export default class MainBackground {
     searchService: SearchServiceAbstraction;
     notificationsService: NotificationsServiceAbstraction;
     stateService: StateServiceAbstraction;
+    stateMigrationService: StateMigrationService;
     systemService: SystemServiceAbstraction;
     eventService: EventServiceAbstraction;
     policyService: PolicyServiceAbstraction;
@@ -156,8 +158,8 @@ export default class MainBackground {
         this.storageService = new BrowserStorageService();
         this.secureStorageService = new BrowserStorageService();
         this.logService = new ConsoleLogService(false);
-        // const storeService = new StoreService(this.storageService, this.secureStorageService);
-        this.stateService = new StateService(this.storageService, this.secureStorageService, this.logService);
+        this.stateMigrationService = new StateMigrationService(this.storageService, this.secureStorageService);
+        this.stateService = new StateService(this.storageService, this.secureStorageService, this.logService, this.stateMigrationService);
         this.platformUtilsService = new BrowserPlatformUtilsService(this.messagingService, this.stateService,
             (clipboardValue, clearMs) => {
                 if (this.systemService != null) {

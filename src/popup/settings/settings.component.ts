@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToasterService } from 'angular2-toaster';
 import Swal from 'sweetalert2/src/sweetalert2.js';
 
 import { BrowserApi } from '../../browser/browserApi';
@@ -65,7 +64,7 @@ export class SettingsComponent implements OnInit {
         public messagingService: MessagingService, private router: Router,
         private environmentService: EnvironmentService, private cryptoService: CryptoService,
         private stateService: StateService, private popupUtilsService: PopupUtilsService,
-        private modalService: ModalService, private toasterService: ToasterService,
+        private modalService: ModalService,
         private keyConnectorService: KeyConnectorService) {
     }
 
@@ -132,7 +131,7 @@ export class SettingsComponent implements OnInit {
         }
 
         if (!this.vaultTimeout.valid) {
-            this.toasterService.popAsync('error', null, this.i18nService.t('vaultTimeoutToLarge'));
+            this.platformUtilsService.showToast('error', null, this.i18nService.t('vaultTimeoutToLarge'));
             return;
         }
 
@@ -161,7 +160,7 @@ export class SettingsComponent implements OnInit {
         }
 
         if (!this.vaultTimeout.valid) {
-            this.toasterService.popAsync('error', null, this.i18nService.t('vaultTimeoutToLarge'));
+            this.platformUtilsService.showToast('error', null, this.i18nService.t('vaultTimeoutToLarge'));
             return;
         }
 
