@@ -3,7 +3,6 @@ import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { LogService } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
-import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { SystemService } from 'jslib-common/abstractions/system.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 
@@ -16,16 +15,11 @@ import MainBackground from './main.background';
 
 import { Utils } from 'jslib-common/misc/utils';
 
-import { PolicyType } from 'jslib-common/enums/policyType';
 import { StateService } from 'jslib-common/abstractions/state.service';
 import LockedVaultPendingNotificationsItem from './models/lockedVaultPendingNotificationsItem';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { FolderService } from 'jslib-common/abstractions/folder.service';
-import { LoginView } from 'jslib-common/models/view/loginView';
-import { LoginUriView } from 'jslib-common/models/view/loginUriView';
-import { CipherView } from 'jslib-common/models/view/cipherView';
-import { CipherType } from 'jslib-common/enums/cipherType';
 
 export default class RuntimeBackground {
     private autofillTimeout: any;
@@ -34,12 +28,11 @@ export default class RuntimeBackground {
     private lockedVaultPendingNotifications: LockedVaultPendingNotificationsItem[] = [];
 
     constructor(private main: MainBackground, private autofillService: AutofillService,
-        private cipherService: CipherService, private platformUtilsService: BrowserPlatformUtilsService,
+        private platformUtilsService: BrowserPlatformUtilsService,
         private i18nService: I18nService,
         private notificationsService: NotificationsService, private systemService: SystemService,
-        private vaultTimeoutService: VaultTimeoutService, private environmentService: EnvironmentService,
-        private policyService: PolicyService, private messagingService: MessagingService,
-        private folderService: FolderService, private stateService: StateService, private logService: LogService) {
+        private environmentService: EnvironmentService, private messagingService: MessagingService,
+        private stateService: StateService, private logService: LogService) {
 
         // onInstalled listener must be wired up before anything else, so we do it in the ctor
         chrome.runtime.onInstalled.addListener((details: any) => {

@@ -274,12 +274,11 @@ export default class MainBackground {
             opr.sidebarAction : (window as any).chrome.sidebarAction;
 
         // Background
-        this.runtimeBackground = new RuntimeBackground(this, this.autofillService, this.cipherService,
+        this.runtimeBackground = new RuntimeBackground(this, this.autofillService,
             this.platformUtilsService as BrowserPlatformUtilsService,
             this.i18nService, this.notificationsService,
-            this.systemService, this.vaultTimeoutService,
-            this.environmentService, this.policyService,
-            this.messagingService, this.folderService, this.stateService, this.logService);
+            this.systemService, this.environmentService,
+            this.messagingService, this.stateService, this.logService);
         this.nativeMessagingBackground = new NativeMessagingBackground(this.cryptoService,
             this.cryptoFunctionService, this.runtimeBackground,
             this.i18nService, this.messagingService, this.appIdService,
