@@ -222,6 +222,7 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         { provide: PasswordRepromptServiceAbstraction, useClass: PasswordRepromptService },
         { provide: OrganizationService, useFactory: getBgService<OrganizationService>('organizationService'), deps: [] },
         { provide: ProviderService, useFactory: getBgService<ProviderService>('providerService'), deps: [] },
+        { provide: 'SECURE_STORAGE', useFactory: getBgService<StorageService>('secureStorageService'), deps: [] },
     ],
 })
 export class ServicesModule {
