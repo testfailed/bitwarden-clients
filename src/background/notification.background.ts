@@ -19,13 +19,13 @@ import { Utils } from 'jslib-common/misc/utils';
 
 import { PolicyType } from 'jslib-common/enums/policyType';
 
+import { StateService } from '../services/abstractions/state.service';
 import AddChangePasswordQueueMessage from './models/addChangePasswordQueueMessage';
 import AddLoginQueueMessage from './models/addLoginQueueMessage';
 import AddLoginRuntimeMessage from './models/addLoginRuntimeMessage';
 import ChangePasswordRuntimeMessage from './models/changePasswordRuntimeMessage';
 import LockedVaultPendingNotificationsItem from './models/lockedVaultPendingNotificationsItem';
 import { NotificationQueueMessageType } from './models/notificationQueueMessageType';
-import { StateService } from 'jslib-common/abstractions/state.service';
 
 export default class NotificationBackground {
 

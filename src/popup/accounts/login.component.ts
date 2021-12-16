@@ -37,4 +37,9 @@ export class LoginComponent extends BaseLoginComponent {
     settings() {
         this.router.navigate(['environment']);
     }
+
+    async submit() {
+        await super.submit();
+        this.stateService.setRememberedEmail(this.email);
+    }
 }

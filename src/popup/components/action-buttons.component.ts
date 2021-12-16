@@ -15,8 +15,8 @@ import { EventService } from 'jslib-common/abstractions/event.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { PasswordRepromptService } from 'jslib-common/abstractions/passwordReprompt.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
+import { StateService } from '../../services/abstractions/state.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
 
 @Component({
     selector: 'app-action-buttons',

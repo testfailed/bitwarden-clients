@@ -25,7 +25,6 @@ import { ProviderService } from 'jslib-common/services/provider.service';
 import { SearchService } from 'jslib-common/services/search.service';
 import { SendService } from 'jslib-common/services/send.service';
 import { SettingsService } from 'jslib-common/services/settings.service';
-import { StateService } from 'jslib-common/services/state.service';
 import { StateMigrationService } from 'jslib-common/services/stateMigration.service';
 import { SyncService } from 'jslib-common/services/sync.service';
 import { SystemService } from 'jslib-common/services/system.service';
@@ -59,7 +58,6 @@ import { ProviderService as ProviderServiceAbstraction } from 'jslib-common/abst
 import { SearchService as SearchServiceAbstraction } from 'jslib-common/abstractions/search.service';
 import { SendService as SendServiceAbstraction } from 'jslib-common/abstractions/send.service';
 import { SettingsService as SettingsServiceAbstraction } from 'jslib-common/abstractions/settings.service';
-import { StateService as StateServiceAbstraction } from 'jslib-common/abstractions/state.service';
 import { StorageService as StorageServiceAbstraction } from 'jslib-common/abstractions/storage.service';
 import { SyncService as SyncServiceAbstraction } from 'jslib-common/abstractions/sync.service';
 import { SystemService as SystemServiceAbstraction } from 'jslib-common/abstractions/system.service';
@@ -81,6 +79,7 @@ import TabsBackground from './tabs.background';
 import WebRequestBackground from './webRequest.background';
 import WindowsBackground from './windows.background';
 
+import { Utils } from 'jslib-common/misc/utils';
 import { PopupUtilsService } from '../popup/services/popup-utils.service';
 import AutofillService from '../services/autofill.service';
 import { BrowserCryptoService } from '../services/browserCrypto.service';
@@ -89,7 +88,8 @@ import BrowserPlatformUtilsService from '../services/browserPlatformUtils.servic
 import BrowserStorageService from '../services/browserStorage.service';
 import I18nService from '../services/i18n.service';
 import VaultTimeoutService from '../services/vaultTimeout.service';
-import { Utils } from 'jslib-common/misc/utils';
+import { StateService } from '../services/state.service';
+import { StateService as StateServiceAbstraction } from '../services/abstractions/state.service'
 
 export default class MainBackground {
     messagingService: MessagingServiceAbstraction;

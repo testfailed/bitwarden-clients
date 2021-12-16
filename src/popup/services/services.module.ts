@@ -43,7 +43,6 @@ import { ProviderService } from 'jslib-common/abstractions/provider.service';
 import { SearchService as SearchServiceAbstraction } from 'jslib-common/abstractions/search.service';
 import { SendService } from 'jslib-common/abstractions/send.service';
 import { SettingsService } from 'jslib-common/abstractions/settings.service';
-import { StateService as StateServiceAbstraction } from 'jslib-common/abstractions/state.service';
 import { StorageService } from 'jslib-common/abstractions/storage.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 import { TokenService } from 'jslib-common/abstractions/token.service';
@@ -53,16 +52,17 @@ import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.serv
 
 import { AutofillService } from '../../services/abstractions/autofill.service';
 import BrowserMessagingService from '../../services/browserMessaging.service';
+import { StateService as StateServiceAbstraction } from '../../services/abstractions/state.service';
 
 import { AuthService } from 'jslib-common/services/auth.service';
 import { ConsoleLogService } from 'jslib-common/services/consoleLog.service';
 import { SearchService } from 'jslib-common/services/search.service';
-import { StateService } from 'jslib-common/services/state.service';
 
 import { PopupSearchService } from './popup-search.service';
 import { PopupUtilsService } from './popup-utils.service';
 
 import { ThemeType } from 'jslib-common/enums/themeType';
+import { StateService } from '../../services/state.service';
 
 function getBgService<T>(service: string) {
     return (): T => {

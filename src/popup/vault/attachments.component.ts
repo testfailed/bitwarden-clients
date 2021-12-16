@@ -12,7 +12,7 @@ import { LogService } from 'jslib-common/abstractions/log.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 
 import { AttachmentsComponent as BaseAttachmentsComponent } from 'jslib-angular/components/attachments.component';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 
 @Component({
     selector: 'app-vault-attachments',

@@ -13,8 +13,8 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 
 import { BrowserApi } from '../../browser/browserApi';
 
+import { StateService } from '../../services/abstractions/state.service';
 import { Utils } from 'jslib-common/misc/utils';
-import { StateService } from 'jslib-common/abstractions/state.service';
 
 interface ExcludedDomain {
     uri: string;

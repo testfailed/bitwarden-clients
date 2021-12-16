@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { PasswordGenerationService } from 'jslib-common/abstractions/passwordGeneration.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 
 import { CipherView } from 'jslib-common/models/view/cipherView';
 

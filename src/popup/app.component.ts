@@ -23,11 +23,11 @@ import { BroadcasterService } from 'jslib-common/abstractions/broadcaster.servic
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../services/abstractions/state.service';
 import { StorageService } from 'jslib-common/abstractions/storage.service';
 
-import { routerTransition } from './app-routing.animations';
 import { KeyConnectorService } from 'jslib-common/abstractions/keyConnector.service';
+import { routerTransition } from './app-routing.animations';
 
 @Component({
     selector: 'app-root',

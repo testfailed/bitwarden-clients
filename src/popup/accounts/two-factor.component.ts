@@ -1,4 +1,4 @@
-import { Component, NgZone, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, NgZone } from '@angular/core';
 import {
     ActivatedRoute,
     Router,
@@ -21,8 +21,8 @@ import { TwoFactorComponent as BaseTwoFactorComponent } from 'jslib-angular/comp
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 
-import { BrowserApi } from '../../browser/browserApi';
 import { StateService } from 'jslib-common/abstractions/state.service';
+import { BrowserApi } from '../../browser/browserApi';
 
 const BroadcasterSubscriptionId = 'TwoFactorComponent';
 

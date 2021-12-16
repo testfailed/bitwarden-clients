@@ -20,13 +20,13 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
 import { SendService } from 'jslib-common/abstractions/send.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { SendType } from 'jslib-common/enums/sendType';
-import { BrowserSendComponentState } from 'jslib-common/models/domain/browserSendComponentState';
+import { BrowserSendComponentState } from '../../models/browserSendComponentState';
 
 const ComponentId = 'SendComponent';
 const ScopeStateId = ComponentId + 'Scope';

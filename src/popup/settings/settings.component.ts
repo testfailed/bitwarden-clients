@@ -23,8 +23,8 @@ import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { ModalService } from 'jslib-angular/services/modal.service';
 
+import { StateService } from '../../services/abstractions/state.service';
 import { SetPinComponent } from '../components/set-pin.component';
-import { StateService } from 'jslib-common/abstractions/state.service';
 
 const RateUrls = {
     [DeviceType.ChromeExtension]:

@@ -17,8 +17,8 @@ import AutofillField from '../models/autofillField';
 import AutofillPageDetails from '../models/autofillPageDetails';
 import AutofillScript from '../models/autofillScript';
 
+import { StateService } from '../services/abstractions/state.service';
 import { BrowserApi } from '../browser/browserApi';
-import { StateService } from 'jslib-common/abstractions/state.service';
 
 const CardAttributes: string[] = ['autoCompleteType', 'data-stripe', 'htmlName', 'htmlID', 'label-tag',
     'placeholder', 'label-left', 'label-top', 'data-recurly'];

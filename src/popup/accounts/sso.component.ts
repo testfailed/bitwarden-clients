@@ -13,7 +13,7 @@ import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { LogService } from 'jslib-common/abstractions/log.service';
 import { PasswordGenerationService } from 'jslib-common/abstractions/passwordGeneration.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 

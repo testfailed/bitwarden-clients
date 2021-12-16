@@ -22,7 +22,7 @@ import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 
 import { CipherType } from 'jslib-common/enums/cipherType';
 
@@ -34,8 +34,8 @@ import { TreeNode } from 'jslib-common/models/domain/treeNode';
 
 import { CiphersComponent as BaseCiphersComponent } from 'jslib-angular/components/ciphers.component';
 
+import { BrowserComponentState } from '../../models/browserComponentState';
 import { PopupUtilsService } from '../services/popup-utils.service';
-import { BrowserComponentState } from 'jslib-common/models/domain/browserComponentState';
 
 const ComponentId = 'CiphersComponent';
 
@@ -74,8 +74,8 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
         this.searchTypeSearch = !this.platformUtilsService.isSafari();
         this.route.queryParams.pipe(first()).subscribe(async params => {
             if (this.applySavedState) {
-                this.state = await this.stateService.getBrowserCipherComponentState();
-                if (this.state.searchText) {
+                // this.state = await this.stateService.getBrowserCipherComponentState();
+                if (this.state?.searchText) {
                     this.searchText = this.state.searchText;
                 }
             }
@@ -134,10 +134,10 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
             }
 
             if (this.applySavedState && this.state != null) {
-                window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state.scrollY,
+                window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state?.scrollY,
                     this.scrollingContainer), 0);
             }
-            this.stateService.setBrowserCipherComponentState(null);
+            // this.stateService.setBrowserCipherComponentState(null);
         });
 
         this.broadcasterService.subscribe(ComponentId, (message: any) => {
@@ -230,6 +230,6 @@ export class CiphersComponent extends BaseCiphersComponent implements OnInit, On
             scrollY: this.popupUtils.getContentScrollY(window, this.scrollingContainer),
             searchText: this.searchText,
         };
-        await this.stateService.setBrowserCipherComponentState(this.state);
+        // await this.stateService.setBrowserCipherComponentState(this.state);
     }
 }

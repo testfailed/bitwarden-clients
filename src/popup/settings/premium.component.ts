@@ -7,7 +7,7 @@ import { LogService } from 'jslib-common/abstractions/log.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 
 import { PremiumComponent as BasePremiumComponent } from 'jslib-angular/components/premium.component';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 
 @Component({
     selector: 'app-premium',

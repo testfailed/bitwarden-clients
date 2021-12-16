@@ -25,12 +25,12 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
 import { SendService } from 'jslib-common/abstractions/send.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { SendType } from 'jslib-common/enums/sendType';
-import { BrowserComponentState } from 'jslib-common/models/domain/browserComponentState';
+import { BrowserComponentState } from '../../models/browserComponentState';
 
 const ComponentId = 'SendTypeComponent';
 
@@ -88,7 +88,7 @@ export class SendTypeComponent extends BaseSendComponent {
 
             // Restore state and remove reference
             if (this.applySavedState && this.state != null) {
-                window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state.scrollY), 0);
+                window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state?.scrollY), 0);
             }
             this.stateService.setBrowserSendComponentState(null);
 

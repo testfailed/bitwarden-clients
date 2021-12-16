@@ -21,7 +21,7 @@ import { OrganizationService } from 'jslib-common/abstractions/organization.serv
 import { PasswordRepromptService } from 'jslib-common/abstractions/passwordReprompt.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 

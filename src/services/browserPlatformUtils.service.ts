@@ -6,7 +6,7 @@ import { ThemeType } from 'jslib-common/enums/themeType';
 
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../services/abstractions/state.service';
 
 const DialogPromiseExpiration = 600000; // 10 minutes
 

@@ -27,12 +27,12 @@ import { CollectionService } from 'jslib-common/abstractions/collection.service'
 import { FolderService } from 'jslib-common/abstractions/folder.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 
 import { GroupingsComponent as BaseGroupingsComponent } from 'jslib-angular/components/groupings.component';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
+import { StateService } from 'src/services/abstractions/state.service';
 
 const ComponentId = 'GroupingsComponent';
 const ScopeStateId = ComponentId + 'Scope';
@@ -88,7 +88,7 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
     async ngOnInit() {
         this.searchTypeSearch = !this.platformUtilsService.isSafari();
         this.showLeftHeader = !(this.popupUtils.inSidebar(window) && this.platformUtilsService.isFirefox());
-        this.stateService.setBrowserCipherComponentState(null);
+        // this.stateService.setBrowserCipherComponentState(null);
 
         this.broadcasterService.subscribe(ComponentId, (message: any) => {
             this.ngZone.run(async () => {
@@ -108,8 +108,8 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
 
         const restoredScopeState = await this.restoreState();
         this.route.queryParams.pipe(first()).subscribe(async params => {
-            this.state = (await this.stateService.getBrowserGroupingComponentState()) || {};
-            if (this.state.searchText) {
+            //this.state = (await this.stateService.getBrowserGroupingComponentState()) || {};
+            if (this.state?.searchText) {
                 this.searchText = this.state.searchText;
             } else if (params.searchText) {
                 this.searchText = params.searchText;
@@ -127,7 +127,7 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
             }
 
             if (!this.syncService.syncInProgress || restoredScopeState) {
-                window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state.scrollY), 0);
+                window.setTimeout(() => this.popupUtils.setContentScrollY(window, this.state?.scrollY), 0);
             }
         });
     }
@@ -312,11 +312,11 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
             collections: this.collections,
             deletedCount: this.deletedCount,
         };
-        await this.stateService.setBrowserGroupingComponentState(this.scopeState);
+        // await this.stateService.setBrowserGroupingComponentState(this.scopeState);
     }
 
     private async restoreState(): Promise<boolean> {
-        this.scopeState = await this.stateService.getBrowserGroupingComponentState();
+        // this.scopeState = await this.stateService.getBrowserGroupingComponentState();
         if (this.scopeState == null) {
             return false;
         }

@@ -1,6 +1,6 @@
 import { NotificationsService } from 'jslib-common/abstractions/notifications.service';
-import { StateService } from 'jslib-common/abstractions/state.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
+import { StateService } from '../services/abstractions/state.service';
 
 const IdleInterval = 60 * 5; // 5 minutes
 

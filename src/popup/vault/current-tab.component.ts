@@ -26,8 +26,8 @@ import { AutofillService } from '../../services/abstractions/autofill.service';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 
+import { StateService } from '../../services/abstractions/state.service';
 import { Utils } from 'jslib-common/misc/utils';
-import { StateService } from 'jslib-common/abstractions/state.service';
 
 const BroadcasterSubscriptionId = 'CurrentTabComponent';
 

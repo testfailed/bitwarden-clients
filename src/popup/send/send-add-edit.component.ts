@@ -24,7 +24,7 @@ import { TokenService } from 'jslib-common/abstractions/token.service';
 import { PopupUtilsService } from '../services/popup-utils.service';
 
 import { AddEditComponent as BaseAddEditComponent } from 'jslib-angular/components/send/add-edit.component';
-import { StateService } from 'jslib-common/abstractions/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 
 @Component({
     selector: 'app-send-add-edit',
