@@ -9,7 +9,7 @@ import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { KeyConnectorService } from 'jslib-common/abstractions/keyConnector.service';
 import { LogService } from 'jslib-common/abstractions/log.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
-import { StateService } from '../../services/state.service';
+import { StateService } from '../../services/abstractions/state.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 
 import { LockComponent as BaseLockComponent } from 'jslib-angular/components/lock.component';
