@@ -74,8 +74,8 @@ export class AppComponent implements OnInit {
                                 text: this.i18nService.t('loginExpired'),
                             });
                         }
-                        this.router.navigate(['home']);
                         await this.stateService.clean();
+                        this.router.navigate(['home']);
                     });
                     this.changeDetectorRef.detectChanges();
                 });
