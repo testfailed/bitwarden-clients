@@ -68,7 +68,7 @@ export class SendGroupingsComponent extends BaseSendComponent {
         await super.ngOnInit();
         // Handle State Restore if necessary
         const restoredScopeState = await this.restoreState();
-        if (this.state.searchText != null) {
+        if (this.state?.searchText != null) {
             this.searchText = this.state.searchText;
         }
 
