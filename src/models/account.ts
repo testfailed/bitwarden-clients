@@ -21,12 +21,4 @@ export class Account extends BaseAccount {
         this.sendType = init.sendType ??
             new BrowserComponentState();
     }
-
-    reset() {
-        super.reset();
-        this.groupings = new BrowserGroupingsComponentState();
-        this.send = new BrowserSendComponentState();
-        this.ciphers = new BrowserComponentState();
-        this.sendType = new BrowserComponentState();
-    }
 }
