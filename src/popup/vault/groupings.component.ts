@@ -31,8 +31,8 @@ import { SyncService } from 'jslib-common/abstractions/sync.service';
 
 import { GroupingsComponent as BaseGroupingsComponent } from 'jslib-angular/components/groupings.component';
 
-import { PopupUtilsService } from '../services/popup-utils.service';
 import { StateService } from '../../services/abstractions/state.service';
+import { PopupUtilsService } from '../services/popup-utils.service';
 
 const ComponentId = 'GroupingsComponent';
 const ScopeStateId = ComponentId + 'Scope';

@@ -8,8 +8,9 @@ import { UriMatchType } from 'jslib-common/enums/uriMatchType';
 
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { MessagingService } from 'jslib-common/abstractions/messaging.service';
-import { StateService } from '../../services/abstractions/state.service';
 import { TotpService } from 'jslib-common/abstractions/totp.service';
+
+import { StateService } from '../../services/abstractions/state.service';
 
 @Component({
     selector: 'app-options',

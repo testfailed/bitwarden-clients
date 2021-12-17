@@ -9,8 +9,8 @@ import { first } from 'rxjs/operators';
 import { CipherService } from 'jslib-common/abstractions/cipher.service';
 import { CollectionService } from 'jslib-common/abstractions/collection.service';
 import { I18nService } from 'jslib-common/abstractions/i18n.service';
-import { OrganizationService } from 'jslib-common/abstractions/organization.service';
 import { LogService } from 'jslib-common/abstractions/log.service';
+import { OrganizationService } from 'jslib-common/abstractions/organization.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
 
 import { ShareComponent as BaseShareComponent } from 'jslib-angular/components/share.component';

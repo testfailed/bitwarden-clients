@@ -18,6 +18,7 @@ import AutofillPageDetails from '../models/autofillPageDetails';
 import AutofillScript from '../models/autofillScript';
 
 import { StateService } from '../services/abstractions/state.service';
+
 import { BrowserApi } from '../browser/browserApi';
 
 const CardAttributes: string[] = ['autoCompleteType', 'data-stripe', 'htmlName', 'htmlID', 'label-tag',

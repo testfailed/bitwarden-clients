@@ -79,6 +79,8 @@ import TabsBackground from './tabs.background';
 import WebRequestBackground from './webRequest.background';
 import WindowsBackground from './windows.background';
 
+import { StateService as StateServiceAbstraction } from '../services/abstractions/state.service';
+
 import { Utils } from 'jslib-common/misc/utils';
 import { PopupUtilsService } from '../popup/services/popup-utils.service';
 import AutofillService from '../services/autofill.service';
@@ -87,9 +89,8 @@ import BrowserMessagingService from '../services/browserMessaging.service';
 import BrowserPlatformUtilsService from '../services/browserPlatformUtils.service';
 import BrowserStorageService from '../services/browserStorage.service';
 import I18nService from '../services/i18n.service';
-import VaultTimeoutService from '../services/vaultTimeout.service';
 import { StateService } from '../services/state.service';
-import { StateService as StateServiceAbstraction } from '../services/abstractions/state.service'
+import VaultTimeoutService from '../services/vaultTimeout.service';
 
 export default class MainBackground {
     messagingService: MessagingServiceAbstraction;

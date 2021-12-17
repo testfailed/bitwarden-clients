@@ -23,10 +23,10 @@ import { SearchService } from 'jslib-common/abstractions/search.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 
 import { AutofillService } from '../../services/abstractions/autofill.service';
+import { StateService } from '../../services/abstractions/state.service';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 
-import { StateService } from '../../services/abstractions/state.service';
 import { Utils } from 'jslib-common/misc/utils';
 
 const BroadcasterSubscriptionId = 'CurrentTabComponent';

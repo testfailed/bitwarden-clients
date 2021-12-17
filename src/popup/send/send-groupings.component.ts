@@ -20,8 +20,9 @@ import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.se
 import { PolicyService } from 'jslib-common/abstractions/policy.service';
 import { SearchService } from 'jslib-common/abstractions/search.service';
 import { SendService } from 'jslib-common/abstractions/send.service';
-import { StateService } from '../../services/abstractions/state.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
+
+import { StateService } from '../../services/abstractions/state.service';
 
 import { PopupUtilsService } from '../services/popup-utils.service';
 

@@ -52,7 +52,6 @@ import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.serv
 
 import { AutofillService } from '../../services/abstractions/autofill.service';
 import BrowserMessagingService from '../../services/browserMessaging.service';
-import { StateService as StateServiceAbstraction } from '../../services/abstractions/state.service';
 
 import { AuthService } from 'jslib-common/services/auth.service';
 import { ConsoleLogService } from 'jslib-common/services/consoleLog.service';
@@ -63,6 +62,8 @@ import { PopupUtilsService } from './popup-utils.service';
 
 import { ThemeType } from 'jslib-common/enums/themeType';
 import { StateService } from '../../services/state.service';
+
+import { StateService as StateServiceAbstraction } from '../../services/abstractions/state.service';
 
 function getBgService<T>(service: string) {
     return (): T => {

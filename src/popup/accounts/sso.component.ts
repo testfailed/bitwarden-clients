@@ -13,12 +13,13 @@ import { I18nService } from 'jslib-common/abstractions/i18n.service';
 import { LogService } from 'jslib-common/abstractions/log.service';
 import { PasswordGenerationService } from 'jslib-common/abstractions/passwordGeneration.service';
 import { PlatformUtilsService } from 'jslib-common/abstractions/platformUtils.service';
-import { StateService } from '../../services/abstractions/state.service';
 import { SyncService } from 'jslib-common/abstractions/sync.service';
 import { VaultTimeoutService } from 'jslib-common/abstractions/vaultTimeout.service';
 
 import { SsoComponent as BaseSsoComponent } from 'jslib-angular/components/sso.component';
 import { BrowserApi } from '../../browser/browserApi';
+
+import { StateService } from '../../services/abstractions/state.service';
 
 @Component({
     selector: 'app-sso',

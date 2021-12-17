@@ -17,9 +17,6 @@ import { Utils } from 'jslib-common/misc/utils';
 
 import { StateService } from 'jslib-common/abstractions/state.service';
 import LockedVaultPendingNotificationsItem from './models/lockedVaultPendingNotificationsItem';
-import { CipherService } from 'jslib-common/abstractions/cipher.service';
-import { PolicyService } from 'jslib-common/abstractions/policy.service';
-import { FolderService } from 'jslib-common/abstractions/folder.service';
 
 export default class RuntimeBackground {
     private autofillTimeout: any;
