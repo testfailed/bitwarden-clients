@@ -1,8 +1,8 @@
 import { StateService as BaseStateServiceAbstraction } from "jslib-common/abstractions/state.service";
 
 import { StorageOptions } from "jslib-common/models/domain/storageOptions";
-import { Account } from "src/models/account";
 
+import { Account } from "src/models/account";
 import { BrowserComponentState } from "src/models/browserComponentState";
 import { BrowserGroupingsComponentState } from "src/models/browserGroupingsComponentState";
 import { BrowserSendComponentState } from "src/models/browserSendComponentState";

@@ -78,17 +78,18 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
         private cipherService: CipherService, private router: Router,
         private ngZone: NgZone, private broadcasterService: BroadcasterService,
         private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute,
-        stateService: StateService, private popupUtils: PopupUtilsService,
+        baseStateService: StateService, private popupUtils: PopupUtilsService,
         private syncService: SyncService, private platformUtilsService: PlatformUtilsService,
-        private searchService: SearchService, private location: Location) {
-        super(collectionService, folderService, stateService);
+        private searchService: SearchService, private location: Location,
+        private browserStateService: StateService) {
+        super(collectionService, folderService, baseStateService);
         this.noFolderListSize = 100;
     }
 
     async ngOnInit() {
         this.searchTypeSearch = !this.platformUtilsService.isSafari();
         this.showLeftHeader = !(this.popupUtils.inSidebar(window) && this.platformUtilsService.isFirefox());
-        // this.stateService.setBrowserCipherComponentState(null);
+        await this.browserStateService.setBrowserCipherComponentState(null);
 
         this.broadcasterService.subscribe(ComponentId, (message: any) => {
             this.ngZone.run(async () => {
@@ -108,7 +109,7 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
 
         const restoredScopeState = await this.restoreState();
         this.route.queryParams.pipe(first()).subscribe(async params => {
-            //this.state = (await this.stateService.getBrowserGroupingComponentState()) || {};
+            this.state = (await this.browserStateService.getBrowserGroupingComponentState()) || {};
             if (this.state?.searchText) {
                 this.searchText = this.state.searchText;
             } else if (params.searchText) {
@@ -312,11 +313,11 @@ export class GroupingsComponent extends BaseGroupingsComponent implements OnInit
             collections: this.collections,
             deletedCount: this.deletedCount,
         };
-        // await this.stateService.setBrowserGroupingComponentState(this.scopeState);
+        await this.browserStateService.setBrowserGroupingComponentState(this.scopeState);
     }
 
     private async restoreState(): Promise<boolean> {
-        // this.scopeState = await this.stateService.getBrowserGroupingComponentState();
+        this.scopeState = await this.browserStateService.getBrowserGroupingComponentState();
         if (this.scopeState == null) {
             return false;
         }

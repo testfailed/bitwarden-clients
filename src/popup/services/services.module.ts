@@ -86,13 +86,6 @@ export function initFactory(platformUtilsService: PlatformUtilsService, i18nServ
         }
 
         if (!isPrivateMode) {
-            // TODO: Fix these guys
-            // await stateService.save(StorageKey.DisableFavicon,
-            //     await storageService.get<boolean>(StorageKey.DisableFavicon));
-
-            // await stateService.save(StorageKey.DisableBadgeCounter,
-            //     await storageService.get<boolean>(StorageKey.DisableBadgeCounter));
-
             const htmlEl = window.document.documentElement;
             const theme = await platformUtilsService.getEffectiveTheme();
             htmlEl.classList.add('theme_' + theme);
