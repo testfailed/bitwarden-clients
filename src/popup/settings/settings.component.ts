@@ -362,4 +362,3 @@ export class SettingsComponent implements OnInit {
         BrowserApi.createNewTab((RateUrls as any)[deviceType]);
     }
 }
-
