@@ -1,4 +1,4 @@
 export class BrowserComponentState {
-    scrollY: number;
-    searchText: string;
+  scrollY: number;
+  searchText: string;
 }

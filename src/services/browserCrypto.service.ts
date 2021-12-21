@@ -1,14 +1,14 @@
-import { KeySuffixOptions } from 'jslib-common/enums/keySuffixOptions';
+import { KeySuffixOptions } from "jslib-common/enums/keySuffixOptions";
 
-import { CryptoService } from 'jslib-common/services/crypto.service';
+import { CryptoService } from "jslib-common/services/crypto.service";
 
 export class BrowserCryptoService extends CryptoService {
-    protected async retrieveKeyFromStorage(keySuffix: KeySuffixOptions) {
-        if (keySuffix === 'biometric') {
-            await this.platformUtilService.authenticateBiometric();
-            return (await this.getKey())?.keyB64;
-        }
-
-        return await super.retrieveKeyFromStorage(keySuffix);
+  protected async retrieveKeyFromStorage(keySuffix: KeySuffixOptions) {
+    if (keySuffix === "biometric") {
+      await this.platformUtilService.authenticateBiometric();
+      return (await this.getKey())?.keyB64;
     }
+
+    return await super.retrieveKeyFromStorage(keySuffix);
+  }
 }
