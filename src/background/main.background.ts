@@ -153,7 +153,8 @@ export default class MainBackground {
 
   constructor() {
     // Services
-    this.messagingService = new BrowserMessagingService();
+    this.logService = new ConsoleLogService(false);
+    this.messagingService = new BrowserMessagingService(this.logService);
     this.storageService = new BrowserStorageService();
     this.platformUtilsService = new BrowserPlatformUtilsService(
       this.messagingService,
@@ -180,7 +181,6 @@ export default class MainBackground {
     this.secureStorageService = new BrowserStorageService();
     this.i18nService = new I18nService(BrowserApi.getUILanguage(window));
     this.cryptoFunctionService = new WebCryptoFunctionService(window, this.platformUtilsService);
-    this.logService = new ConsoleLogService(false);
     this.cryptoService = new BrowserCryptoService(
       this.storageService,
       this.secureStorageService,

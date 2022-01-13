@@ -155,7 +155,7 @@ export function initFactory(
     { provide: BaseUnauthGuardService, useClass: UnauthGuardService },
     DebounceNavigationService,
     PopupUtilsService,
-    { provide: MessagingService, useClass: BrowserMessagingService },
+    { provide: MessagingService, useClass: BrowserMessagingService, deps: [LogServiceAbstraction] },
     {
       provide: AuthServiceAbstraction,
       useFactory: getBgService<AuthService>("authService"),
