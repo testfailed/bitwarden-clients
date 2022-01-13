@@ -6,7 +6,7 @@ const maxErrors = 5;
 export default class BrowserMessagingService implements MessagingService {
   private ignoreConnectionError = false;
 
-  constructor(private logService: LogService) { }
+  constructor(private logService: LogService) {}
 
   send(subscriber: string, arg: any = {}) {
     const message = Object.assign({}, { command: subscriber }, arg);
@@ -15,13 +15,15 @@ export default class BrowserMessagingService implements MessagingService {
         return;
       }
 
-      if (chrome.runtime.lastError.message?.indexOf('Receiving end does not exist') > -1) {
+      if (chrome.runtime.lastError.message?.indexOf("Receiving end does not exist") > -1) {
         if (this.ignoreConnectionError) {
           return;
         }
 
-        this.logService.error(chrome.runtime.lastError.message +
-          ' (This error will now be suppressed to avoid flooding the console. If you experience any unexpected behaviour, try reloading the extension.)');
+        this.logService.error(
+          chrome.runtime.lastError.message +
+            " (This error will now be suppressed to avoid flooding the console. If you experience any unexpected behaviour, try reloading the extension.)"
+        );
         this.ignoreConnectionError = true;
         return;
       }
