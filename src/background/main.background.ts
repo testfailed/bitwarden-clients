@@ -478,7 +478,7 @@ export default class MainBackground {
   }
 
   async setIcon() {
-    if (!chrome.browserAction && !this.sidebarAction) {
+    if ((!chrome.browserAction && !this.sidebarAction) || this.isPrivateMode) {
       return;
     }
 
@@ -497,7 +497,7 @@ export default class MainBackground {
   }
 
   async refreshBadgeAndMenu(forLocked: boolean = false) {
-    if (!chrome.windows || !chrome.contextMenus) {
+    if (!chrome.windows || !chrome.contextMenus || this.isPrivateMode) {
       return;
     }
 
@@ -622,7 +622,7 @@ export default class MainBackground {
   }
 
   private async buildContextMenu() {
-    if (!chrome.contextMenus || this.buildingContextMenu) {
+    if (!chrome.contextMenus || this.buildingContextMenu || this.isPrivateMode) {
       return;
     }
 
@@ -700,7 +700,7 @@ export default class MainBackground {
   }
 
   private async loadMenuAndUpdateBadge(url: string, tabId: number, contextMenuEnabled: boolean) {
-    if (!url || (!chrome.browserAction && !this.sidebarAction)) {
+    if (!url || (!chrome.browserAction && !this.sidebarAction) || this.isPrivateMode) {
       return;
     }
 
@@ -792,7 +792,8 @@ export default class MainBackground {
     if (
       !chrome.contextMenus ||
       this.menuOptionsLoaded.indexOf(idSuffix) > -1 ||
-      (cipher != null && cipher.type !== CipherType.Login)
+      (cipher != null && cipher.type !== CipherType.Login) ||
+      this.isPrivateMode
     ) {
       return;
     }
