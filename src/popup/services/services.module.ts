@@ -1,7 +1,6 @@
 import { APP_INITIALIZER, LOCALE_ID, NgModule } from "@angular/core";
 
 import { DebounceNavigationService } from "./debounceNavigationService";
-import { LaunchGuardService } from "./launch-guard.service";
 import { LockGuardService } from "./lock-guard.service";
 import { PasswordRepromptService } from "./password-reprompt.service";
 import { UnauthGuardService } from "./unauth-guard.service";
@@ -159,7 +158,6 @@ export function initFactory(
       ],
       multi: true,
     },
-    LaunchGuardService,
     { provide: BaseLockGuardService, useClass: LockGuardService },
     { provide: BaseUnauthGuardService, useClass: UnauthGuardService },
     DebounceNavigationService,
