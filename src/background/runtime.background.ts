@@ -56,8 +56,9 @@ export default class RuntimeBackground {
     };
     BrowserApi.messageListener("runtime.background", backgroundMessageListener);
 
-    // TODO: only if private mode
-    (window as any).bitwardenBackgroundMessageListener = backgroundMessageListener;
+    if (this.main.isPrivateMode) {
+      (window as any).bitwardenBackgroundMessageListener = backgroundMessageListener;
+    }
   }
 
   async processMessage(msg: any, sender: any, sendResponse: any) {

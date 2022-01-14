@@ -152,9 +152,9 @@ export default class MainBackground {
   private isSafari: boolean;
   private nativeMessagingBackground: NativeMessagingBackground;
 
-  constructor(privateMode: boolean = false) {
+  constructor(public isPrivateMode: boolean = false) {
     // Services
-    this.messagingService = privateMode
+    this.messagingService = isPrivateMode
       ? new BrowserMessagingPrivateModeBackgroundService()
       : new BrowserMessagingService();
     this.storageService = new BrowserStorageService();
