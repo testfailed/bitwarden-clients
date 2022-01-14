@@ -64,8 +64,7 @@ import { ThemeType } from "jslib-common/enums/themeType";
 
 import MainBackground from "../../background/main.background";
 
-// const isPrivateMode = BrowserApi.getBackgroundPage() == null;
-const isPrivateMode = true;
+const isPrivateMode = BrowserApi.getBackgroundPage() == null;
 const mainBackground: MainBackground = isPrivateMode
   ? createLocalBgService()
   : BrowserApi.getBackgroundPage().bitwardenMain;
