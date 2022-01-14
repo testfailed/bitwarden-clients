@@ -48,6 +48,7 @@ import { VaultTimeoutService } from "jslib-common/abstractions/vaultTimeout.serv
 
 import { AutofillService } from "../../services/abstractions/autofill.service";
 import BrowserMessagingService from "../../services/browserMessaging.service";
+import BrowserMessagingPrivateModeService from "../../services/browserMessagingPrivateMode.service";
 
 import { AuthService } from "jslib-common/services/auth.service";
 import { ConsoleLogService } from "jslib-common/services/consoleLog.service";
@@ -143,7 +144,7 @@ export function initFactory(
     {
       provide: LOCALE_ID,
       useFactory: () =>
-        isPrivateMode ? null : getBgService<I18nService>("i18nService")().translationLocale,
+        getBgService<I18nService>("i18nService")().translationLocale,
       deps: [],
     },
     {
@@ -164,7 +165,10 @@ export function initFactory(
     { provide: BaseUnauthGuardService, useClass: UnauthGuardService },
     DebounceNavigationService,
     PopupUtilsService,
-    { provide: MessagingService, useClass: BrowserMessagingService },
+    {
+      provide: MessagingService, useFactory: () => 
+      isPrivateMode ? new BrowserMessagingPrivateModeService() : new BrowserMessagingService
+    },
     {
       provide: AuthServiceAbstraction,
       useFactory: getBgService<AuthService>("authService"),
@@ -178,9 +182,7 @@ export function initFactory(
         logService: ConsoleLogService,
         i18nService: I18nService
       ) => {
-        return isPrivateMode
-          ? null
-          : new PopupSearchService(
+        return new PopupSearchService(
               getBgService<SearchService>("searchService")(),
               cipherService,
               logService,
