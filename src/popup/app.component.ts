@@ -46,10 +46,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (BrowserApi.getBackgroundPage() == null) {
-      return;
-    }
-
     this.ngZone.runOutsideAngular(() => {
       window.onmousemove = () => this.recordActivity();
       window.onmousedown = () => this.recordActivity();

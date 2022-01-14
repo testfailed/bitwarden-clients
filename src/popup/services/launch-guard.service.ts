@@ -10,10 +10,7 @@ export class LaunchGuardService implements CanActivate {
   constructor(private router: Router, private unauthGuardService: UnauthGuardService) {}
 
   async canActivate() {
-    if (BrowserApi.getBackgroundPage() == null) {
-      this.router.navigate(["private-mode"]);
-      return false;
-    }
+    // TODO: delete this guard and replace it with unauthGuardService directly
     return await this.unauthGuardService.canActivate();
   }
 }

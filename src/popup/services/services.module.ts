@@ -59,15 +59,19 @@ import { PopupSearchService } from "./popup-search.service";
 import { PopupUtilsService } from "./popup-utils.service";
 
 import { ThemeType } from "jslib-common/enums/themeType";
-
-function getBgService<T>(service: string) {
-  return (): T => {
-    const page = BrowserApi.getBackgroundPage();
-    return page ? (page.bitwardenMain[service] as T) : null;
-  };
-}
+import MainBackground from 'src/background/main.background';
 
 const isPrivateMode = BrowserApi.getBackgroundPage() == null;
+
+let mainBackground: MainBackground;
+
+function getBgService<T>(service: keyof MainBackground) {
+  return (): T => {
+    return mainBackground
+      ? (mainBackground[service] as any as T)
+      : null;
+  };
+}
 
 export function initFactory(
   platformUtilsService: PlatformUtilsService,
@@ -86,43 +90,48 @@ export function initFactory(
       window.document.body.classList.add("body-sm");
     }
 
-    if (!isPrivateMode) {
-      await stateService.save(
-        ConstantsService.disableFaviconKey,
-        await storageService.get<boolean>(ConstantsService.disableFaviconKey)
-      );
+    if (isPrivateMode) {
+      mainBackground = new MainBackground();
+      mainBackground.bootstrap();
+    } else {
+      mainBackground = BrowserApi.getBackgroundPage()?.bitwardenMain;
+    }
 
-      await stateService.save(
-        ConstantsService.disableBadgeCounterKey,
-        await storageService.get<boolean>(ConstantsService.disableBadgeCounterKey)
-      );
+    await stateService.save(
+      ConstantsService.disableFaviconKey,
+      await storageService.get<boolean>(ConstantsService.disableFaviconKey)
+    );
 
-      const htmlEl = window.document.documentElement;
-      const theme = await platformUtilsService.getEffectiveTheme();
-      htmlEl.classList.add("theme_" + theme);
-      platformUtilsService.onDefaultSystemThemeChange(async (sysTheme) => {
-        const bwTheme = await storageService.get<ThemeType>(ConstantsService.themeKey);
-        if (bwTheme == null || bwTheme === ThemeType.System) {
-          htmlEl.classList.remove("theme_" + ThemeType.Light, "theme_" + ThemeType.Dark);
-          htmlEl.classList.add("theme_" + sysTheme);
-        }
-      });
-      htmlEl.classList.add("locale_" + i18nService.translationLocale);
+    await stateService.save(
+      ConstantsService.disableBadgeCounterKey,
+      await storageService.get<boolean>(ConstantsService.disableBadgeCounterKey)
+    );
 
-      // Workaround for slow performance on external monitors on Chrome + MacOS
-      // See: https://bugs.chromium.org/p/chromium/issues/detail?id=971701#c64
-      if (
-        platformUtilsService.isChrome() &&
-        navigator.platform.indexOf("Mac") > -1 &&
-        popupUtilsService.inPopup(window) &&
-        (window.screenLeft < 0 ||
-          window.screenTop < 0 ||
-          window.screenLeft > window.screen.width ||
-          window.screenTop > window.screen.height)
-      ) {
-        htmlEl.classList.add("force_redraw");
-        logService.info("Force redraw is on");
+    const htmlEl = window.document.documentElement;
+    const theme = await platformUtilsService.getEffectiveTheme();
+    htmlEl.classList.add("theme_" + theme);
+    platformUtilsService.onDefaultSystemThemeChange(async (sysTheme) => {
+      const bwTheme = await storageService.get<ThemeType>(ConstantsService.themeKey);
+      if (bwTheme == null || bwTheme === ThemeType.System) {
+        htmlEl.classList.remove("theme_" + ThemeType.Light, "theme_" + ThemeType.Dark);
+        htmlEl.classList.add("theme_" + sysTheme);
       }
+    });
+    htmlEl.classList.add("locale_" + i18nService.translationLocale);
+
+    // Workaround for slow performance on external monitors on Chrome + MacOS
+    // See: https://bugs.chromium.org/p/chromium/issues/detail?id=971701#c64
+    if (
+      platformUtilsService.isChrome() &&
+      navigator.platform.indexOf("Mac") > -1 &&
+      popupUtilsService.inPopup(window) &&
+      (window.screenLeft < 0 ||
+        window.screenTop < 0 ||
+        window.screenLeft > window.screen.width ||
+        window.screenTop > window.screen.height)
+    ) {
+      htmlEl.classList.add("force_redraw");
+      logService.info("Force redraw is on");
     }
   };
 }
