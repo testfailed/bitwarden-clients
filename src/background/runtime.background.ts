@@ -47,13 +47,14 @@ export default class RuntimeBackground {
     }
 
     await this.checkOnInstalled();
-    const backgroundMessageListener = async (msg: any, sender: chrome.runtime.MessageSender, sendResponse: any) => {
-        await this.processMessage(msg, sender, sendResponse);
-      }
-    BrowserApi.messageListener(
-      "runtime.background",
-      backgroundMessageListener
-    );
+    const backgroundMessageListener = async (
+      msg: any,
+      sender: chrome.runtime.MessageSender,
+      sendResponse: any
+    ) => {
+      await this.processMessage(msg, sender, sendResponse);
+    };
+    BrowserApi.messageListener("runtime.background", backgroundMessageListener);
 
     // TODO: only if private mode
     (window as any).bitwardenBackgroundMessageListener = backgroundMessageListener;

@@ -60,7 +60,7 @@ import { PopupSearchService } from "./popup-search.service";
 import { PopupUtilsService } from "./popup-utils.service";
 
 import { ThemeType } from "jslib-common/enums/themeType";
-import MainBackground from 'src/background/main.background';
+import MainBackground from "src/background/main.background";
 
 const isPrivateMode = BrowserApi.getBackgroundPage() == null;
 
@@ -68,9 +68,7 @@ let mainBackground: MainBackground;
 
 function getBgService<T>(service: keyof MainBackground) {
   return (): T => {
-    return mainBackground
-      ? (mainBackground[service] as any as T)
-      : null;
+    return mainBackground ? (mainBackground[service] as any as T) : null;
   };
 }
 
@@ -143,8 +141,7 @@ export function initFactory(
   providers: [
     {
       provide: LOCALE_ID,
-      useFactory: () =>
-        getBgService<I18nService>("i18nService")().translationLocale,
+      useFactory: () => getBgService<I18nService>("i18nService")().translationLocale,
       deps: [],
     },
     {
@@ -166,8 +163,9 @@ export function initFactory(
     DebounceNavigationService,
     PopupUtilsService,
     {
-      provide: MessagingService, useFactory: () => 
-      isPrivateMode ? new BrowserMessagingPrivateModeService() : new BrowserMessagingService
+      provide: MessagingService,
+      useFactory: () =>
+        isPrivateMode ? new BrowserMessagingPrivateModeService() : new BrowserMessagingService(),
     },
     {
       provide: AuthServiceAbstraction,
@@ -183,11 +181,11 @@ export function initFactory(
         i18nService: I18nService
       ) => {
         return new PopupSearchService(
-              getBgService<SearchService>("searchService")(),
-              cipherService,
-              logService,
-              i18nService
-            );
+          getBgService<SearchService>("searchService")(),
+          cipherService,
+          logService,
+          i18nService
+        );
       },
       deps: [CipherService, LogServiceAbstraction, I18nService],
     },
