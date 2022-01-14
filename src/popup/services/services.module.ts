@@ -47,8 +47,9 @@ import { UserVerificationService } from "jslib-common/abstractions/userVerificat
 import { VaultTimeoutService } from "jslib-common/abstractions/vaultTimeout.service";
 
 import { AutofillService } from "../../services/abstractions/autofill.service";
+
 import BrowserMessagingService from "../../services/browserMessaging.service";
-import BrowserMessagingPrivateModeService from "../../services/browserMessagingPrivateMode.service";
+import BrowserMessagingPrivateModePopupService from "../../services/browserMessagingPrivateModePopup.service"
 
 import { AuthService } from "jslib-common/services/auth.service";
 import { ConsoleLogService } from "jslib-common/services/consoleLog.service";
@@ -60,11 +61,17 @@ import { PopupSearchService } from "./popup-search.service";
 import { PopupUtilsService } from "./popup-utils.service";
 
 import { ThemeType } from "jslib-common/enums/themeType";
-import MainBackground from "src/background/main.background";
+
+import MainBackground from "../../background/main.background";
 
 const isPrivateMode = BrowserApi.getBackgroundPage() == null;
+const mainBackground: MainBackground = isPrivateMode ? createLocalBgService() : BrowserApi.getBackgroundPage().bitwardenMain;
 
-let mainBackground: MainBackground;
+function createLocalBgService() {
+  const localBgService = new MainBackground(true);
+  localBgService.bootstrap();
+  return localBgService;
+}
 
 function getBgService<T>(service: keyof MainBackground) {
   return (): T => {
@@ -87,13 +94,6 @@ export function initFactory(
       window.document.body.classList.add("body-xs");
     } else if (window.screen.availHeight <= 800) {
       window.document.body.classList.add("body-sm");
-    }
-
-    if (isPrivateMode) {
-      mainBackground = new MainBackground();
-      mainBackground.bootstrap();
-    } else {
-      mainBackground = BrowserApi.getBackgroundPage()?.bitwardenMain;
     }
 
     await stateService.save(
@@ -164,8 +164,9 @@ export function initFactory(
     PopupUtilsService,
     {
       provide: MessagingService,
-      useFactory: () =>
-        isPrivateMode ? new BrowserMessagingPrivateModeService() : new BrowserMessagingService(),
+      useFactory: () => {
+        return isPrivateMode ? new BrowserMessagingPrivateModePopupService() : new BrowserMessagingService();
+      },
     },
     {
       provide: AuthServiceAbstraction,
