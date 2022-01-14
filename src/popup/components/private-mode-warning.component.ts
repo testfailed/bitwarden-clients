@@ -1,16 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { PopupUtilsService } from '../services/popup-utils.service';
+import { Component, OnInit } from "@angular/core";
+import { PopupUtilsService } from "../services/popup-utils.service";
 
 @Component({
-    selector: "app-private-mode-warning",
-    templateUrl: "private-mode-warning.component.html",
+  selector: "app-private-mode-warning",
+  templateUrl: "private-mode-warning.component.html",
 })
 export class PrivateModeWarningComponent implements OnInit {
-    showWarning = false;
+  showWarning = false;
 
-    constructor(private popupUtilsService: PopupUtilsService) { }
+  constructor(private popupUtilsService: PopupUtilsService) {}
 
-    ngOnInit() {
-        this.showWarning = this.popupUtilsService.inPrivateMode();
-    }
+  ngOnInit() {
+    this.showWarning = this.popupUtilsService.inPrivateMode();
+  }
 }

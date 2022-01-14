@@ -49,7 +49,7 @@ import { VaultTimeoutService } from "jslib-common/abstractions/vaultTimeout.serv
 import { AutofillService } from "../../services/abstractions/autofill.service";
 
 import BrowserMessagingService from "../../services/browserMessaging.service";
-import BrowserMessagingPrivateModePopupService from "../../services/browserMessagingPrivateModePopup.service"
+import BrowserMessagingPrivateModePopupService from "../../services/browserMessagingPrivateModePopup.service";
 
 import { AuthService } from "jslib-common/services/auth.service";
 import { ConsoleLogService } from "jslib-common/services/consoleLog.service";
@@ -66,7 +66,9 @@ import MainBackground from "../../background/main.background";
 
 // const isPrivateMode = BrowserApi.getBackgroundPage() == null;
 const isPrivateMode = true;
-const mainBackground: MainBackground = isPrivateMode ? createLocalBgService() : BrowserApi.getBackgroundPage().bitwardenMain;
+const mainBackground: MainBackground = isPrivateMode
+  ? createLocalBgService()
+  : BrowserApi.getBackgroundPage().bitwardenMain;
 
 function createLocalBgService() {
   const localBgService = new MainBackground(true);
@@ -162,11 +164,13 @@ export function initFactory(
     { provide: BaseLockGuardService, useClass: LockGuardService },
     { provide: BaseUnauthGuardService, useClass: UnauthGuardService },
     DebounceNavigationService,
-    { provide: PopupUtilsService, useFactory: () => new PopupUtilsService(isPrivateMode)},
+    { provide: PopupUtilsService, useFactory: () => new PopupUtilsService(isPrivateMode) },
     {
       provide: MessagingService,
       useFactory: () => {
-        return isPrivateMode ? new BrowserMessagingPrivateModePopupService() : new BrowserMessagingService();
+        return isPrivateMode
+          ? new BrowserMessagingPrivateModePopupService()
+          : new BrowserMessagingService();
       },
     },
     {

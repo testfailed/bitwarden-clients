@@ -86,7 +86,7 @@ import { PopupUtilsService } from "../popup/services/popup-utils.service";
 import AutofillService from "../services/autofill.service";
 import { BrowserCryptoService } from "../services/browserCrypto.service";
 import BrowserMessagingService from "../services/browserMessaging.service";
-import BrowserMessagingPrivateModeBackgroundService from '../services/browserMessagingPrivateModeBackground.service';
+import BrowserMessagingPrivateModeBackgroundService from "../services/browserMessagingPrivateModeBackground.service";
 import BrowserPlatformUtilsService from "../services/browserPlatformUtils.service";
 import BrowserStorageService from "../services/browserStorage.service";
 import I18nService from "../services/i18n.service";
@@ -154,7 +154,9 @@ export default class MainBackground {
 
   constructor(privateMode: boolean = false) {
     // Services
-    this.messagingService = privateMode ? new BrowserMessagingPrivateModeBackgroundService() : new BrowserMessagingService();
+    this.messagingService = privateMode
+      ? new BrowserMessagingPrivateModeBackgroundService()
+      : new BrowserMessagingService();
     this.storageService = new BrowserStorageService();
     this.platformUtilsService = new BrowserPlatformUtilsService(
       this.messagingService,

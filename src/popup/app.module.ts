@@ -77,7 +77,7 @@ import { ActionButtonsComponent } from "./components/action-buttons.component";
 import { CipherRowComponent } from "./components/cipher-row.component";
 import { PasswordRepromptComponent } from "./components/password-reprompt.component";
 import { PopOutComponent } from "./components/pop-out.component";
-import { PrivateModeWarningComponent } from './components/private-mode-warning.component';
+import { PrivateModeWarningComponent } from "./components/private-mode-warning.component";
 import { SendListComponent } from "./components/send-list.component";
 import { SetPinComponent } from "./components/set-pin.component";
 import { VerifyMasterPasswordComponent } from "./components/verify-master-password.component";
