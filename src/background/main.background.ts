@@ -331,7 +331,6 @@ export default class MainBackground {
       () => this.logout(true),
       this.logService
     );
-    this.popupUtilsService = new PopupUtilsService(this.platformUtilsService);
     this.systemService = new SystemService(
       this.storageService,
       this.vaultTimeoutService,

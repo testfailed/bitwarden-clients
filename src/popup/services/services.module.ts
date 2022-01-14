@@ -64,7 +64,8 @@ import { ThemeType } from "jslib-common/enums/themeType";
 
 import MainBackground from "../../background/main.background";
 
-const isPrivateMode = BrowserApi.getBackgroundPage() == null;
+// const isPrivateMode = BrowserApi.getBackgroundPage() == null;
+const isPrivateMode = true;
 const mainBackground: MainBackground = isPrivateMode ? createLocalBgService() : BrowserApi.getBackgroundPage().bitwardenMain;
 
 function createLocalBgService() {
@@ -161,7 +162,7 @@ export function initFactory(
     { provide: BaseLockGuardService, useClass: LockGuardService },
     { provide: BaseUnauthGuardService, useClass: UnauthGuardService },
     DebounceNavigationService,
-    PopupUtilsService,
+    { provide: PopupUtilsService, useFactory: () => new PopupUtilsService(isPrivateMode)},
     {
       provide: MessagingService,
       useFactory: () => {

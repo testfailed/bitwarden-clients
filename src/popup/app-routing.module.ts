@@ -23,7 +23,6 @@ import { UpdateTempPasswordComponent } from "./accounts/update-temp-password.com
 import { PasswordGeneratorHistoryComponent } from "./generator/password-generator-history.component";
 import { PasswordGeneratorComponent } from "./generator/password-generator.component";
 
-import { PrivateModeComponent } from "./private-mode.component";
 import { TabsComponent } from "./tabs.component";
 
 import { ExcludedDomainsComponent } from "./settings/excluded-domains.component";
@@ -234,11 +233,6 @@ const routes: Routes = [
     component: OptionsComponent,
     canActivate: [AuthGuardService],
     data: { state: "options" },
-  },
-  {
-    path: "private-mode",
-    component: PrivateModeComponent,
-    data: { state: "private-mode" },
   },
   {
     path: "clone-cipher",
