@@ -173,7 +173,7 @@ export function initFactory(
       provide: MessagingService,
       useFactory: () => {
         return isPrivateMode
-          ? new BrowserMessagingPrivateModeService('popup')
+          ? new BrowserMessagingPrivateModeService("popup")
           : new BrowserMessagingService();
       },
     },

@@ -162,7 +162,7 @@ export default class MainBackground {
   constructor(public isPrivateMode: boolean = false) {
     // Services
     this.messagingService = isPrivateMode
-      ? new BrowserMessagingPrivateModeService('background')
+      ? new BrowserMessagingPrivateModeService("background")
       : new BrowserMessagingService();
     this.storageService = new BrowserStorageService();
     this.secureStorageService = new BrowserStorageService();
