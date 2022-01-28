@@ -89,7 +89,7 @@ import { PopupUtilsService } from "../popup/services/popup-utils.service";
 import AutofillService from "../services/autofill.service";
 import { BrowserCryptoService } from "../services/browserCrypto.service";
 import BrowserMessagingService from "../services/browserMessaging.service";
-import BrowserMessagingPrivateModeBackgroundService from "../services/browserMessagingPrivateModeBackground.service";
+import BrowserMessagingPrivateModeService from "../services/browserMessagingPrivateMode.service";
 import BrowserPlatformUtilsService from "../services/browserPlatformUtils.service";
 import BrowserStorageService from "../services/browserStorage.service";
 import I18nService from "../services/i18n.service";
@@ -162,7 +162,7 @@ export default class MainBackground {
   constructor(public isPrivateMode: boolean = false) {
     // Services
     this.messagingService = isPrivateMode
-      ? new BrowserMessagingPrivateModeBackgroundService()
+      ? new BrowserMessagingPrivateModeService('background')
       : new BrowserMessagingService();
     this.storageService = new BrowserStorageService();
     this.secureStorageService = new BrowserStorageService();
@@ -355,7 +355,7 @@ export default class MainBackground {
       this.logService,
       this.stateService
     );
-    this.popupUtilsService = new PopupUtilsService(this.platformUtilsService);
+    this.popupUtilsService = new PopupUtilsService(this.isPrivateMode);
 
     this.userVerificationService = new UserVerificationService(
       this.cryptoService,
