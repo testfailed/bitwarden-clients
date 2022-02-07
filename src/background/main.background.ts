@@ -355,7 +355,7 @@ export default class MainBackground {
       this.logService,
       this.stateService
     );
-    this.popupUtilsService = new PopupUtilsService(this.platformUtilsService);
+    this.popupUtilsService = new PopupUtilsService(isPrivateMode);
 
     this.userVerificationService = new UserVerificationService(
       this.cryptoService,
