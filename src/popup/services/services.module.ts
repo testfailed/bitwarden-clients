@@ -43,6 +43,7 @@ import { StorageService as StorageServiceAbstraction } from "jslib-common/abstra
 import { SyncService } from "jslib-common/abstractions/sync.service";
 import { TokenService } from "jslib-common/abstractions/token.service";
 import { TotpService } from "jslib-common/abstractions/totp.service";
+import { TwoFactorService } from "jslib-common/abstractions/twoFactor.service";
 import { UserVerificationService } from "jslib-common/abstractions/userVerification.service";
 import { VaultTimeoutService } from "jslib-common/abstractions/vaultTimeout.service";
 
@@ -176,6 +177,11 @@ export function initFactory(
           ? new BrowserMessagingPrivateModePopupService()
           : new BrowserMessagingService();
       },
+    },
+    {
+      provide: TwoFactorService,
+      useFactory: getBgService<TwoFactorService>("twoFactorService"),
+      deps: [],
     },
     {
       provide: AuthServiceAbstraction,

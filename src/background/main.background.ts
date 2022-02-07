@@ -32,6 +32,7 @@ import { SyncService } from "jslib-common/services/sync.service";
 import { SystemService } from "jslib-common/services/system.service";
 import { TokenService } from "jslib-common/services/token.service";
 import { TotpService } from "jslib-common/services/totp.service";
+import { TwoFactorService } from "jslib-common/services/twoFactor.service";
 import { UserVerificationService } from "jslib-common/services/userVerification.service";
 import { WebCryptoFunctionService } from "jslib-common/services/webCryptoFunction.service";
 
@@ -66,6 +67,7 @@ import { SyncService as SyncServiceAbstraction } from "jslib-common/abstractions
 import { SystemService as SystemServiceAbstraction } from "jslib-common/abstractions/system.service";
 import { TokenService as TokenServiceAbstraction } from "jslib-common/abstractions/token.service";
 import { TotpService as TotpServiceAbstraction } from "jslib-common/abstractions/totp.service";
+import { TwoFactorService as TwoFactorServiceAbstraction } from "jslib-common/abstractions/twoFactor.service";
 import { UserVerificationService as UserVerificationServiceAbstraction } from "jslib-common/abstractions/userVerification.service";
 import { VaultTimeoutService as VaultTimeoutServiceAbstraction } from "jslib-common/abstractions/vaultTimeout.service";
 
@@ -142,6 +144,7 @@ export default class MainBackground {
   providerService: ProviderServiceAbstraction;
   keyConnectorService: KeyConnectorServiceAbstraction;
   userVerificationService: UserVerificationServiceAbstraction;
+  twoFactorService: TwoFactorServiceAbstraction;
 
   onUpdatedRan: boolean;
   onReplacedRan: boolean;
@@ -267,7 +270,8 @@ export default class MainBackground {
       this.apiService,
       this.tokenService,
       this.logService,
-      this.organizationService
+      this.organizationService,
+      this.cryptoFunctionService
     );
 
     const vaultTimeoutServiceCallbacks = {
@@ -454,6 +458,8 @@ export default class MainBackground {
     );
     this.windowsBackground = new WindowsBackground(this);
 
+    this.twoFactorService = new TwoFactorService(this.i18nService, this.platformUtilsService);
+
     // AuthService should send the messages to the background not popup.
     const backgroundMessagingService = new BrowserMessagingService(
       this.runtimeBackground.processMessage
@@ -463,15 +469,13 @@ export default class MainBackground {
       this.apiService,
       this.tokenService,
       this.appIdService,
-      this.i18nService,
       this.platformUtilsService,
       backgroundMessagingService,
-      this.vaultTimeoutService,
       this.logService,
-      this.cryptoFunctionService,
       this.keyConnectorService,
       this.environmentService,
-      this.stateService
+      this.stateService,
+      this.twoFactorService
     );
   }
 
@@ -480,13 +484,14 @@ export default class MainBackground {
 
     await this.stateService.init();
 
-    (this.authService as AuthService).init();
     await (this.vaultTimeoutService as VaultTimeoutService).init(true);
     await (this.i18nService as I18nService).init();
     await (this.eventService as EventService).init(true);
     await this.runtimeBackground.init();
     await this.notificationBackground.init();
     await this.commandsBackground.init();
+
+    this.twoFactorService.init();
 
     await this.tabsBackground.init();
     await this.contextMenusBackground.init();
