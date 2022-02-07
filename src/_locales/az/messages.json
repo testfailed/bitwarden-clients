@@ -94,11 +94,11 @@
   "noMatchingLogins": {
     "message": "Uyğun gələn hesab yoxdur."
   },
-  "vaultLocked": {
-    "message": "Anbar kilidlənib."
+  "unlockVaultMenu": {
+    "message": "Anbarın kilidini açın"
   },
-  "vaultLoggedOut": {
-    "message": "Anbardan çıxış edildi."
+  "loginToVaultMenu": {
+    "message": "Anbarınıza giriş edin"
   },
   "autoFillInfo": {
     "message": "Hazırkı səyyah vərəqi üçün avto-doldurulacaq giriş məlumatları yoxdur."

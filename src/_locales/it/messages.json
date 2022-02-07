@@ -94,11 +94,11 @@
   "noMatchingLogins": {
     "message": "Nessun login corrispondente."
   },
-  "vaultLocked": {
-    "message": "La cassaforte è bloccata."
+  "unlockVaultMenu": {
+    "message": "Sblocca la tua cassaforte"
   },
-  "vaultLoggedOut": {
-    "message": "La cassaforte è bloccata."
+  "loginToVaultMenu": {
+    "message": "Accedi alla tua cassaforte"
   },
   "autoFillInfo": {
     "message": "Non ci sono login disponibili per completare la scheda attuale del browser."
@@ -439,7 +439,7 @@
     "message": "Codice di verifica non valido."
   },
   "valueCopied": {
-    "message": "$VALUE$ copiato",
+    "message": "$VALUE$ copiata",
     "description": "Value has been copied to the clipboard.",
     "placeholders": {
       "value": {
