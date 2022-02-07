@@ -184,6 +184,11 @@ export function initFactory(
       deps: [],
     },
     {
+      provide: TwoFactorService,
+      useFactory: getBgService<TwoFactorService>("twoFactorService"),
+      deps: [],
+    },
+    {
       provide: AuthServiceAbstraction,
       useFactory: getBgService<AuthService>("authService"),
       deps: [],

@@ -352,7 +352,8 @@ export default class MainBackground {
       this.folderService,
       this.cipherService,
       this.apiService,
-      this.cryptoService
+      this.cryptoService,
+      this.cryptoFunctionService
     );
     this.notificationsService = new NotificationsService(
       this.syncService,
@@ -574,6 +575,8 @@ export default class MainBackground {
       this.vaultTimeoutService.clear(userId),
       this.keyConnectorService.clear(),
     ]);
+
+    await this.stateService.clean();
 
     if (userId == null || userId === (await this.stateService.getUserId())) {
       this.searchService.clearIndex();
