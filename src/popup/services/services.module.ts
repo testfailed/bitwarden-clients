@@ -49,7 +49,7 @@ import { VaultTimeoutService } from "jslib-common/abstractions/vaultTimeout.serv
 import { AutofillService } from "../../services/abstractions/autofill.service";
 
 import BrowserMessagingService from "../../services/browserMessaging.service";
-import BrowserMessagingPrivateModeService from "../../services/browserMessagingPrivateMode.service";
+import BrowserMessagingPrivateModePopupService from "../../services/browserMessagingPrivateModePopup.service";
 
 import { AuthService } from "jslib-common/services/auth.service";
 import { ConsoleLogService } from "jslib-common/services/consoleLog.service";
@@ -173,7 +173,7 @@ export function initFactory(
       provide: MessagingService,
       useFactory: () => {
         return isPrivateMode
-          ? new BrowserMessagingPrivateModeService('popup')
+          ? new BrowserMessagingPrivateModePopupService()
           : new BrowserMessagingService();
       },
     },
