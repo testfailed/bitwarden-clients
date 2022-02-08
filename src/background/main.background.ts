@@ -996,10 +996,13 @@ export default class MainBackground {
   }
 
   private async reloadProcess(): Promise<void> {
-    const accounts = Object.keys(this.stateService.accounts.getValue());
-    for (const userId of accounts) {
-      if (!(await this.vaultTimeoutService.isLocked(userId))) {
-        return;
+    const accounts = this.stateService.accounts.getValue();
+    if (accounts != null) {
+      const accountKeys = Object.keys(accounts);
+      for (const userId of accountKeys) {
+        if (!(await this.vaultTimeoutService.isLocked(userId))) {
+          return;
+        }
       }
     }
 
