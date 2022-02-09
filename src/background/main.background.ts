@@ -406,7 +406,6 @@ export default class MainBackground {
       this.systemService,
       this.environmentService,
       this.messagingService,
-      this.stateService,
       this.logService
     );
     this.nativeMessagingBackground = new NativeMessagingBackground(

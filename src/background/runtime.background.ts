@@ -31,7 +31,6 @@ export default class RuntimeBackground {
     private systemService: SystemService,
     private environmentService: EnvironmentService,
     private messagingService: MessagingService,
-    private stateService: StateService,
     private logService: LogService
   ) {
     // onInstalled listener must be wired up before anything else, so we do it in the ctor
@@ -66,7 +65,7 @@ export default class RuntimeBackground {
       case "unlocked":
         let item: LockedVaultPendingNotificationsItem;
 
-        if (this.lockedVaultPendingNotifications.length > 0) {
+        if (this.lockedVaultPendingNotifications?.length > 0) {
           await BrowserApi.closeLoginTab();
 
           item = this.lockedVaultPendingNotifications.pop();
