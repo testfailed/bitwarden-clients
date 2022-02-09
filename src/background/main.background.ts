@@ -511,7 +511,7 @@ export default class MainBackground {
   }
 
   async setIcon() {
-    if ((!chrome.browserAction && !this.sidebarAction) || this.isPrivateMode) {
+    if (!chrome.browserAction && !this.sidebarAction) {
       return;
     }
 
@@ -530,7 +530,7 @@ export default class MainBackground {
   }
 
   async refreshBadgeAndMenu(forLocked: boolean = false) {
-    if (!chrome.windows || !chrome.contextMenus || this.isPrivateMode) {
+    if (!chrome.windows || !chrome.contextMenus) {
       return;
     }
 
@@ -653,7 +653,7 @@ export default class MainBackground {
   }
 
   private async buildContextMenu() {
-    if (!chrome.contextMenus || this.buildingContextMenu || this.isPrivateMode) {
+    if (!chrome.contextMenus || this.buildingContextMenu) {
       return;
     }
 
@@ -731,7 +731,7 @@ export default class MainBackground {
   }
 
   private async loadMenuAndUpdateBadge(url: string, tabId: number, contextMenuEnabled: boolean) {
-    if (!url || (!chrome.browserAction && !this.sidebarAction) || this.isPrivateMode) {
+    if (!url || (!chrome.browserAction && !this.sidebarAction)) {
       return;
     }
 
@@ -821,8 +821,7 @@ export default class MainBackground {
     if (
       !chrome.contextMenus ||
       this.menuOptionsLoaded.indexOf(idSuffix) > -1 ||
-      (cipher != null && cipher.type !== CipherType.Login) ||
-      this.isPrivateMode
+      (cipher != null && cipher.type !== CipherType.Login)
     ) {
       return;
     }
@@ -928,7 +927,7 @@ export default class MainBackground {
   }
 
   private async actionSetIcon(theAction: any, suffix: string): Promise<any> {
-    if (!theAction || !theAction.setIcon) {
+    if (!theAction || !theAction.setIcon || this.isPrivateMode) {
       return;
     }
 
