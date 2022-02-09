@@ -459,14 +459,10 @@ export default class MainBackground {
 
     this.twoFactorService = new TwoFactorService(this.i18nService, this.platformUtilsService);
 
-    const that = this;
-    const backgroundMessagingService = new (class extends MessagingServiceAbstraction {
-      // AuthService should send the messages to the background not popup.
-      send = (subscriber: string, arg: any = {}) => {
-        const message = Object.assign({}, { command: subscriber }, arg);
-        that.runtimeBackground.processMessage(message, that, null);
-      };
-    })();
+    // AuthService should send the messages to the background not popup.
+    const backgroundMessagingService = new BrowserMessagingService(
+      this.runtimeBackground.processMessage
+    );
     this.authService = new AuthService(
       this.cryptoService,
       this.apiService,
