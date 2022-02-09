@@ -101,7 +101,6 @@ import VaultTimeoutService from "../services/vaultTimeout.service";
 
 import { Account } from "../models/account";
 
-import { GlobalStateFactory } from "jslib-common/factories/globalStateFactory";
 import { StateFactory } from "jslib-common/factories/stateFactory";
 
 export default class MainBackground {
