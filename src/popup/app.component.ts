@@ -15,6 +15,7 @@ import { PlatformUtilsService } from "jslib-common/abstractions/platformUtils.se
 import { StateService } from "../services/abstractions/state.service";
 
 import { routerTransition } from "./app-routing.animations";
+import { PopupUtilsService } from "./services/popup-utils.service";
 
 @Component({
   selector: "app-root",
@@ -40,7 +41,7 @@ export class AppComponent implements OnInit {
     private ngZone: NgZone,
     private sanitizer: DomSanitizer,
     private platformUtilsService: PlatformUtilsService,
-    private keyConnectoService: KeyConnectorService
+    private popupUtilsService: PopupUtilsService
   ) {}
 
   ngOnInit() {
@@ -117,7 +118,13 @@ export class AppComponent implements OnInit {
       }
     };
 
-    BrowserApi.messageListener("app.component", (window as any).bitwardenPopupMainMessageListener);
+    // Private mode runs the background in the popup and doesn't use listeners
+    if (!this.popupUtilsService.inPrivateMode) {
+      BrowserApi.messageListener(
+        "app.component",
+        (window as any).bitwardenPopupMainMessageListener
+      );
+    }
 
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {
