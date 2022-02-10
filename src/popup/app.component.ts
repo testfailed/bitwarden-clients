@@ -40,8 +40,7 @@ export class AppComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private ngZone: NgZone,
     private sanitizer: DomSanitizer,
-    private platformUtilsService: PlatformUtilsService,
-    private popupUtilsService: PopupUtilsService
+    private platformUtilsService: PlatformUtilsService
   ) {}
 
   ngOnInit() {
