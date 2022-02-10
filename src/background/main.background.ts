@@ -540,13 +540,6 @@ export default class MainBackground {
 
     await this.actionSetIcon(chrome.browserAction, suffix);
     await this.actionSetIcon(this.sidebarAction, suffix);
-
-    // Set Private Mode windows back to the default icon - they do not share state with the background page
-    const wins = await BrowserApi.getPrivateModeWindows();
-    wins.forEach(async (win) => {
-      await this.actionSetIcon(chrome.browserAction, "", win.id);
-      await this.actionSetIcon(this.sidebarAction, "", win.id);
-    });
   }
 
   async refreshBadgeAndMenu(forLocked: boolean = false) {
