@@ -118,13 +118,7 @@ export class AppComponent implements OnInit {
       }
     };
 
-    // Private mode runs the background in the popup and doesn't use listeners
-    if (!this.popupUtilsService.inPrivateMode()) {
-      BrowserApi.messageListener(
-        "app.component",
-        (window as any).bitwardenPopupMainMessageListener
-      );
-    }
+    BrowserApi.messageListener("app.component", (window as any).bitwardenPopupMainMessageListener);
 
     this.router.events.subscribe(async (event) => {
       if (event instanceof NavigationEnd) {

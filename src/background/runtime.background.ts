@@ -53,10 +53,8 @@ export default class RuntimeBackground {
       await this.processMessage(msg, sender, sendResponse);
     };
 
-    // Private mode runs the background in the popup and doesn't use listeners
-    if (!this.main.isPrivateMode) {
-      BrowserApi.messageListener("runtime.background", backgroundMessageListener);
-    } else {
+    BrowserApi.messageListener("runtime.background", backgroundMessageListener);
+    if (this.main.isPrivateMode) {
       (window as any).bitwardenBackgroundMessageListener = backgroundMessageListener;
     }
   }
