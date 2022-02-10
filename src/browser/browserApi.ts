@@ -88,8 +88,8 @@ export class BrowserApi {
     return (await browser.windows.getAll()).filter((win) => win.incognito);
   }
 
-  static getCurrentWindowId() {
-    return chrome.windows.WINDOW_ID_CURRENT;
+  static async onWindowCreated(callback: (win: chrome.windows.Window) => any) {
+    return chrome.windows.onCreated.addListener(callback);
   }
 
   static getBackgroundPage(): any {

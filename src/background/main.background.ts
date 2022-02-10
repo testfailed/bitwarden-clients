@@ -502,6 +502,16 @@ export default class MainBackground {
     await this.webRequestBackground.init();
     await this.windowsBackground.init();
 
+    if (this.platformUtilsService.isFirefox && !this.isPrivateMode) {
+      // Set new Private Mode windows to the default icon - they do not share state with the background page
+      BrowserApi.onWindowCreated(async (win) => {
+        if (win.incognito) {
+          await this.actionSetIcon(chrome.browserAction, "", win.id);
+          await this.actionSetIcon(this.sidebarAction, "", win.id);
+        }
+      });
+    }
+
     return new Promise<void>((resolve) => {
       setTimeout(async () => {
         await this.environmentService.setUrlsFromStorage();
@@ -514,14 +524,7 @@ export default class MainBackground {
   }
 
   async setIcon() {
-    if (!chrome.browserAction && !this.sidebarAction) {
-      return;
-    }
-
-    if (this.isPrivateMode) {
-      // Generic Bitwarden icon for Private Mode windows
-      await this.actionSetIcon(chrome.browserAction, "", BrowserApi.getCurrentWindowId());
-      await this.actionSetIcon(this.sidebarAction, "", BrowserApi.getCurrentWindowId());
+    if ((!chrome.browserAction && !this.sidebarAction) || this.isPrivateMode) {
       return;
     }
 
@@ -538,7 +541,7 @@ export default class MainBackground {
     await this.actionSetIcon(chrome.browserAction, suffix);
     await this.actionSetIcon(this.sidebarAction, suffix);
 
-    // Set Firefox Private Mode windows back to generic icon
+    // Set Private Mode windows back to the default icon - they do not share state with the background page
     const wins = await BrowserApi.getPrivateModeWindows();
     wins.forEach(async (win) => {
       await this.actionSetIcon(chrome.browserAction, "", win.id);
