@@ -88,6 +88,10 @@ export class BrowserApi {
     return (await browser.windows.getAll()).filter((win) => win.incognito);
   }
 
+  static getCurrentWindowId() {
+    return chrome.windows.WINDOW_ID_CURRENT;
+  }
+
   static getBackgroundPage(): any {
     return chrome.extension.getBackgroundPage();
   }

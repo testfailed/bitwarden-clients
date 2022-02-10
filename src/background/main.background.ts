@@ -518,6 +518,13 @@ export default class MainBackground {
       return;
     }
 
+    if (this.isPrivateMode) {
+      // Generic Bitwarden icon for Private Mode windows
+      await this.actionSetIcon(chrome.browserAction, "", BrowserApi.getCurrentWindowId());
+      await this.actionSetIcon(this.sidebarAction, "", BrowserApi.getCurrentWindowId());
+      return;
+    }
+
     const isAuthenticated = await this.stateService.getIsAuthenticated();
     const locked = await this.vaultTimeoutService.isLocked();
 
@@ -530,6 +537,13 @@ export default class MainBackground {
 
     await this.actionSetIcon(chrome.browserAction, suffix);
     await this.actionSetIcon(this.sidebarAction, suffix);
+
+    // Set Firefox Private Mode windows back to generic icon
+    const wins = await BrowserApi.getPrivateModeWindows();
+    wins.forEach(async (win) => {
+      await this.actionSetIcon(chrome.browserAction, "", win.id);
+      await this.actionSetIcon(this.sidebarAction, "", win.id);
+    });
   }
 
   async refreshBadgeAndMenu(forLocked: boolean = false) {
@@ -929,8 +943,8 @@ export default class MainBackground {
     });
   }
 
-  private async actionSetIcon(theAction: any, suffix: string): Promise<any> {
-    if (!theAction || !theAction.setIcon || this.isPrivateMode) {
+  private async actionSetIcon(theAction: any, suffix: string, windowId?: number): Promise<any> {
+    if (!theAction || !theAction.setIcon) {
       return;
     }
 
@@ -939,23 +953,11 @@ export default class MainBackground {
         19: "images/icon19" + suffix + ".png",
         38: "images/icon38" + suffix + ".png",
       },
+      windowId: windowId,
     };
 
     if (this.platformUtilsService.isFirefox()) {
       await theAction.setIcon(options);
-
-      // Set Firefox Private Mode windows back to generic icon
-      // These windows have their own state, so the global icon may not be accurate for them
-      const wins = await BrowserApi.getPrivateModeWindows();
-      wins.forEach((win) =>
-        theAction.setIcon({
-          path: {
-            19: "images/icon19.png",
-            38: "images/icon38.png",
-          },
-          windowId: win.id,
-        })
-      );
     } else if (this.platformUtilsService.isSafari()) {
       // Workaround since Safari 14.0.3 returns a pending promise
       // which doesn't resolve within a reasonable time.
