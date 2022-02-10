@@ -939,6 +939,19 @@ export default class MainBackground {
 
     if (this.platformUtilsService.isFirefox()) {
       await theAction.setIcon(options);
+
+      // Set Firefox Private Mode windows back to generic icon
+      // These windows have their own state, so the global icon may not be accurate for them
+      const wins = await BrowserApi.getPrivateModeWindows();
+      wins.forEach((win) =>
+        theAction.setIcon({
+          path: {
+            19: "images/icon19.png",
+            38: "images/icon38.png",
+          },
+          windowId: win.id,
+        })
+      );
     } else if (this.platformUtilsService.isSafari()) {
       // Workaround since Safari 14.0.3 returns a pending promise
       // which doesn't resolve within a reasonable time.
