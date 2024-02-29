@@ -3,38 +3,38 @@
 ## Tech Stack
 todaypp/bitwarden-clients is built on the following main stack:
 
-- [Buffer](https://bufferapp.com/) – Social Media Tools
-- [Jest](http://facebook.github.io/jest/) – Javascript Testing Framework
-- [gulp](http://gulpjs.com/) – JS Build Tools / JS Task Runners
-- [Swift](https://developer.apple.com/swift/) – Languages
-- [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
-- [React](https://reactjs.org/) – Javascript UI Libraries
-- [jQuery](http://jquery.com/) – Javascript UI Libraries
-- [Rust](http://www.rust-lang.org/) – Languages
-- [Bootstrap](http://getbootstrap.com/) – Front-End Frameworks
-- [Sass](http://sass-lang.com/) – CSS Pre-processors / Extensions
 - [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
+- [Rust](http://www.rust-lang.org/) – Languages
+- [Swift](https://developer.apple.com/swift/) – Languages
 - [TypeScript](http://www.typescriptlang.org) – Languages
-- [Webpack](http://webpack.js.org) – JS Build Tools / JS Task Runners
-- [Koa](http://koajs.com/) – Microframeworks (Backend)
-- [RxJS](http://reactivex.io/rxjs/) – Concurrency Frameworks
-- [Autoprefixer](https://github.com/postcss/autoprefixer) – CSS Pre-processors / Extensions
-- [Electron](http://electron.atom.io/) – Cross-Platform Desktop Development
-- [ESLint](http://eslint.org/) – Code Review
-- [PostCSS](https://github.com/postcss/postcss) – CSS Pre-processors / Extensions
-- [PowerShell](https://docs.microsoft.com/en-us/powershell/) – Shells
 - [Angular](https://angular.io) – Javascript MVC Frameworks
-- [Minio](https://minio.io/) – Cloud Storage
-- [Shell](https://en.wikipedia.org/wiki/Shell_script) – Shells
-- [cURL](http://curl.haxx.se/) – File Transfer
-- [pkg](https://www.npmjs.com/package/pkg) – Javascript Utilities & Libraries
-- [Prettier](https://prettier.io/) – Code Review
-- [jsdom](https://github.com/jsdom/jsdom) – Headless Browsers
-- [css-loader](https://github.com/webpack-contrib/css-loader) – CSS Pre-processors / Extensions
-- [Tailwind CSS](https://tailwindcss.com) – Front-End Frameworks
+- [Autoprefixer](https://github.com/postcss/autoprefixer) – CSS Pre-processors / Extensions
+- [Bootstrap](http://getbootstrap.com/) – Front-End Frameworks
+- [Electron](http://electron.atom.io/) – Cross-Platform Desktop Development
+- [Koa](http://koajs.com/) – Microframeworks (Backend)
+- [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
+- [PostCSS](https://github.com/postcss/postcss) – CSS Pre-processors / Extensions
+- [React](https://reactjs.org/) – Javascript UI Libraries
+- [RxJS](http://reactivex.io/rxjs/) – Concurrency Frameworks
+- [Sass](http://sass-lang.com/) – CSS Pre-processors / Extensions
 - [Storybook](https://storybook.js.org/) – JavaScript Framework Components
-- [GitHub Actions](https://github.com/features/actions) – Continuous Integration
+- [Tailwind CSS](https://tailwindcss.com) – Front-End Frameworks
+- [css-loader](https://github.com/webpack-contrib/css-loader) – CSS Pre-processors / Extensions
+- [jQuery](http://jquery.com/) – Javascript UI Libraries
+- [Minio](https://minio.io/) – Cloud Storage
 - [Docker](https://www.docker.com/) – Virtual Machine Platforms & Containers
+- [ESLint](http://eslint.org/) – Code Review
+- [GitHub Actions](https://github.com/features/actions) – Continuous Integration
+- [Jest](http://facebook.github.io/jest/) – Javascript Testing Framework
+- [Prettier](https://prettier.io/) – Code Review
+- [Webpack](http://webpack.js.org) – JS Build Tools / JS Task Runners
+- [gulp](http://gulpjs.com/) – JS Build Tools / JS Task Runners
+- [jsdom](https://github.com/jsdom/jsdom) – Headless Browsers
+- [Buffer](https://bufferapp.com/) – Social Media Tools
+- [cURL](http://curl.haxx.se/) – File Transfer
+- [PowerShell](https://docs.microsoft.com/en-us/powershell/) – Shells
+- [Shell](https://en.wikipedia.org/wiki/Shell_script) – Shells
+- [pkg](https://www.npmjs.com/package/pkg) – Javascript Utilities & Libraries
 
 Full tech stack [here](/techstack.md)
 
@@ -44,38 +44,38 @@ Full tech stack [here](/techstack.md)
 ## Tech Stack
 todaypp/bitwarden-clients is built on the following main stack:
 
-- <img width='25' height='25' src='https://img.stackshare.io/service/825/hnc3q-7x.jpg' alt='Buffer'/> [Buffer](https://bufferapp.com/) – Social Media Tools
-- <img width='25' height='25' src='https://img.stackshare.io/service/830/jest.png' alt='Jest'/> [Jest](http://facebook.github.io/jest/) – Javascript Testing Framework
-- <img width='25' height='25' src='https://img.stackshare.io/service/844/iruTC031.png' alt='gulp'/> [gulp](http://gulpjs.com/) – JS Build Tools / JS Task Runners
-- <img width='25' height='25' src='https://img.stackshare.io/service/1009/tuHsaI2U.png' alt='Swift'/> [Swift](https://developer.apple.com/swift/) – Languages
-- <img width='25' height='25' src='https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png' alt='Node.js'/> [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
-- <img width='25' height='25' src='https://img.stackshare.io/service/1020/OYIaJ1KK.png' alt='React'/> [React](https://reactjs.org/) – Javascript UI Libraries
-- <img width='25' height='25' src='https://img.stackshare.io/service/1021/lxEKmMnB_400x400.jpg' alt='jQuery'/> [jQuery](http://jquery.com/) – Javascript UI Libraries
-- <img width='25' height='25' src='https://img.stackshare.io/service/1070/v7txhrjp9pdqrkdtxxp0.png' alt='Rust'/> [Rust](http://www.rust-lang.org/) – Languages
-- <img width='25' height='25' src='https://img.stackshare.io/service/1101/C9QJ7V3X.png' alt='Bootstrap'/> [Bootstrap](http://getbootstrap.com/) – Front-End Frameworks
-- <img width='25' height='25' src='https://img.stackshare.io/service/1171/jCR2zNJV.png' alt='Sass'/> [Sass](http://sass-lang.com/) – CSS Pre-processors / Extensions
 - <img width='25' height='25' src='https://img.stackshare.io/service/1209/javascript.jpeg' alt='JavaScript'/> [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript) – Languages
+- <img width='25' height='25' src='https://img.stackshare.io/service/1070/v7txhrjp9pdqrkdtxxp0.png' alt='Rust'/> [Rust](http://www.rust-lang.org/) – Languages
+- <img width='25' height='25' src='https://img.stackshare.io/service/1009/tuHsaI2U.png' alt='Swift'/> [Swift](https://developer.apple.com/swift/) – Languages
 - <img width='25' height='25' src='https://img.stackshare.io/service/1612/bynNY5dJ.jpg' alt='TypeScript'/> [TypeScript](http://www.typescriptlang.org) – Languages
-- <img width='25' height='25' src='https://img.stackshare.io/service/1682/IMG_4636.PNG' alt='Webpack'/> [Webpack](http://webpack.js.org) – JS Build Tools / JS Task Runners
-- <img width='25' height='25' src='https://img.stackshare.io/service/1726/5055057.png' alt='Koa'/> [Koa](http://koajs.com/) – Microframeworks (Backend)
-- <img width='25' height='25' src='https://img.stackshare.io/service/1796/984368.png' alt='RxJS'/> [RxJS](http://reactivex.io/rxjs/) – Concurrency Frameworks
-- <img width='25' height='25' src='https://img.stackshare.io/service/2202/72d087642cfce6fef6f2dabec5bf49e8_400x400.png' alt='Autoprefixer'/> [Autoprefixer](https://github.com/postcss/autoprefixer) – CSS Pre-processors / Extensions
-- <img width='25' height='25' src='https://img.stackshare.io/service/2946/default_18a71b65e69d7aef5f218ae07f64eb6e1594c444.jpg' alt='Electron'/> [Electron](http://electron.atom.io/) – Cross-Platform Desktop Development
-- <img width='25' height='25' src='https://img.stackshare.io/service/3337/Q4L7Jncy.jpg' alt='ESLint'/> [ESLint](http://eslint.org/) – Code Review
-- <img width='25' height='25' src='https://img.stackshare.io/service/3339/rlFcjEdI.png' alt='PostCSS'/> [PostCSS](https://github.com/postcss/postcss) – CSS Pre-processors / Extensions
-- <img width='25' height='25' src='https://img.stackshare.io/service/3681/powershell-logo.png' alt='PowerShell'/> [PowerShell](https://docs.microsoft.com/en-us/powershell/) – Shells
 - <img width='25' height='25' src='https://img.stackshare.io/service/3745/cb8U-gL6_400x400.jpg' alt='Angular'/> [Angular](https://angular.io) – Javascript MVC Frameworks
-- <img width='25' height='25' src='https://img.stackshare.io/service/4485/gTawkyAA.png' alt='Minio'/> [Minio](https://minio.io/) – Cloud Storage
-- <img width='25' height='25' src='https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png' alt='Shell'/> [Shell](https://en.wikipedia.org/wiki/Shell_script) – Shells
-- <img width='25' height='25' src='https://img.stackshare.io/service/6552/curl-logo.png' alt='cURL'/> [cURL](http://curl.haxx.se/) – File Transfer
-- <img width='25' height='25' src='https://img.stackshare.io/service/6883/repo-banner.png' alt='pkg'/> [pkg](https://www.npmjs.com/package/pkg) – Javascript Utilities & Libraries
-- <img width='25' height='25' src='https://img.stackshare.io/service/7035/default_66f265943abed56bcdbfca1c866a4261b1fbb063.jpg' alt='Prettier'/> [Prettier](https://prettier.io/) – Code Review
-- <img width='25' height='25' src='https://img.stackshare.io/service/7054/preview.jpeg' alt='jsdom'/> [jsdom](https://github.com/jsdom/jsdom) – Headless Browsers
-- <img width='25' height='25' src='https://img.stackshare.io/service/8074/default_d2b16fd6997fb2e164de645a34f9b8d5a880d999.png' alt='css-loader'/> [css-loader](https://github.com/webpack-contrib/css-loader) – CSS Pre-processors / Extensions
-- <img width='25' height='25' src='https://img.stackshare.io/service/8158/default_660b7c41c3ba489cb581eec89c04655404258c19.png' alt='Tailwind CSS'/> [Tailwind CSS](https://tailwindcss.com) – Front-End Frameworks
+- <img width='25' height='25' src='https://img.stackshare.io/service/2202/72d087642cfce6fef6f2dabec5bf49e8_400x400.png' alt='Autoprefixer'/> [Autoprefixer](https://github.com/postcss/autoprefixer) – CSS Pre-processors / Extensions
+- <img width='25' height='25' src='https://img.stackshare.io/service/1101/C9QJ7V3X.png' alt='Bootstrap'/> [Bootstrap](http://getbootstrap.com/) – Front-End Frameworks
+- <img width='25' height='25' src='https://img.stackshare.io/service/2946/default_18a71b65e69d7aef5f218ae07f64eb6e1594c444.jpg' alt='Electron'/> [Electron](http://electron.atom.io/) – Cross-Platform Desktop Development
+- <img width='25' height='25' src='https://img.stackshare.io/service/1726/5055057.png' alt='Koa'/> [Koa](http://koajs.com/) – Microframeworks (Backend)
+- <img width='25' height='25' src='https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png' alt='Node.js'/> [Node.js](http://nodejs.org/) – Frameworks (Full Stack)
+- <img width='25' height='25' src='https://img.stackshare.io/service/3339/rlFcjEdI.png' alt='PostCSS'/> [PostCSS](https://github.com/postcss/postcss) – CSS Pre-processors / Extensions
+- <img width='25' height='25' src='https://img.stackshare.io/service/1020/OYIaJ1KK.png' alt='React'/> [React](https://reactjs.org/) – Javascript UI Libraries
+- <img width='25' height='25' src='https://img.stackshare.io/service/1796/984368.png' alt='RxJS'/> [RxJS](http://reactivex.io/rxjs/) – Concurrency Frameworks
+- <img width='25' height='25' src='https://img.stackshare.io/service/1171/jCR2zNJV.png' alt='Sass'/> [Sass](http://sass-lang.com/) – CSS Pre-processors / Extensions
 - <img width='25' height='25' src='https://img.stackshare.io/service/9240/sOct-Txm_400x400.png' alt='Storybook'/> [Storybook](https://storybook.js.org/) – JavaScript Framework Components
-- <img width='25' height='25' src='https://img.stackshare.io/service/11563/actions.png' alt='GitHub Actions'/> [GitHub Actions](https://github.com/features/actions) – Continuous Integration
+- <img width='25' height='25' src='https://img.stackshare.io/service/8158/default_660b7c41c3ba489cb581eec89c04655404258c19.png' alt='Tailwind CSS'/> [Tailwind CSS](https://tailwindcss.com) – Front-End Frameworks
+- <img width='25' height='25' src='https://img.stackshare.io/service/8074/default_d2b16fd6997fb2e164de645a34f9b8d5a880d999.png' alt='css-loader'/> [css-loader](https://github.com/webpack-contrib/css-loader) – CSS Pre-processors / Extensions
+- <img width='25' height='25' src='https://img.stackshare.io/service/1021/lxEKmMnB_400x400.jpg' alt='jQuery'/> [jQuery](http://jquery.com/) – Javascript UI Libraries
+- <img width='25' height='25' src='https://img.stackshare.io/service/4485/gTawkyAA.png' alt='Minio'/> [Minio](https://minio.io/) – Cloud Storage
 - <img width='25' height='25' src='https://img.stackshare.io/service/586/n4u37v9t_400x400.png' alt='Docker'/> [Docker](https://www.docker.com/) – Virtual Machine Platforms & Containers
+- <img width='25' height='25' src='https://img.stackshare.io/service/3337/Q4L7Jncy.jpg' alt='ESLint'/> [ESLint](http://eslint.org/) – Code Review
+- <img width='25' height='25' src='https://img.stackshare.io/service/11563/actions.png' alt='GitHub Actions'/> [GitHub Actions](https://github.com/features/actions) – Continuous Integration
+- <img width='25' height='25' src='https://img.stackshare.io/service/830/jest.png' alt='Jest'/> [Jest](http://facebook.github.io/jest/) – Javascript Testing Framework
+- <img width='25' height='25' src='https://img.stackshare.io/service/7035/default_66f265943abed56bcdbfca1c866a4261b1fbb063.jpg' alt='Prettier'/> [Prettier](https://prettier.io/) – Code Review
+- <img width='25' height='25' src='https://img.stackshare.io/service/1682/IMG_4636.PNG' alt='Webpack'/> [Webpack](http://webpack.js.org) – JS Build Tools / JS Task Runners
+- <img width='25' height='25' src='https://img.stackshare.io/service/844/iruTC031.png' alt='gulp'/> [gulp](http://gulpjs.com/) – JS Build Tools / JS Task Runners
+- <img width='25' height='25' src='https://img.stackshare.io/service/7054/preview.jpeg' alt='jsdom'/> [jsdom](https://github.com/jsdom/jsdom) – Headless Browsers
+- <img width='25' height='25' src='https://img.stackshare.io/service/825/hnc3q-7x.jpg' alt='Buffer'/> [Buffer](https://bufferapp.com/) – Social Media Tools
+- <img width='25' height='25' src='https://img.stackshare.io/service/6552/curl-logo.png' alt='cURL'/> [cURL](http://curl.haxx.se/) – File Transfer
+- <img width='25' height='25' src='https://img.stackshare.io/service/3681/powershell-logo.png' alt='PowerShell'/> [PowerShell](https://docs.microsoft.com/en-us/powershell/) – Shells
+- <img width='25' height='25' src='https://img.stackshare.io/service/4631/default_c2062d40130562bdc836c13dbca02d318205a962.png' alt='Shell'/> [Shell](https://en.wikipedia.org/wiki/Shell_script) – Shells
+- <img width='25' height='25' src='https://img.stackshare.io/service/6883/repo-banner.png' alt='pkg'/> [pkg](https://www.npmjs.com/package/pkg) – Javascript Utilities & Libraries
 
 Full tech stack [here](/techstack.md)
 
@@ -86,7 +86,7 @@ Full tech stack [here](/techstack.md)
 # Tech Stack File
 ![](https://img.stackshare.io/repo.svg "repo") [todaypp/bitwarden-clients](https://github.com/todaypp/bitwarden-clients)![](https://img.stackshare.io/public_badge.svg "public")
 <br/><br/>
-|131<br/>Tools used|01/23/24 <br/>Report generated|
+|131<br/>Tools used|02/29/24 <br/>Report generated|
 |------|------|
 </div>
 
